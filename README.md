@@ -80,10 +80,12 @@ email: ```vendor@gmail.com```
 password: ```Reman@112```
 
 - Cashier
+
 email: ```cashier@gmail.com```
 password: ```Reman@112```
 
 - Technician
+
 email: ```technician@gmail.com```
 password: ```Reman@112```
 
