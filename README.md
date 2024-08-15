@@ -79,11 +79,11 @@ password: ```Reman@112```
 email: ```vendor@gmail.com```
 password: ```Reman@112```
 
--Cashier
+- Cashier
 email: ```cashier@gmail.com```
 password: ```Reman@112```
 
--Technician
+- Technician
 email: ```technician@gmail.com```
 password: ```Reman@112```
 
