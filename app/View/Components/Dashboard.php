@@ -9,6 +9,8 @@ use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\company;
+
 
 class Dashboard extends Component
 {
@@ -19,15 +21,17 @@ class Dashboard extends Component
     {
         $user = User::count();
         view()->share('user',$user);
-        
+
         $category = Category::count();
         view()->share('category',$category);
-        
+
         $product = Product::count();
         view()->share('product',$product);
-        
+
         $collection = Collection::count();
         view()->share('collection',$collection);
+        $company = Company::count();
+        view()->share('company',$company);
     }
 
     /**

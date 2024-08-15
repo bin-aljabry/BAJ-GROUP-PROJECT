@@ -1,5 +1,18 @@
 <div class="row">
     @role('admin')
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $company }}</h3>
+                <p>Total Company</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-building"></i>
+            </div>
+            <a href="{{ route('admin.company.index') }}" class="small-box-footer">View <i
+                    class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">

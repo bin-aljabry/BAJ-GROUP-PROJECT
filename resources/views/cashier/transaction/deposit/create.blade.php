@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Create Collection</h3>
+                        <h3 class="card-title">Customer Deposit</h3>
                         <div class="card-tools">
                             <a href="{{ route('admin.collection.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
@@ -16,35 +16,34 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Customer Name</label>
                                         <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control" required>
                                         <x-error>name</x-error>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="category">Category</label>
-                                        <select name="category" id="category" class="form-control" required>
-                                            <option value="" selected disabled>Select category</option>
-                                            @foreach ($category as $cat)
-                                                <option {{ old($cat->id) == $cat->id ? 'selected' : '' }} value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                            @endforeach
+                                        <label for="type">Transaction Type</label>
+                                        <select name="type" id="category" class="form-control" required>
+                                            <option value="Deposit" selected disabled>Deposit</option>
+
                                         </select>
-                                        <x-error>category</x-error>
+                                        <x-error>type</x-error>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" name="image" id="image" class="form-control" required>
-                                        <x-error>image</x-error>
+                                        <label for="amount" class="form-label">Amount</label>
+                                        <input type="amount" name="amount" id="amount" class="form-control" required>
+                                        <x-error>amount</x-error>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="Pdf" class="form-label">Pdf</label>
-                                        <input type="file" name="pdf" id="Pdf" class="form-control" required>
-                                        <x-error>pdf</x-error>
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="phone" name="phone" id="phone" class="form-control" required>
+                                        <x-error>phone</x-error>
+
                                     </div>
                                 </div>
                             </div>
