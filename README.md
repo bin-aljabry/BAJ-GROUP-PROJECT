@@ -66,19 +66,26 @@ To get the access of admin side there is credentials bellow
 
 - Admin
 
-email: ```testadmin@gmail.com```
-password: ```p$ssw#rd```
+email: ```admin@gmail.com```
+password: ```Reman@112```
 
 - User
 
-email: ```testuser@gmail.com```
-password: ```p$ssw#rd```
+email: ```user@gmail.com```
+password: ```Reman@112```
 
 - Vendor
 
-email: ```testvendor@gmail.com```
-password: ```p$ssw#rd```
+email: ```vendor@gmail.com```
+password: ```Reman@112```
 
+-Cashier
+email: ```cashier@gmail.com```
+password: ```Reman@112```
+
+-Technician
+email: ```technician@gmail.com```
+password: ```Reman@112```
 
 # Update
 
