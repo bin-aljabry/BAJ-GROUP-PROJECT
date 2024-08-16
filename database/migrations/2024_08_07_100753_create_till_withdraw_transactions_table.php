@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\agent_branch_teller;
 use App\Models\teller_till;
 use App\Models\till_transaction;
 use Illuminate\Database\Migrations\Migration;
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->string('transaction_id');
             $table->string('date');
             $table->string('type');
+            $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');
       

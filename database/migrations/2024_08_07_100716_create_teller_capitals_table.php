@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('teller_capitals', function (Blueprint $table) {
             $table->id();
             $table->string('amount');
+            $table->string('category');
             $table->string('slug')->unique();
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
           

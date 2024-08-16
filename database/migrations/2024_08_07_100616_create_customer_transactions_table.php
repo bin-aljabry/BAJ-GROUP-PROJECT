@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('customer_phone');
             $table->string('remark');
+            $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
             $table->timestamps();

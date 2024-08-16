@@ -14,12 +14,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('till_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('teller_name');
+            $table->string('customer_name');
+            $table->string('phone');
             $table->string('slug')->unique();
             $table->string('amount');
             $table->string('transaction_id');
+            $table->string('till_number');
             $table->string('date');
             $table->string('type');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
