@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\agent_branch_teller;
+use App\Models\teller_till;
 use App\Models\till_transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TillTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $teller = teller_till::orderBy('id','DESC')->get();
+        view()->share('teller_till',$teller);
+        $agent_branch_teller = agent_branch_teller::orderBy('id','DESC')->get();
+        view()->share('agent_branch_teller',$agent_branch_teller);
+    }
+
     public function index()
     {
-        //
+        $data = till_transaction::orderBy('id','DESC')->get();
+        return view('cashier.transaction.deposit.index',compact('data'));
     }
 
     /**
@@ -21,6 +33,7 @@ class TillTransactionController extends Controller
     public function create()
     {
         //
+        return view('cashier.transaction.deposit.create');
     }
 
     /**
@@ -29,6 +42,40 @@ class TillTransactionController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'teller_name'=>'required',
+            'customer_name'=>'required',
+            'phone'=>'required',
+            'amount'=>'required',
+            'transaction_id'=>'required',
+            'till_number'=>'required',
+            'date'=>'required',
+            'type'=>'required',
+
+        ]);
+        $baseSlug = Str::slug($request->name);
+        $uniqueSlug = $baseSlug;
+        $counter = 1;
+        while (till_transaction::where('slug', $uniqueSlug)->exists()) {
+            $uniqueSlug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        till_transaction::create([
+            'teller_name'=>$request->teller_name,
+            'customer=_name'=>$request->customer_name,
+            'phone'=>$request->phone,
+            'slug'=>$uniqueSlug,
+            'amount'=>$request->amount,
+            'transaction_id'=>$request->transaction_id,
+            'till_number'=>$request->till_number,
+            'date'=>$request->date,
+            'type'=>$request->type,
+            'teller_till_id'=>$request->teller_till_id,
+            'agent_branch_id'=>$request->agent_branch_id,
+
+        ]);
+        return redirect()->route('cashier.deposit.index')->with('success','deposit created successfully.');
+
     }
 
     /**
@@ -42,24 +89,61 @@ class TillTransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(till_transaction $till_transaction)
+    public function edit($id)
     {
         //
+        $data = till_transaction::where('id',decrypt($id))->first();
+        return view('cashier.transaction.deposit.edit',compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, till_transaction $till_transaction)
+    public function update(Request $request)
     {
-        //
-    }
+
+        $request->validate([
+            'teller_name'=>'required',
+            'customer_name'=>'required',
+            'phone'=>'required',
+            'amount'=>'required',
+            'transaction_id'=>'required',
+            'till_number'=>'required',
+            'date'=>'required',
+            'type'=>'required',
+        ]);
+        $baseSlug = Str::slug($request->name);
+        $uniqueSlug = $baseSlug;
+        $counter = 1;
+
+        while (till_transaction::where('slug', $uniqueSlug)->where('id', '!=', $request->id)->exists()) {
+            $uniqueSlug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        till_transaction::where('id', $request->id)->update([
+            'teller_name'=>$request->teller_name,
+            'customer_name'=>$request->customer_name,
+            'phone'=>$request->phone,
+            'slug'=>$uniqueSlug,
+            'amount'=>$request->amount,
+            'transaction_id'=>$request->transaction_id,
+            'till_number'=>$request->till_number,
+            'date'=>$request->date,
+            'type'=>$request->type,
+            'teller_till_id'=>$request->teller_till_id,
+            'agent_branch_id'=>$request->agent_branch_id,
+
+        ]);
+        return redirect()->route('cashier.deposit.index')->with('info','Branch updated successfully.');
+     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(till_transaction $till_transaction)
+    public function destroy($id)
     {
         //
+        till_transaction::where('id',decrypt($id))->delete();
+        return redirect()->route('cashier.deposit.index')->with('error','Company deleted successfully.');
     }
 }

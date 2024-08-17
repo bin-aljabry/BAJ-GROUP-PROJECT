@@ -15,6 +15,7 @@ use App\Http\Controllers\CashierController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AgentBranchTellerController;
 use App\Http\Controllers\TellerTillController;
+use App\Http\Controllers\TillTransactionController;
 
 
 
@@ -53,7 +54,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('branch',AgentBranchController::class);
         Route::resource('teller',AgentBranchTellerController::class);
         Route::resource('till',TellerTillController::class);
-        Route::resource('permission',PermissionController::class);
+        Route::resource('deposit',TillTransactionController::class);
 
         Route::resource('subcategory',SubCateoryController::class);
         Route::resource('collection',CollectionController::class);

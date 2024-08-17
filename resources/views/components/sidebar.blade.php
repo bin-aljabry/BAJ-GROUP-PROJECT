@@ -170,7 +170,7 @@
                  <div id="deposit" class="collapse">
 
                 <ul>
-                  <a href="#">Customer Deposit</a>
+                  <a href="{{ route('cashier.deposit.index') }}"  class="nav-link {{ Route::is('cashier.deposit.index') ? 'active' : '' }}">Customer Deposit</a>
                 </ul>
                 <ul>
                   <a href="#">Transaction Records</a>

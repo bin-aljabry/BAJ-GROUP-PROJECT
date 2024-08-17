@@ -11,7 +11,7 @@ class till_transaction extends Model
     protected $table = 'till_transactions';
 
     protected $fillable = [
-       'name','transaction_id','type', 'amount','slug','date','agent_branch_teller_id','teller_till_id'
+       'teller_name','customer_name','phone','slug',,'amount','transaction_id','till_number','date','type','date','teller_till_id','agent_branch_teller_id'
     ];
 
     public function teller_till()
@@ -24,5 +24,5 @@ class till_transaction extends Model
     {
         return $this->belongsTo(agent_branch_teller::class,'agent_branch_teller_id');
     }
-  
+
 }
