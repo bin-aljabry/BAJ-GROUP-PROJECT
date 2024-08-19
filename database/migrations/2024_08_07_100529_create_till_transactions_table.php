@@ -24,7 +24,8 @@ return new class extends Migration
             $table->string('amount');
             $table->string('transaction_id');
             $table->string('till_number');
-            $table->string('date');
+            $table->string('till_type');
+
             $table->string('type');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');

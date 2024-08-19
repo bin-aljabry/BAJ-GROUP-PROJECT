@@ -1,20 +1,19 @@
 <x-admin>
-    @section('title','Deposit')
+    @section('title','Branch')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Deposit Table</h3>
+            <h3 class="card-title">Branch Table</h3>
             <div class="card-tools">
-                <a href="{{ route('cashier.deposit.create') }}" class="btn btn-sm btn-info">New</a>
+                <a href="{{ route('cashier.withdraw.create') }}" class="btn btn-sm btn-info">Customer Withdraw</a>
             </div>
         </div>
         <div class="card-body">
             <table class="table table-striped" id="categoryTable">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Name</th>
-                        <th>Category</th>
-                        <th>Action</th>
+                        <th>Number</th>
+                        <th>Amount</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -24,6 +23,7 @@
 
                             <td>{{ $transaction->customer_name }}</td>
                             <td>{{ $transaction->phone }}</td>
+                            <td>{{ $transaction->amount }}</td>
                             <td><a href="{{ route('cashier.deposit.edit', encrypt($transaction->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
                             <td>
@@ -40,17 +40,7 @@
             </table>
         </div>
     </div>
-
     @section('js')
-        <script>
-            $(function() {
-                $('#categoryTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": true,
-                    "responsive": true,
-                });
-            });
-        </script>
+
     @endsection
 </x-admin>

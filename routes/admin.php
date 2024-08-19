@@ -16,9 +16,8 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AgentBranchTellerController;
 use App\Http\Controllers\TellerTillController;
 use App\Http\Controllers\TillTransactionController;
-
-
-
+use App\Http\Controllers\TillWithdrawTransactionController;
+use App\Models\till_withdraw_transaction;
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard',[ProfileController::class,'dashboard'])->name('dashboard');
@@ -55,6 +54,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('teller',AgentBranchTellerController::class);
         Route::resource('till',TellerTillController::class);
         Route::resource('deposit',TillTransactionController::class);
+        Route::resource('withdraw',TillWithdrawTransactionController::class);
 
         Route::resource('subcategory',SubCateoryController::class);
         Route::resource('collection',CollectionController::class);

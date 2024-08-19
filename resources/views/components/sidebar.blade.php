@@ -170,7 +170,8 @@
                  <div id="deposit" class="collapse">
 
                 <ul>
-                  <a href="{{ route('cashier.deposit.index') }}"  class="nav-link {{ Route::is('cashier.deposit.index') ? 'active' : '' }}">Customer Deposit</a>
+                    <a href="{{ route('cashier.deposit.index') }}"  class="nav-link {{ Route::is('cashier.deposit.index') ? 'active' : '' }}">Customer Deposit</a>
+
                 </ul>
                 <ul>
                   <a href="#">Transaction Records</a>
@@ -186,7 +187,8 @@
                  <div id="withdraw" class="collapse">
 
                 <ul>
-                  <a href="#">Customer Withdraw</a>
+                    <a href="{{ route('cashier.withdraw.index') }}"  class="nav-link {{ Route::is('cashier.withdraw.index') ? 'active' : '' }}">
+                    Customer Withdraw</a>
                 </ul>
                 <ul>
                   <a href="#">Withdraw Records</a>

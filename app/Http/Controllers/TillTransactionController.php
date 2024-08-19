@@ -15,8 +15,8 @@ class TillTransactionController extends Controller
      */
     public function __construct()
     {
-        $teller = teller_till::orderBy('id','DESC')->get();
-        view()->share('teller_till',$teller);
+        $teller_till = teller_till::orderBy('id','DESC')->get();
+        view()->share('teller_till',$teller_till);
         $agent_branch_teller = agent_branch_teller::orderBy('id','DESC')->get();
         view()->share('agent_branch_teller',$agent_branch_teller);
     }
@@ -24,6 +24,7 @@ class TillTransactionController extends Controller
     public function index()
     {
         $data = till_transaction::orderBy('id','DESC')->get();
+        $data = till_transaction::where('type', 'DEPOSIT')->get();
         return view('cashier.transaction.deposit.index',compact('data'));
     }
 
@@ -49,7 +50,7 @@ class TillTransactionController extends Controller
             'amount'=>'required',
             'transaction_id'=>'required',
             'till_number'=>'required',
-            'date'=>'required',
+            'till_type'=>'required',
             'type'=>'required',
 
         ]);
@@ -61,17 +62,18 @@ class TillTransactionController extends Controller
             $counter++;
         }
         till_transaction::create([
+
             'teller_name'=>$request->teller_name,
-            'customer=_name'=>$request->customer_name,
+            'customer_name'=>$request->customer_name,
             'phone'=>$request->phone,
             'slug'=>$uniqueSlug,
             'amount'=>$request->amount,
             'transaction_id'=>$request->transaction_id,
             'till_number'=>$request->till_number,
-            'date'=>$request->date,
+            'till_type'=>$request->till_type,
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
-            'agent_branch_id'=>$request->agent_branch_id,
+            'agent_branch_teller_id'=>$request->agent_branch_teller_id,
 
         ]);
         return redirect()->route('cashier.deposit.index')->with('success','deposit created successfully.');
@@ -109,7 +111,6 @@ class TillTransactionController extends Controller
             'amount'=>'required',
             'transaction_id'=>'required',
             'till_number'=>'required',
-            'date'=>'required',
             'type'=>'required',
         ]);
         $baseSlug = Str::slug($request->name);
@@ -128,13 +129,13 @@ class TillTransactionController extends Controller
             'amount'=>$request->amount,
             'transaction_id'=>$request->transaction_id,
             'till_number'=>$request->till_number,
-            'date'=>$request->date,
+
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_id'=>$request->agent_branch_id,
 
         ]);
-        return redirect()->route('cashier.deposit.index')->with('info','Branch updated successfully.');
+        return redirect()->route('cashier.deposit.index')->with('info','deposit updated successfully.');
      }
 
     /**
@@ -144,6 +145,6 @@ class TillTransactionController extends Controller
     {
         //
         till_transaction::where('id',decrypt($id))->delete();
-        return redirect()->route('cashier.deposit.index')->with('error','Company deleted successfully.');
+        return redirect()->route('cashier.deposit.index')->with('error','deposit deleted successfully.');
     }
 }

@@ -1,16 +1,16 @@
 <x-admin>
-    @section('title','Create Deposit')
+    @section('title','Create Branch')
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Customer Deposit</h3>
+                        <h3 class="card-title">wITHDRAW</h3>
                         <div class="card-tools">
-                            <a href="{{ route('cashier.deposit.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.withdraw.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('cashier.deposit.store') }}" method="POST" >
+                    <form class="needs-validation" novalidate action="{{ route('cashier.withdraw.store') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -55,7 +55,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="type">Transaction Type</label>
-                                        <input type="text" name="type" id="type"  value="DEPOSIT" class="form-control" required>
+                                        <input type="text" name="type" id="type"  value="WITHDRAW" class="form-control" required>
                                     </div>
                                         <x-error>type</x-error>
 
@@ -83,6 +83,7 @@
                                             <select name="teller_till_id" id="teller_till_id" class="form-control">
                                                 <option value="" selected disabled>select the Company</option>
                                                 @foreach ($teller_till as $cat)
+                                                
                                                     <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
                                                         value="{{ $cat->id }}">{{ $cat->number }}</option>
                                                 @endforeach
@@ -95,8 +96,11 @@
 
                                             <select name="till_type" id="till_type" class="form-control">
                                                 <option  selected disabled>select the Teller</option>
-                                                    <option value="Mpesa" >Mpesa</option>
-                                                    <option value="Tigopesa" >Tigopesa</option>
+                                                @foreach ($teller_till as $cat)
+                                                <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
+                                                    value="{{ $cat->id }}">{{ $cat->type }}</option>
+                                            @endforeach
+
                                             </select>
                                         </div>
                                     </div>
@@ -123,16 +127,4 @@
             </div>
         </div>
     </div>
-    @section('js')
-    <script>
-        $(function() {
-            $('#categoryTable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "responsive": true,
-            });
-        });
-    </script>
-    @endsection
 </x-admin>

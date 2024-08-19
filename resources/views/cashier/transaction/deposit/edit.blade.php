@@ -7,10 +7,10 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit Collection</h3>
                         <div class="card-tools">
-                            <a href="{{ route('admin.collection.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.deposit.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('admin.collection.update', $data) }}"
+                    <form class="needs-validation" novalidate action="{{ route('cashier.deposit.update', $data) }}"
                         method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -19,51 +19,67 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" name="name" id="name" value="{{ $data->name }}"
-                                            class="form-control" required>
-                                        <x-error>name</x-error>
+                                        <label for="teller_name">Teller Name</label>
+                                        <input type="text" class="form-control" id="teller_name" name="teller_name"
+                                            placeholder="Enter Branch name" required value="{{ $data->teller_name }}">
                                     </div>
+                                    <x-error>teller_name</x-error>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="till_number" class="form-label">till_number</label>
+                                            <select name="till_number" id="till_number" class="form-control">
+                                                <option value="" selected disabled>select the Company</option>
+                                                @foreach ($teller_till as $cat)
+                                                    <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
+                                                        value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_name">Customer Name</label>
+                                        <input type="text" class="form-control" id="customer_name" name="customer_name"
+                                            placeholder="Enter Branch number" required value="{{ $data->customer_name }}">
+                                    </div>
+                                    <x-error>customer_name</x-error>
+                                        </div>
+                                    <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="phone">Customer Number</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                            placeholder="Enter Branch location" required value="{{ $data->phone}}">
+                                    </div>
+                                    <x-error>phone</x-error>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="category">Category</label>
-                                        <select name="category" id="category" class="form-control" required>
-                                            <option value="" selected disabled>Select category</option>
-                                            @foreach ($category as $cat)
-                                                <option {{ $data->category_id == $cat->id ? 'selected' : '' }}
-                                                    value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <x-error>category</x-error>
+                                        <label for="transaction_id">Transaction Type</label>
+                                        <input type="text" name="transaction_id" id="transaction_id"  value="DEPOSIT" class="form-control" required>
                                     </div>
-                                </div>
+                                        <x-error>transaction_id</x-error>
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <input type="amount" name="amount" id="amount" class="form-control" value="{{ $data->amount}}">
+                                        </div>
+                                            <x-error>amount</x-error>
+                                        </div>
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" name="image" id="image" class="form-control">
-                                        <x-error>image</x-error>
+                                        <label for="transaction_id" class="form-label">Transaction ID</label>
+                                        <input type="transaction_id" name="date" id="date" value="{{ $data->transaction_id}}" class="form-control" >
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="Pdf" class="form-label">Pdf</label>
-                                        <input type="file" name="pdf" id="Pdf" class="form-control">
-                                        <x-error>pdf</x-error>
+                                        <x-error>date</x-error>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="btn btn-default" data-toggle="modal"
-                                        data-target="#modal-default">
-                                        View Image
-                                    </button>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="btn btn-default" data-toggle="modal"
-                                        data-target="#ViewPdf">View PDF</button>
-                                </div>
+
                             </div>
                         </div>
+
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary float-right">Update</button>
                         </div>
@@ -72,44 +88,7 @@
             </div>
         </div>
     </div>
-    {{-- Image Modal --}}
-    <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">View Image</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img src="{{ asset('collection-image/' . $data->image) }}" alt="" class="w-full modal-img">
-                    <span class="text-muted">If you want to change image just add new image otherwise leave it.</span>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 
-    {{-- Pdf Modal --}}
-    <div class="modal fade" id="ViewPdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <iframe src="{{ asset('collection-pdf/' . $data->pdf) }}" frameborder="0" class="w-full"></iframe>
-                    <span class="text-muted">If you want to change pdf just add new pdf otherwise leave it.</span>
-                </div>
-            </div>
-        </div>
-    </div>
     @section('js')
         <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @endsection
