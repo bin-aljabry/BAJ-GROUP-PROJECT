@@ -12,7 +12,7 @@ class teller_till extends Model
     protected $table = 'teller_tills';
 
     protected $fillable = [
-        'name','slug','number','type','agent_branch_teller_id'
+        'name','slug','number','type','agent_branch_teller_id','userId'
     ];
 
     public function agent_branch_teller()

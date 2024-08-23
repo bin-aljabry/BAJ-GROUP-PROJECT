@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('transaction_id');
             $table->string('till_number');
             $table->string('till_type');
+            $table->string('userId');
 
             $table->string('type');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');

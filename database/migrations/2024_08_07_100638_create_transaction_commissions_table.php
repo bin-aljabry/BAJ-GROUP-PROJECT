@@ -16,6 +16,8 @@ return new class extends Migration
     {
         Schema::create('transaction_commissions', function (Blueprint $table) {
             $table->id();
+            $table->string('userId');
+
             $table->string('amount');
             $table->string('commission');
             $table->string('slug')->unique();

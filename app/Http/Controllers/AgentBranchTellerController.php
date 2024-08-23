@@ -7,6 +7,10 @@ use App\Models\agent_branch_teller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Helpers\Helper;
+use Illuminate\Support\Facades\Auth;
+use App\Models\company;
+
 
 class AgentBranchTellerController extends Controller
 {
@@ -20,8 +24,8 @@ class AgentBranchTellerController extends Controller
      {
          $branch_id = agent_branch::orderBy('id','DESC')->get();
          view()->share('branch_id',$branch_id);
-         $user_id = User::orderBy('id','DESC')->get();
-         view()->share('user_id',$user_id);
+         $company_id = company::orderBy('id','DESC')->get();
+         view()->share('company_id',$company_id);
      }
 
 
@@ -30,8 +34,10 @@ class AgentBranchTellerController extends Controller
       */
      public function index()
      {
-         $data = agent_branch_teller::orderBy('id','DESC')->get();
-         return view('cashier.basic_setting.teller.index',compact('data'));
+         $user =Auth::user();
+         $data=agent_branch_teller::where('userId',$user->id)->orderBy('id','DESC')->get();
+
+         return view('cashier.basic_setting.teller.index',compact('data','user'));
      }
 
      /**
@@ -49,7 +55,7 @@ class AgentBranchTellerController extends Controller
      {
         $request->validate([
             'name'=>'required|max:255',
-            'number'=>'required',
+
             'email'=>'required',
             'phone'=>'required|max:255',
             'address'=>'required',
@@ -64,13 +70,16 @@ class AgentBranchTellerController extends Controller
         }
         agent_branch_teller::create([
             'name'=>$request->name,
-            'number'=>$request->number,
+            'number'=>Helper::TellerIDGenerator(new agent_branch ,'number',3, 'BRN-TELLER'),
             'email'=>$request->email,
             'phone'=>$request->phone,
             'address'=>$request->address,
             'slug'=>$uniqueSlug,
-            'user_id'=>$request->user_id,
-            'agent_branch_id'=>$request->agent_branch_id
+            'agent_branch_id'=>$request->agent_branch_id,
+            'user_id'=>Auth::user()->id,
+            'userId'=>Auth::user()->id,
+
+
         ]);
         return redirect()->route('cashier.teller.index')->with('success','subcategory created successfully.');
 
@@ -92,7 +101,7 @@ class AgentBranchTellerController extends Controller
      {
          $request->validate([
              'name'=>'required|max:255',
-            'number'=>'required',
+
             'email'=>'required',
             'phone'=>'required|max:255',
             'address'=>'required',
@@ -129,8 +138,6 @@ class AgentBranchTellerController extends Controller
         agent_branch_teller::where('id',decrypt($id))->delete();
          return redirect()->route('cashier.teller.index')->with('error','SubCategory deleted successfully.');
      }
-
-
 
 
 }

@@ -20,12 +20,6 @@
                             </div>
                             <x-error>name</x-error>
 
-                            <div class="form-group">
-                                <label for="number">Teller ID</label>
-                                <input type="text" class="form-control" id="number" name="number"
-                                    placeholder="Enter Branch number" required value="{{ old('number') }}">
-                            </div>
-                            <x-error>number</x-error>
 
                             <div class="form-group">
 
@@ -33,7 +27,7 @@
                                 <label for="user_id" class="form-label">Teller</label>
                                 <select name="user_id" id="user_id" class="form-control">
                                     <option value="" selected disabled>select the Company</option>
-                                    @foreach ($user_id as $cat)
+                                    @foreach ($company_id as $cat)
                                         <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
                                             value="{{ $cat->id }}">{{ $cat->name }}</option>
                                     @endforeach

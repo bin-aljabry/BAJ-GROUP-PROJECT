@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\company;
 use Illuminate\Http\Request;
-
+use App\Models\user;
+use App\Helpers\Helper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -35,9 +37,10 @@ class CompanyController extends Controller
      public function store(Request $request)
      {
          //
+
          $request->validate([
              'name'=>'required|max:255',
-             'number'=>'required',
+
              'brand'=>'required',
              'phone'=>'required',
              'email'=>'required',
@@ -52,13 +55,13 @@ class CompanyController extends Controller
          }
          company::create([
              'name'=>$request->name,
-             'number'=>$request->number,
              'address'=>$request->address,
              'brand'=>$request->brand,
              'phone'=>$request->phone,
              'email'=>$request->email,
              'slug'=>$uniqueSlug,
-
+             'userId'=>Auth::user()->id,
+             'number'=>Helper::CompanyIDGenerator(new company ,'userId',10,  'BAJ'),
          ]);
          return redirect()->route('admin.company.index')->with('success','Company created successfully.');
 
@@ -91,7 +94,7 @@ class CompanyController extends Controller
 
          $request->validate([
             'name'=>'required|max:255',
-            'number'=>'required',
+
             'brand'=>'required',
             'phone'=>'required',
             'email'=>'required',
@@ -114,6 +117,8 @@ class CompanyController extends Controller
             'phone'=>$request->phone,
             'email'=>$request->email,
            'address'=>$request->address,
+           'userId'=>$request->userId,
+
         ]);
         return redirect()->route('admin.company.index')->with('info','Company updated successfully.');
      }
@@ -127,4 +132,101 @@ class CompanyController extends Controller
          company::where('id',decrypt($id))->delete();
          return redirect()->route('admin.company.index')->with('error','Company deleted successfully.');
      }
+
+
+     public function Cashierindex()
+     {
+        $user =Auth::user();
+        $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
+         return view('admin.company.index',compact('data'));
+     }
+
+     public function Cashiercreate()
+     {
+         //
+         return view('cashier.basic_setting.company.create');
+     }
+
+
+     public function Cashierstore(Request $request)
+     {
+         //
+
+         $request->validate([
+             'name'=>'required|max:255',
+
+             'brand'=>'required',
+             'phone'=>'required',
+             'email'=>'required',
+            'address'=>'required',
+         ]);
+         $baseSlug = Str::slug($request->name);
+         $uniqueSlug = $baseSlug;
+         $counter = 1;
+         while (company::where('slug', $uniqueSlug)->exists()) {
+             $uniqueSlug = $baseSlug . '-' . $counter;
+             $counter++;
+         }
+         company::create([
+             'name'=>$request->name,
+             'address'=>$request->address,
+             'brand'=>$request->brand,
+             'phone'=>$request->phone,
+             'email'=>$request->email,
+             'slug'=>$uniqueSlug,
+             'userId'=>Auth::user()->id,
+             'number'=>Helper::CompanyIDGenerator(new company ,'userId',10,  'BAJ'),
+         ]);
+         return redirect()->route('cashier.company.index')->with('success','Company created successfully.');
+
+     }
+
+
+     public function Cashieredit($company)
+     {
+
+        $user =Auth::user();
+        $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
+        
+         return view('cashier.basic_setting.company.edit',compact('data'));
+     }
+
+     /**
+      * Update the specified resource in storage.
+      */
+     public function Cashierupdate(Request $request)
+     {
+         //
+
+         $request->validate([
+            'name'=>'required|max:255',
+
+            'brand'=>'required',
+            'phone'=>'required',
+            'email'=>'required',
+           'address'=>'required',
+        ]);
+        $baseSlug = Str::slug($request->name);
+        $uniqueSlug = $baseSlug;
+        $counter = 1;
+
+        while (company::where('slug', $uniqueSlug)->where('id', '!=', $request->id)->exists()) {
+            $uniqueSlug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+        company::where('id', $request->id)->update([
+            'name' => $request->name,
+            'slug' => $uniqueSlug,
+            'number'=>$request->number,
+            'brand'=>$request->brand,
+            'phone'=>$request->phone,
+            'email'=>$request->email,
+           'address'=>$request->address,
+           'userId'=>$request->userId,
+
+        ]);
+        return redirect()->route('cashier.company.index')->with('info','Company updated successfully.');
+     }
+
 }

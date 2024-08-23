@@ -20,11 +20,12 @@ return new class extends Migration
             $table->string('amount');
             $table->string('transaction_id');
             $table->string('date');
+            $table->string('userId');
             $table->string('type');
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');
-      
+
             $table->timestamps();
         });
     }

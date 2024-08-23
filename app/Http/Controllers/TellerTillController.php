@@ -6,6 +6,8 @@ use App\Models\agent_branch_teller;
 use App\Models\teller_till;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class TellerTillController extends Controller
 {
@@ -25,8 +27,10 @@ class TellerTillController extends Controller
      */
     public function index()
     {
-        $data = teller_till::orderBy('id','DESC')->get();
-        return view('cashier.basic_setting.till_code.index',compact('data'));
+        $user =Auth::user();
+        $data=teller_till::where('userId',$user->id)->orderBy('id','DESC')->get();
+
+        return view('cashier.basic_setting.till_code.index',compact('data','user'));
     }
 
     /**
@@ -59,9 +63,8 @@ class TellerTillController extends Controller
            'name'=>$request->name,
            'number'=>$request->number,
            'type'=>$request->type,
-
+           'userId'=>Auth::user()->id,
            'slug'=>$uniqueSlug,
-
            'agent_branch_teller_id'=>$request->agent_branch_teller_id
        ]);
        return redirect()->route('cashier.till.index')->with('success','subcategory created successfully.');
@@ -110,7 +113,7 @@ class TellerTillController extends Controller
            'name'=>$request->name,
            'number'=>$request->number,
            'type'=>$request->type,
-
+           'userId'=>Auth::user()->id,
            'agent_branch_teller_id'=>$request->agent_branch_teller_id
         ]);
         return redirect()->route('cashier.till.index')->with('info','SubCategory updated successfully.');

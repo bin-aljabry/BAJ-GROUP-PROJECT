@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('image');
             $table->string('pdf');
+            $table->string('userId');
+
             $table->foreignIdFor(Category::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ class teller_float_transfer extends Model
     protected $table = 'teller_float_transfers';
 
     protected $fillable = [
-     'slug','date', 'amount', 'transaction_id','to_network_type', 'to_till_number', 'network_type','till_number','amount','slug','teller_till_id','branch_capital_id'
+     'slug','date','userId', 'amount', 'transaction_id','to_network_type', 'to_till_number', 'network_type','till_number','amount','slug','teller_till_id','branch_capital_id'
     ];
 
     public function teller_till()

@@ -8,6 +8,8 @@ use App\Models\till_transaction;
 use App\Models\till_withdraw_transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class TillWithdrawTransactionController extends Controller
 {
@@ -71,6 +73,8 @@ class TillWithdrawTransactionController extends Controller
             'till_number'=>$request->till_number,
             'till_type'=>$request->till_type,
             'type'=>$request->type,
+            'userId'=>Auth::user()->id,
+
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_teller_id'=>$request->agent_branch_teller_id,
 

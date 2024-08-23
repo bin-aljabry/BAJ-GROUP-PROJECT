@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('amount');
             $table->string('category');
+            $table->string('userId');
+
             $table->string('slug')->unique();
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
-          
+
             $table->timestamps();
         });
     }

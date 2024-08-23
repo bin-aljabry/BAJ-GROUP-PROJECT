@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('location');
             $table->string('number');
+            $table->string('userId');
+
             $table->foreignIdFor(company::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

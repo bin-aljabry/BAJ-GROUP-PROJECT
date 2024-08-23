@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('customer_name');
             $table->string('customer_phone');
+            $table->string('userId');
+
             $table->string('remark');
             $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');

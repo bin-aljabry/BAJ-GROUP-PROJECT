@@ -48,6 +48,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
     Route::get('/cashier/dashboard',[CashierController::class,'dashboard'])->name('cashier.dashboard');
 
     Route::middleware(['role:Cashier'])->group(function(){
+
         Route::resource('expenses',ExpenseController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
@@ -59,6 +60,12 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('subcategory',SubCateoryController::class);
         Route::resource('collection',CollectionController::class);
         Route::resource('product',ProductController::class);
+        Route::get('/company/profile/',[CompanyController::class,'Cashieredit'])->name('company.edit');
+        Route::get('/company/profile',[CompanyController::class,'Cashiercreate'])->name('company.create');
+        Route::get('/company/profile/home',[CompanyController::class,'Cashiercreate'])->name('company.index');
+
+        Route::post('/company/profile/store',[CompanyController::class,'Cashierstore'])->name('company.store');
+        Route::put('/company/profile/{id}',[CompanyController::class,'Cashierupdate'])->name('company.update');
 
         Route::get('/get/subcategory',[ProductController::class,'getsubcategory'])->name('getsubcategory');
         Route::get('/remove-external-img/{id}',[ProductController::class,'removeImage'])->name('remove.image');

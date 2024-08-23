@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('amount');
             $table->string('date');
             $table->string('category');
+            $table->string('userId');
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(agent_branch::class)->constrained()->onDelete('cascade');
             $table->timestamps();

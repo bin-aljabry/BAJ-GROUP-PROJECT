@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('amount');
             $table->string('transaction_id');
             $table->string('date');
+            $table->string('userId');
+
             $table->string('till_number');
             $table->string('network_type');
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');

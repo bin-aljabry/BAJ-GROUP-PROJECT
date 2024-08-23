@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\agent_branch;
+use App\Models\user;
+
 use App\Models\agent_branch_teller;
 use App\Models\company;
 use Illuminate\Http\Request;
-
+use App\Helpers\Helper;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class AgentBranchController extends Controller
 {
@@ -22,8 +26,13 @@ class AgentBranchController extends Controller
 
     public function index()
     {
-        $data = agent_branch::orderBy('id','DESC')->get();
-        return view('cashier.basic_setting.branch.index',compact('data'));
+
+
+        $user =Auth::user();
+        $data=agent_branch::where('userId',$user->id)->orderBy('id','DESC')->get();
+
+
+        return view('cashier.basic_setting.branch.index',compact('data','user'));
     }
 
     /**
@@ -44,7 +53,7 @@ class AgentBranchController extends Controller
         $request->validate([
             'name'=>'required|max:255',
             'location'=>'required',
-            'number'=>'required',
+
 
 
         ]);
@@ -57,10 +66,12 @@ class AgentBranchController extends Controller
         }
         agent_branch::create([
             'name'=>$request->name,
-            'number'=>$request->number,
+            'number'=>Helper::BranchIDGenerator(new agent_branch ,'number',4, 'BAJ-BRN'),
             'location'=>$request->location,
             'slug'=>$uniqueSlug,
-            'company_id'=>$request->company_id
+            'company_id'=>$request->company_id,
+            'userId'=>Auth::user()->id,
+
         ]);
         return redirect()->route('cashier.branch.index')->with('success','subcategory created successfully.');
 

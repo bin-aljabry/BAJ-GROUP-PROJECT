@@ -12,6 +12,8 @@
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('cashier.branch.store') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
+
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Branch Name</label>
@@ -31,13 +33,7 @@
                                     </select>
                                 </div>
 
-                            <div class="form-group">
-                                <label for="number">Branch No</label>
-                                <input type="text" class="form-control" id="number" name="number"
-                                    placeholder="Enter Branch number" required value="{{ old('number') }}">
-                            </div>
-                            <x-error>number</x-error>
-
+                           
                             <div class="form-group">
                                 <label for="location">Branch Location</label>
                                 <input type="text" class="form-control" id="location" name="location"

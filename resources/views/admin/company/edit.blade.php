@@ -5,15 +5,14 @@
             <div class="card">
                 <div class="card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Branch</h3>
-                        <div class="card-tools">
-                            <a href="{{ route('admin.company.index') }}" class="btn btn-info btn-sm">Back</a>
-                        </div>
-                    </div>
-                    <form class="needs-validation" novalidate action="{{ route('admin.company.update',$data) }}" method="POST">
+                        <h3 class="card-title">Edit Company Profile</h3></div>
+                    <form class="needs-validation" novalidate action="{{ route('cashier.company.update',$data) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">
+                        <input type="hidden"  id="number" name="number"
+                        required value="{{ $data->number }}">
+                        <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Company Name</label>
@@ -22,12 +21,8 @@
                             </div>
                             <x-error>name</x-error>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="number">Company ID</label>
-                                <input type="text" class="form-control" id="number" name="number"
-                                    placeholder="Enter category name" required value="{{ $data->number }}">
-                            </div>
+
+
                             <x-error>number</x-error>
                         </div>
                         <input type="hidden" name="id" value="{{ $data->id }}">
@@ -58,7 +53,7 @@
                         </div>
                          <div class="card-body">
                             <div class="form-group">
-                                <label for="address"> Location</label>
+                                <label for="address"> Address</label>
                                 <input type="text" class="form-control" id="location" name="address"
                                     placeholder="Enter category location" required value="{{ $data->address }}">
                             </div>

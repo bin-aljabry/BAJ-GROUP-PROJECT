@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('number');
             $table->string('type');
+            $table->string('userId');
+
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

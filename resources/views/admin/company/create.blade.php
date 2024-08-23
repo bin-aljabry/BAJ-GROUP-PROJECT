@@ -12,6 +12,7 @@
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('admin.company.store') }}" method="POST">
                         @csrf
+                       
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Company Name</label>
@@ -20,12 +21,6 @@
                             </div>
                             <x-error>name</x-error>
 
-                            <div class="form-group">
-                                <label for="number">Company ID</label>
-                                <input type="text" class="form-control" id="number" name="number"
-                                    placeholder="Enter Branch number" required value="{{ old('number') }}">
-                            </div>
-                            <x-error>number</x-error>
 
                             <div class="form-group">
                                 <label for="brand">Brand Name</label>

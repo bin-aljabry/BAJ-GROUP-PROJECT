@@ -11,7 +11,7 @@ class till_withdraw_transaction extends Model
     protected $table = 'till_withdraw_transaction';
 
     protected $fillable = [
-    'transaction_id','type', 'amount','slug','date','agent_branch_teller_id','teller_till_id','till_transaction_id'
+    'transaction_id','type', 'amount','slug','date','agent_branch_teller_id','teller_till_id','till_transaction_id','userId'
     ];
 
     public function teller_till()

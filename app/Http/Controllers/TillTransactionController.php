@@ -7,6 +7,8 @@ use App\Models\teller_till;
 use App\Models\till_transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class TillTransactionController extends Controller
 {
@@ -71,6 +73,8 @@ class TillTransactionController extends Controller
             'transaction_id'=>$request->transaction_id,
             'till_number'=>$request->till_number,
             'till_type'=>$request->till_type,
+            'userId'=>Auth::user()->id,
+
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_teller_id'=>$request->agent_branch_teller_id,
@@ -129,7 +133,7 @@ class TillTransactionController extends Controller
             'amount'=>$request->amount,
             'transaction_id'=>$request->transaction_id,
             'till_number'=>$request->till_number,
-
+            'userId'=>Auth::user()->id,
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_id'=>$request->agent_branch_id,

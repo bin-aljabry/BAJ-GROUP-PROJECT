@@ -11,7 +11,7 @@ class till_deposit_transaction extends Model
     protected $table = 'till_deposit_transaction';
 
     protected $fillable = [
-       'name','transaction_id','type', 'amount','slug','date','agent_branch_teller_id','teller_till_id'
+       'name','transaction_id','type', 'amount','slug','date','agent_branch_teller_id','teller_till_id','userId'
     ];
 
     public function teller_till()

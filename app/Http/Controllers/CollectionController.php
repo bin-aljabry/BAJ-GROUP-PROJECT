@@ -61,6 +61,7 @@ class CollectionController extends Controller
         $collection->name = $request->name;
         $collection->slug = $uniqueSlug;
         $collection->category_id = $request->category;
+        $collection->userId=$request->userId;
         // Image store code
         if ($image = $request->file('image')) {
             $collection->image = $this->imageService->compressAndStoreImage($image, $uniqueSlug, 'collection');
@@ -78,7 +79,7 @@ class CollectionController extends Controller
         }
         $collection->save();
         return redirect()->route('admin.collection.index')->with('success', 'Collection created successfully');
-        
+
     }
 
     /**

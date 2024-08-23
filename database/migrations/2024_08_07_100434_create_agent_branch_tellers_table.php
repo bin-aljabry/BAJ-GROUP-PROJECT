@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('slug')->unique();
+            $table->string('userId');
+
             $table->foreignIdFor(agent_branch::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->timestamps();

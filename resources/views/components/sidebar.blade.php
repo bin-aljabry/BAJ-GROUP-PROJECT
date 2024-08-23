@@ -112,9 +112,17 @@
 
         <ul class="branch-menu" data-toggle="teller">
 
-            <a href=""  class="nav-link ">
-                <i class="nav-icon fas fa-user-tag"></i>  Company
-             </a>
+
+               <a
+
+
+                href="{{ route('cashier.company.index') }}"class="nav-link {{ Route::is('cashier.company.index') ? 'active' : '' }}"
+
+                <i class="nav-icon fas fa-user-tag">Company</i>
+            </a>
+
+
+
 
              </ul>
         <ul class="branch-menu" >

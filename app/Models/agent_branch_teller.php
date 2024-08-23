@@ -12,7 +12,7 @@ class agent_branch_teller extends Model
     protected $table = 'agent_branch_tellers';
 
     protected $fillable = [
-   'name','number','email','phone','address','slug','user_id','agent_branch_id'
+   'name','number','email','phone','address','slug','user_id','agent_branch_id','userId'
     ];
 
 

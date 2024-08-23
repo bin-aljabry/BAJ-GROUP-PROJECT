@@ -11,7 +11,7 @@ class till_transaction extends Model
     protected $table = 'till_transactions';
 
     protected $fillable = [
-       'teller_name','customer_name','phone','slug','amount','transaction_id','till_number','type','teller_till_id','agent_branch_teller_id','till_type'
+       'teller_name','customer_name','phone','slug','amount','transaction_id','till_number','type','teller_till_id','agent_branch_teller_id','till_type','userId'
     ];
 
     public function teller_till()
