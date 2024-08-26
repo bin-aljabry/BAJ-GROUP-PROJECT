@@ -6,7 +6,7 @@
                 <div class="card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Edit Company Profile</h3></div>
-                    <form class="needs-validation" novalidate action="{{ route('cashier.company.update',$data) }}" method="POST">
+                    <form class="needs-validation" novalidate action="{{ route('admin.company.update',$data) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">

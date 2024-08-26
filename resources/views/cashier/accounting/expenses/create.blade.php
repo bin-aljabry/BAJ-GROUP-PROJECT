@@ -21,16 +21,16 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Expenditure Category</label>
-                                        <input type="text" class="form-control" name="category" id="category"
-                                            required="" value="{{ old('category') }}">
+                                        <label for="expenditure" class="form-label">Expenditure Category</label>
+                                        <input type="text" class="form-control" name="expenditure" id="expenditure"
+                                            required="" value="{{ old('expenditure') }}">
                                             <x-error>Expenditure Category</x-error>
                                         <div class="invalid-feedback">Expenditure name field is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label"> Amount</label>
+                                        <label for="amount" class="form-label"> Amount</label>
                                         <input type="text" class="form-control" name="amount" id="amount"
                                             required="" value="{{ old('amount') }}">
                                             <x-error>amount</x-error>
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label"> Paye</label>
+                                        <label for="name" class="form-label">Expenditure For </label>
                                         <input type="text" class="form-control" name="paye" id="paye"
                                             required="" value="{{ old('paye') }}">
                                             <x-error>paye</x-error>
@@ -48,8 +48,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label"> Payment Voucher Number</label>
-                                        <input type="text" class="form-control" name="voucher" id="voucher"
+                                        <label for="voucher_no" class="form-label"> Payment Voucher Number</label>
+                                        <input type="text" class="form-control" name="voucher_no" id="voucher_no"
                                             required="" value="{{ old('voucher') }}">
                                             <x-error>voucher</x-error>
                                         <div class="invalid-feedback">Expenses name field is required.</div>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Transaction Date </label>
+                                        <label for="date" class="form-label">Teller Name</label>
                                         <input type="text" class="form-control" name="date" id="date"
                                             required="" value="{{ old('name') }}">
                                             <x-error>date</x-error>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label"> Remark</label>
+                                        <label for="remark" class="form-label"> Remark</label>
                                         <input type="text" class="form-control" name="remark" id="remark"
                                             required="" value="{{ old('remark') }}">
                                             <x-error>remark</x-error>
@@ -75,8 +75,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label for="name" class="form-label"> Approved by</label>
-                                        <input type="text" class="form-control" name="approved" id="approved"
+                                        <label for="approval" class="form-label"> Approved by</label>
+                                        <input type="text" class="form-control" name="approval" id="approval"
                                             required="" value="{{ old('name') }}">
                                             <x-error>approved</x-error>
                                         <div class="invalid-feedback">Approved name field is required.</div>

@@ -7,10 +7,10 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit Category</h3>
                         <div class="card-tools">
-                            <a href="{{ route('admin.category.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.capital.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('admin.category.update',$data) }}" method="POST">
+                    <form class="needs-validation" novalidate action="{{ route('cashier.capital.update',$data) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">

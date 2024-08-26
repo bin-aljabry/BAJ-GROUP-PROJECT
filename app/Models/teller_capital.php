@@ -11,7 +11,7 @@ class teller_capital extends Model
     protected $table = 'teller_capitals';
 
     protected $fillable = [
-        'amount','slug','userId','agent_branch_teller_id','branch_capital_id'
+        'amount','slug','category','userId','agent_branch_teller_id','branch_capital_id'
     ];
 
     public function agent_branch_teller()

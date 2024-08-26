@@ -110,13 +110,10 @@
 <div id="setting" class="collapse">
 
 
-        <ul class="branch-menu" data-toggle="teller">
+        <ul class="branch-menu" data-toggle="Cashier-company">
 
 
-               <a
-
-
-                href="{{ route('cashier.company.index') }}"class="nav-link {{ Route::is('cashier.company.index') ? 'active' : '' }}"
+               <a href="{{ route('cashier.company.index') }}"class="nav-link {{ Route::is('cashier.company.index') ? 'active' : '' }}">
 
                 <i class="nav-icon fas fa-user-tag">Company</i>
             </a>
@@ -149,7 +146,7 @@
 
                      <ul class="branch-menu" >
 
-                        <a href=""  class="nav-link"><i class="nav-icon fas fa-user-tag"></i>Capital</a>
+                        <a href="{{ route('cashier.capital.index') }}"  class="nav-link {{ Route::is('cashier.capital.index') ? 'active' : '' }}"><i class="nav-icon fas fa-user-tag"></i>Capital</a>
 
                          </ul>
 

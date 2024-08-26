@@ -56,15 +56,7 @@
                                             <div class="invalid-feedback">Expenses name field is required.</div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label">Transaction Date </label>
-                                            <input type="text" class="form-control" name="date" id="date"
-                                                required="" value="{{ old('name') }}">
-                                                <x-error>date</x-error>
-                                            <div class="invalid-feedback">Transaction Date field is required.</div>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="name" class="form-label"> Remark</label>

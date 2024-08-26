@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AgentBranchTellerController;
+use App\Http\Controllers\TellerCapitalController;
 use App\Http\Controllers\TellerTillController;
 use App\Http\Controllers\TillTransactionController;
 use App\Http\Controllers\TillWithdrawTransactionController;
@@ -49,6 +50,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
 
     Route::middleware(['role:Cashier'])->group(function(){
 
+        Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
@@ -56,16 +58,17 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('till',TellerTillController::class);
         Route::resource('deposit',TillTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);
-
         Route::resource('subcategory',SubCateoryController::class);
         Route::resource('collection',CollectionController::class);
         Route::resource('product',ProductController::class);
-        Route::get('/company/profile/',[CompanyController::class,'Cashieredit'])->name('company.edit');
-        Route::get('/company/profile',[CompanyController::class,'Cashiercreate'])->name('company.create');
-        Route::get('/company/profile/home',[CompanyController::class,'Cashiercreate'])->name('company.index');
 
+
+        Route::get('/company/profile/home',[CompanyController::class,'Cashierindex'])->name('company.index');
+        Route::get('/company/create/',[CompanyController::class,'Cashiercreate'])->name('company.create');
         Route::post('/company/profile/store',[CompanyController::class,'Cashierstore'])->name('company.store');
-        Route::put('/company/profile/{id}',[CompanyController::class,'Cashierupdate'])->name('company.update');
+        Route::get('/company/{id}/edit',[CompanyController::class,'Cashieredit'])->name('company.edit');
+        Route::put('/company/update',[CompanyController::class,'Cashierupdate'])->name('company.update');
+        Route::get('/company/delete',[CompanyController::class,'Cashierdestroy'])->name('company.destroy');
 
         Route::get('/get/subcategory',[ProductController::class,'getsubcategory'])->name('getsubcategory');
         Route::get('/remove-external-img/{id}',[ProductController::class,'removeImage'])->name('remove.image');

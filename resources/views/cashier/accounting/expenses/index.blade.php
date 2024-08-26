@@ -24,16 +24,26 @@
                 </thead>
                 <tbody>
 
-                        <tr>
-                            <td></td>
-                            <td></td>
+                    @foreach ($data as $cat)
+                    <tr>
+                        <td>{{ $cat->expenditure }}</td>
+                        <td>{{ $cat->amount }}</td>
+                        <td>{{ $cat->date }}</td>
+                        <td>{{ $cat->remark }}</td>
+                        <td>{{ $cat->created }}</td>
 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
+
+                        
+                        <td>
+                            <form action="{{ route('cashier.branch.destroy', encrypt($cat->id)) }}" method="POST"
+                                onsubmit="return confirm('Are sure want to delete?')">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                                 <a href=""
                                     class="btn btn-sm btn-secondary">
                                     <i class="far fa-edit"></i>

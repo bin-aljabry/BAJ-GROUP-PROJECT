@@ -23,19 +23,7 @@
                                     </div>
 
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="till_number" class="form-label">Till Number</label>
-
-                                            <select name="till_number" id="till_number" class="form-control">
-                                                <option value="" selected disabled>select the Company</option>
-                                                @foreach ($teller_till as $cat)
-                                                    <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
-                                                        value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                   c
                                         <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="customer_name">Customer Name</label>

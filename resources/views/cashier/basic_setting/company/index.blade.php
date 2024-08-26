@@ -1,38 +1,47 @@
 <x-admin>
     @section('title','Company')
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Company Table</h3>
-            <div class="card-tools">
-                <a href="{{ route('admin.company.create') }}" class="btn btn-sm btn-info">Add Company Detail</a>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Company</h3>
+
+                    </div>
+
+
             </div>
+
+            <div class="card-tools" style="text-align: right; padding:5px">
+
+            <a href="{{ route('cashier.company.create') }}" class="btn btn-sm btn-info">Add Company Detail</a>
         </div>
         <div class="card-body">
             <table class="table table-striped" id="categoryTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Action</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+
+
                     @foreach ($data as $cat)
-                        <tr>
-                            <td>{{ $cat->name }}</td>
-                            <td><a href="{{ route('admin.company.edit', encrypt($cat->id)) }}"
-                                    class="btn btn-sm btn-primary">Edit</a></td>
-                            <td>
-                                <form action="{{ route('cashier.company.destroy', encrypt($cat->id)) }}" method="POST"
-                                    onsubmit="return confirm('Are sure want to delete?')">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </td>
+
+                           <tr><td><label for="name">Company Name:</label> {{ $cat->name }}</td></tr>
+                         <tr><td><label for="name">Brand Name:</label> {{ $cat->brand }}</td></tr>
+                            <tr>
+                                <td><label for="name">Company Phone:</label> {{ $cat->phone }}</td>
+                            </tr>
+                            <tr>
+                                <td><label for="name">Company Email:</label> {{ $cat->email }}</td>
+                            </tr>
+                          <tr> <td><label for="name">Company Address:</label> {{ $cat->address }}</td></tr>
+
+
+                         <tr>  <td><a href="{{ route('cashier.company.edit', encrypt($cat->id)) }}"
+                                    class="btn btn-sm btn-primary">Edit</a></td></tr>
+
                         </tr>
+                    </div>
+                        </div>
+                    </div>
                     @endforeach
-                </tbody>
+
             </table>
         </div>
     </div>

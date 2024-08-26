@@ -132,13 +132,15 @@ class CompanyController extends Controller
          company::where('id',decrypt($id))->delete();
          return redirect()->route('admin.company.index')->with('error','Company deleted successfully.');
      }
-
-
+     /**
+      * Summary of Cashier Company function
+      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+      */
      public function Cashierindex()
      {
         $user =Auth::user();
         $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
-         return view('admin.company.index',compact('data'));
+         return view('cashier.basic_setting.company.index',compact('data'));
      }
 
      public function Cashiercreate()
@@ -177,17 +179,16 @@ class CompanyController extends Controller
              'userId'=>Auth::user()->id,
              'number'=>Helper::CompanyIDGenerator(new company ,'userId',10,  'BAJ'),
          ]);
+         $user =Auth::user();
+         $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
          return redirect()->route('cashier.company.index')->with('success','Company created successfully.');
 
      }
 
 
-     public function Cashieredit($company)
+     public function Cashieredit($id)
      {
-
-        $user =Auth::user();
-        $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
-        
+        $data = company::where('id',decrypt($id))->first();
          return view('cashier.basic_setting.company.edit',compact('data'));
      }
 
@@ -200,7 +201,6 @@ class CompanyController extends Controller
 
          $request->validate([
             'name'=>'required|max:255',
-
             'brand'=>'required',
             'phone'=>'required',
             'email'=>'required',
@@ -228,5 +228,16 @@ class CompanyController extends Controller
         ]);
         return redirect()->route('cashier.company.index')->with('info','Company updated successfully.');
      }
+
+     public function Cashierdestroy($id)
+     {
+         //
+         $user =Auth::user();
+         $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
+          company::where('id',decrypt($id))->delete();
+         return redirect()->route('cashier.company.index')->with('error','Company deleted successfully.');
+     }
+
+
 
 }

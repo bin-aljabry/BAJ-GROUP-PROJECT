@@ -13,8 +13,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-
-        return view('cashier.accounting.expenses.index');
+        $data = expense::orderBy('id','DESC')->get();
+    
+        return view('cashier.accounting.expenses.index',compact('data'));
     }
 
     public function create()
@@ -30,10 +31,13 @@ class ExpenseController extends Controller
     {
         //
         $request->validate([
-            'name'=>'required|max:255',
-            'location'=>'required',
-            'number'=>'required',
-
+            'expenditure'=>'required|max:255',
+            'date'=>'required',
+            'amount'=>'required',
+            'paye'=>'required',
+            'approval'=>'required',
+            'remark'=>'required',
+            'voucher_no'=>'required',
 
         ]);
         $baseSlug = Str::slug($request->name);
@@ -44,11 +48,14 @@ class ExpenseController extends Controller
             $counter++;
         }
         expense::create([
-            'name'=>$request->name,
-            'number'=>$request->number,
-            'location'=>$request->location,
+            'expenditure'=>$request->expenditure,
+            'date'=>$request->date,
+            'amount'=>$request->amount,
+            'paye'=>$request->paye,
+            'approval'=>$request->approval,
+            'remark'=>$request->remark,
             'slug'=>$uniqueSlug,
-            'company_id'=>$request->company_id
+            'voucher_no'=>$request->voucher_no,
         ]);
         return redirect()->route('cashier.expenses.index')->with('success','Expenses created successfully.');
 
