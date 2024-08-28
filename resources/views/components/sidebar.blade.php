@@ -290,19 +290,6 @@
 
             <div id="accounting" class="collapse">
 
-                <ul>
-                    <a  class="btn btn-primary dropdown-toggle" style="width: 80%; color:whitesmoke;margin-bottom:5px " data-toggle="collapse" data-target="#setting2" >
-                        <i class="nav-icon fas fa-user-tag "></i> Setting
-                     </a>
-                     <div id="setting2" class="collapse">
-                        <ul>
-                            <a href="#">Register Income Source</a>
-                        </ul>
-                    <ul>
-                        <a href="#">Income Source</a>
-                     </ul>
-                     </div>
-                </ul>
 
                         <ul>
                             <a  class="btn btn-primary dropdown-toggle" style="width: 80%; color:whitesmoke; margin-bottom:5px " data-toggle="collapse" data-target="#income" >
@@ -310,11 +297,12 @@
                              </a>
                              <div id="income" class="collapse">
                                 <ul>
-                                    <a href="#">Record Income</a>
+                                    <a href="{{ route('cashier.income_category.index') }}" class=" {{ Route::is('cashier.income_category.index') ? 'active' : '' }}">Register Income Category</a>
+                                 </ul>
+                                <ul>
+                                    <a href="{{ route('cashier.income.index') }}" class=" {{ Route::is('cashier.income.index') ? 'active' : '' }}">Record Income</a>
                                 </ul>
-                            <ul>
-                                <a href="#">View Income Record</a>
-                             </ul>
+
                              </div>
                 </ul>
                 <ul>
@@ -323,11 +311,11 @@
                      </a>
                      <div id="expenses" class="collapse">
                         <ul>
+                            <a href="{{ route('cashier.expenses_category.index') }}" class=" {{ Route::is('cashier.expenses_category.index') ? 'active' : '' }}">Register Expenses Category</a>
+                        </ul>
+                        <ul>
                             <a href="{{ route('cashier.expenses.index') }}" class=" {{ Route::is('cashier.expenses.index') ? 'active' : '' }}">Record Expenses</a>
                         </ul>
-                    <ul>
-                        <a href="{{ route('cashier.expenses.index') }}" class="{{ Route::is('cashier.expenses.index') ? 'active' : '' }}">View Expenses Record</a>
-                     </ul>
                      </div>
 
                     </ul>

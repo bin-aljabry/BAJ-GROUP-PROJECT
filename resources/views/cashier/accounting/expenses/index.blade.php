@@ -1,85 +1,69 @@
 <x-admin>
     @section('title','Expenses')
+
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Expenses</h3>
+            <h3 class="card-title">Expenses Table</h3>
             <div class="card-tools">
-                <a href="{{ route('cashier.expenses.create') }}" class="btn btn-sm btn-primary">Add</a>
+                <a href="{{ route('cashier.expenses.create') }}" class="btn btn-sm btn-info">New Expenses</a>
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped" id="collectionTable">
+            <table class="table table-striped" id="categoryTable">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Expenditure For</th>
                         <th>Amount</th>
-                        <th>Category</th>
-                        <th>Approved</th>
+
                         <th>Vocher NO</th>
-                        <th>Date</th>
                         <th>Remark</th>
+                        <th>Payment by</th>
+                        <th>Approved By</th>
                         <th>Action</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach ($data as $cat)
                     <tr>
-                        <td>{{ $cat->expenditure }}</td>
+                        <td>{{ $cat->paye }}</td>
                         <td>{{ $cat->amount }}</td>
-                        <td>{{ $cat->date }}</td>
+                        <td>{{ $cat->voucher_no }}</td>
                         <td>{{ $cat->remark }}</td>
-                        <td>{{ $cat->created }}</td>
+                        <td>{{ $cat->date }}</td>
+                        <td>{{ $cat->approval }}</td>
+                        <td>{{ $cat->created_at }}</td>
 
 
-                        
-                        <td>
-                            <form action="{{ route('cashier.branch.destroy', encrypt($cat->id)) }}" method="POST"
-                                onsubmit="return confirm('Are sure want to delete?')">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </td>
+
+                        <td><a href="{{ route('cashier.expenses.edit', encrypt($cat->id)) }}"
+                            class="btn btn-sm btn-primary">Edit</a></td>
+                    <td>
+                        <form action="{{ route('cashier.expenses.destroy', encrypt($cat->id)) }}" method="POST"
+                            onsubmit="return confirm('Are sure want to delete?')">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
                     </tr>
+
                 @endforeach
-                                <a href=""
-                                    class="btn btn-sm btn-secondary">
-                                    <i class="far fa-edit"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <form action=""
-                                    method="POST" onclick="confirm('Are you sure')">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <td colspan="4" class="text-center bg-danger">Expeses not created</td>
-                        </tr>
-
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
-
-    @section('js')
-        <script>
-            $(function() {
-                $('#collectionTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": true,
-                    "responsive": true,
-                });
+</div>
+@section('js')
+    <script>
+        $(function() {
+            $('#categoryTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "responsive": true,
             });
-        </script>
-    @endsection
+        });
+    </script>
+@endsection
 </x-admin>

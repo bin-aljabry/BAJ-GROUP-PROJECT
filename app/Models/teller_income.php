@@ -25,4 +25,9 @@ class teller_income extends Model
     {
         return $this->belongsTo(agent_branch::class,'agent_branch_id');
     }
+
+    public function income()
+    {
+        return $this->belongsTo(income_category::class,'income_category_id');
+    }
 }

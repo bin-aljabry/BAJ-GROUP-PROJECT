@@ -14,76 +14,73 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{ route('cashier.expenses.store') }}" method="POST"
-                        class="needs-validation" novalidate="">
+                    <form action="{{ route('cashier.expenses.update',$data) }}" method="POST" class="needs-validation" novalidate="">
+                        @method('PUT')
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">
+                        <input type="hidden" name="date" value="{{ $data->date }}">
+
+
                         <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label">Expenditure Category</label>
-                                            <input type="text" class="form-control" name="category" id="category"
-                                                required="" value="{{ old('category') }}">
-                                                <x-error>Expenditure Category</x-error>
-                                            <div class="invalid-feedback">Expenditure name field is required.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"> Amount</label>
-                                            <input type="text" class="form-control" name="amount" id="amount"
-                                                required="" value="{{ old('amount') }}">
-                                                <x-error>amount</x-error>
-                                            <div class="invalid-feedback">Amount field is required.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"> Paye</label>
-                                            <input type="text" class="form-control" name="paye" id="paye"
-                                                required="" value="{{ old('paye') }}">
-                                                <x-error>paye</x-error>
-                                            <div class="invalid-feedback">payee  field is required.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"> Payment Voucher Number</label>
-                                            <input type="text" class="form-control" name="voucher" id="voucher"
-                                                required="" value="{{ old('voucher') }}">
-                                                <x-error>voucher</x-error>
-                                            <div class="invalid-feedback">Expenses name field is required.</div>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"> Remark</label>
-                                            <input type="text" class="form-control" name="remark" id="remark"
-                                                required="" value="{{ old('remark') }}">
-                                                <x-error>remark</x-error>
-                                            <div class="invalid-feedback">Expenses name field is required.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"> Approved by</label>
-                                            <input type="text" class="form-control" name="approved" id="approved"
-                                                required="" value="{{ old('name') }}">
-                                                <x-error>approved</x-error>
-                                            <div class="invalid-feedback">Approved name field is required.</div>
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <label for="expenditure">Expenditure </label>
+                                <select name="expenditure" id="expenditure" class="form-control">
+                                    @foreach ($expenditure as $cat)
+                                        <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
+                                            value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <x-error>expenditure</x-error>
+
+
+                            <div class="form-group">
+                                <label for="number">Expended For</label>
+                                <input type="text" class="form-control" id="paye" name="paye"
+                                    placeholder="Enter category name" required value="{{ $data->paye }}">
+                            </div>
+                            <x-error>paye</x-error>
+
+                            <div class="form-group">
+                                <label for="amount">Branch Location</label>
+                                <input type="text" class="form-control" id="location" name="amount"
+                                    placeholder="Enter category location" required value="{{ $data->amount }}">
+                            </div>
+                            <x-error>location</x-error>
+
+
+                        <div class="form-group">
+                            <label for="voucher_no">Payment Voucher No</label>
+                            <input type="text" class="form-control" id="paye" name="voucher_no"
+                                placeholder="Enter category name" required value="{{ $data->voucher_no }}">
+                        </div>
+                        <x-error>paye</x-error>
+
+                        <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <input type="text" class="form-control" id="remark" name="remark"
+                                placeholder="Enter category location" required value="{{ $data->remark }}">
+                        </div>
+                        <x-error>remark</x-error>
+
+                    <div class="form-group">
+                        <label for="approval">Approved By</label>
+                        <input type="text" class="form-control" id="approval" name="approval"
+                            placeholder="Enter category location" required value="{{ $data->approval }}">
+                    </div>
+                    <x-error>approval</x-error>
+                </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right">Update</button>
+                        </div>
+                    </form>
+
+
 
                                 </div>
                             </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer float-end float-right">
-                            <button type="submit" id="submit"
-                                class="btn btn-primary float-end float-right">Submit</button>
-                        </div>
-                    </form>
+
                 </div>
             </div>
         </div>

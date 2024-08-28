@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class Helper{
 
-    public static function CompanyIDGenerator( $model , $trow, $length = 2, $prefix ) {
+    public static function CompanyIDGenerator( $model , $trow, $length = 10, $prefix ) {
 
         $data=$model:: orderBy('id','desc')->first();
         if(!$data){
@@ -80,7 +80,7 @@ for($i= 0 ; $i < $og_length; $i++){
 }
 return $prefix.'-'.$zeros.$last_number;
 }
-public static function TellerCapitalIDGenerator($model , $trow, $length = 10, $prefix ) {
+public static function TellerCapitalIDGenerator($model , $trow, $length = 3, $prefix ) {
 
     $data=$model:: orderBy('id','desc')->first();
     if(!$data){
@@ -105,9 +105,9 @@ for($i= 0 ; $i < $og_length; $i++){
 return $prefix.'-'.$zeros.$last_number;
 }
 
-public static function SSIDGenerator($model , $trow, $length = 2, $prefix ) {
+public static function CategoryExpIDGenerator($model , $trow, $length = 2, $prefix ) {
 
-    $data=$model:: orderBy('SS_id','desc')->first();
+    $data=$model:: orderBy('id','desc')->first();
     if(!$data){
         $og_length=$length;
         $last_number='';
@@ -127,12 +127,12 @@ $zeros='';
 for($i= 0 ; $i < $og_length; $i++){
     $zeros.= '0';
 }
-return $prefix.'-'.$zeros.$last_number.'{{Aut:user()->userId}';
+return $prefix.'-'.$zeros.$last_number;
 }
 
-public static function DepartmentIDGenerator($model , $trow, $length = 2, $prefix ) {
+public static function CategoryIncomeIDGenerator($model , $trow, $length = 2, $prefix ) {
 
-    $data=$model:: orderBy('Department_id','desc')->first();
+    $data=$model:: orderBy('id','desc')->first();
     if(!$data){
         $og_length=$length;
         $last_number='';

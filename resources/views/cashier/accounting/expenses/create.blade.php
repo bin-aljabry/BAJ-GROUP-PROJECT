@@ -22,10 +22,13 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="expenditure" class="form-label">Expenditure Category</label>
-                                        <input type="text" class="form-control" name="expenditure" id="expenditure"
-                                            required="" value="{{ old('expenditure') }}">
-                                            <x-error>Expenditure Category</x-error>
-                                        <div class="invalid-feedback">Expenditure name field is required.</div>
+                                        <select name="expenditure" id="expenditure" class="form-control">
+                                            <option value="" selected disabled>select the Expenditure</option>
+                                            @foreach ($expenditure as $cat)
+                                                <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
+                                                    value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -50,20 +53,12 @@
                                     <div class="form-group">
                                         <label for="voucher_no" class="form-label"> Payment Voucher Number</label>
                                         <input type="text" class="form-control" name="voucher_no" id="voucher_no"
-                                            required="" value="{{ old('voucher') }}">
+                                            required="" value="{{ old('voucher_no') }}">
                                             <x-error>voucher</x-error>
                                         <div class="invalid-feedback">Expenses name field is required.</div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="date" class="form-label">Teller Name</label>
-                                        <input type="text" class="form-control" name="date" id="date"
-                                            required="" value="{{ old('name') }}">
-                                            <x-error>date</x-error>
-                                        <div class="invalid-feedback">Transaction Date field is required.</div>
-                                    </div>
-                                </div>
+                              
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="remark" class="form-label"> Remark</label>

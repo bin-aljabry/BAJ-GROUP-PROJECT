@@ -1,58 +1,45 @@
 <x-admin>
-    @section('title','Permissions')
+    @section('title','Branch')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Permission</h3>
+            <h3 class="card-title">Branch Table</h3>
             <div class="card-tools">
-                <a href="{{ route('admin.permission.create') }}" class="btn btn-sm btn-primary">Add</a>
+                <a href="{{ route('cashier.income.create') }}" class="btn btn-sm btn-info">New Branch</a>
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped" id="collectionTable">
+            <table class="table table-striped" id="categoryTable">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Created</th>
                         <th>Action</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($data as $permission)
+                    @foreach ($data as $cat)
                         <tr>
-                            <td>{{ $permission->name }}</td>
-                            <td>{{ $permission->created_at }}</td>
+                            <td>{{ $cat->name }}</td>
+                            <td><a href="{{ route('cashier.income.edit', encrypt($cat->id)) }}"
+                                    class="btn btn-sm btn-primary">Edit</a></td>
                             <td>
-                                <a href="{{ route('admin.permission.edit', encrypt($permission->id)) }}"
-                                    class="btn btn-sm btn-secondary">
-                                    <i class="far fa-edit"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <form action="{{ route('admin.permission.destroy', encrypt($permission->id)) }}"
-                                    method="POST" onclick="confirm('Are you sure')">
+                                <form action="{{ route('cashier.income.destroy', encrypt($cat->id)) }}" method="POST"
+                                    onsubmit="return confirm('Are sure want to delete?')">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                 </form>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="text-center bg-danger">Permission not created</td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
     @section('js')
         <script>
             $(function() {
-                $('#collectionTable').DataTable({
+                $('#categoryTable').DataTable({
                     "paging": true,
                     "searching": true,
                     "ordering": true,

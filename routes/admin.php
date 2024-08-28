@@ -18,7 +18,12 @@ use App\Http\Controllers\TellerCapitalController;
 use App\Http\Controllers\TellerTillController;
 use App\Http\Controllers\TillTransactionController;
 use App\Http\Controllers\TillWithdrawTransactionController;
+use App\Http\Controllers\ExpensesCategoryController;
+use App\Http\Controllers\TellerIncomeController;
+use App\Http\Controllers\IncomeCategoryController;
 use App\Models\till_withdraw_transaction;
+
+
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard',[ProfileController::class,'dashboard'])->name('dashboard');
@@ -52,6 +57,9 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
 
         Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);
+        Route::resource('expenses_category',ExpensesCategoryController::class);
+        Route::resource('income',TellerIncomeController::class);
+        Route::resource('income_category',IncomeCategoryController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
         Route::resource('teller',AgentBranchTellerController::class);
