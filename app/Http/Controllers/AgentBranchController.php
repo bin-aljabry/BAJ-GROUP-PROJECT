@@ -66,7 +66,7 @@ class AgentBranchController extends Controller
         }
         agent_branch::create([
             'name'=>$request->name,
-            'number'=>Helper::BranchIDGenerator(new agent_branch ,'number',4, 'BAJ-BRN'),
+            'number'=>Helper::BranchIDGenerator(new agent_branch ,'userId',4, 'BAJ-BRN'),
             'location'=>$request->location,
             'slug'=>$uniqueSlug,
             'company_id'=>$request->company_id,
@@ -118,7 +118,10 @@ class AgentBranchController extends Controller
             'name' => $request->name,
             'slug' => $uniqueSlug,
             'location' =>$request->location,
+            'company_id'=>$request->company_id,
             'number' =>$request->number,
+            'userId'=>$request->userId,
+
         ]);
         return redirect()->route('cashier.branch.index')->with('info','Branch updated successfully.');
      }

@@ -54,7 +54,7 @@
                                     placeholder="Enter category name" required value="{{ $data->phone }}">
                             </div>
                             <x-error>phone</x-error>
-                     
+
 
                             <div class="form-group">
                                 <label for="phone">Email </label>

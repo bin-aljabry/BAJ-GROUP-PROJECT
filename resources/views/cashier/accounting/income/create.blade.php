@@ -12,13 +12,13 @@
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('cashier.income.store') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
 
                         <div class="card-body">
+                            <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Income Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter Branch name" required value="{{ old('name') }}">
+                                <input type="text" class="form-control" id="data" name="data"
+                                    placeholder="Enter Branch name" required value="{{ old('data') }}">
                             </div>
                             <x-error>name</x-error>
 
@@ -26,23 +26,50 @@
                                     <label for="category" class="form-label">Category</label>
                                     <select name="category" id="category" class="form-control">
                                         <option value="" selected disabled>select the category</option>
-                                        @foreach ($income as $cat)
+                                        @foreach ($income_id as $cat)
                                             <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
                                                 value="{{ $cat->id }}">{{ $cat->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
+                                    <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <input type="text" class="form-control" id="amount" name="amount"
+                                            placeholder="Enter Branch name" required value="{{ old('amount') }}">
+                                    </div>
+                                    <x-error>amount</x-error>
+
 
                             <div class="form-group">
-                                <label for="amount">Amount</label>
-                                <input type="text" class="form-control" id="amount" name="amount"
-                                    placeholder="Enter Branch location" required value="{{ old('amount') }}">
+                                <label for="teller">Teller Name</label>
+                                <select name="teller" id="teller" class="form-control">
+                                    <option value="" selected disabled>select the category</option>
+                                    @foreach ($teller as $cat)
+                                        <option
+                                            value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <x-error>amount</x-error>
+                            <x-error>teller</x-error>
+
+                            <div class="form-group">
+                                <label for="branch">Teller branch</label>
+                                <select name="branch" id="branch" class="form-control">
+                                    <option value="" selected disabled>select the category</option>
+                                    @foreach ($branch as $cat)
+                                        <option
+                                            value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <x-error>teller</x-error>
+
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary float-right">Save</button>
+                        </div>
                         </div>
                     </form>
                 </div>

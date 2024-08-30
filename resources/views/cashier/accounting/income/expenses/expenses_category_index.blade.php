@@ -1,10 +1,10 @@
 <x-admin>
-    @section('title','Income')
+    @section('title','Expenses')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Income</h3>
+            <h3 class="card-title">Expenses</h3>
             <div class="card-tools">
-                <a href="{{ route('cashier.income_category.create') }}" class="btn btn-sm btn-primary">Add New income</a>
+                <a href="{{ route('cashier.expenses_category.create') }}" class="btn btn-sm btn-primary">Add New Expenses</a>
             </div>
         </div>
         <div class="card-body">
@@ -19,16 +19,16 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($income_category as $cat)
+                    @foreach ($data as $cat)
                     <tr>
                         <td>{{ $cat->name }}</td>
                         <td>{{ $cat->category }}</td>
                         <td>{{ $cat->number }}</td>
 
-                        <td><a href="{{ route('cashier.income_category.edit', encrypt($cat->id)) }}"
+                        <td><a href="{{ route('cashier.expenses_category.edit', encrypt($cat->id)) }}"
                             class="btn btn-sm btn-primary">Edit</a></td>
                     <td>
-                        <form action="{{ route('cashier.income_category.destroy', encrypt($cat->id)) }}" method="POST"
+                        <form action="{{ route('cashier.expenses_category.destroy', encrypt($cat->id)) }}" method="POST"
                             onsubmit="return confirm('Are sure want to delete?')">
                             @method('DELETE')
                             @csrf

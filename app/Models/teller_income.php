@@ -12,7 +12,7 @@ class teller_income extends Model
     protected $table = 'teller_incomes';
 
     protected $fillable = [
-        'amount','userId','slug','date','agent_branch_teller_id','agent_branch_id'
+        'name','amount','userId','category','slug','date','agent_branch_teller_id','agent_branch_id'
     ];
 
     public function agent_branch_teller()

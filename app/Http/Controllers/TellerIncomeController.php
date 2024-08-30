@@ -6,6 +6,8 @@ use App\Models\income_category;
 use App\Models\teller_income;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
+use App\Models\agent_branch;
+use App\Models\agent_branch_teller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +19,12 @@ class TellerIncomeController extends Controller
      */
     public function __construct()
     {
-        $income = income_category::orderBy('id','DESC')->get();
-        view()->share('expenditure',$income);
+        $income_id = income_category::orderBy('id','DESC')->get();
+        view()->share('income_id',$income_id);
+        $teller = agent_branch_teller::orderBy('id','DESC')->get();
+        view()->share('teller',$teller);
+        $branch = agent_branch::orderBy('id','DESC')->get();
+        view()->share('branch',$branch);
 
     }
     /**
@@ -26,13 +32,15 @@ class TellerIncomeController extends Controller
      */
     public function index()
     {
-        $data = teller_income::orderBy('id','DESC')->get();
 
-        return view('cashier.accounting.income.index',compact('data'));
+        $user =Auth::user();
+        $income=teller_income::where('userId',$user->name)->orderBy('id','DESC')->get();
+        return view('cashier.accounting.income.index',compact('income','user'));
     }
 
     public function create()
     {
+
         return view('cashier.accounting.income.create');
     }
 
@@ -44,13 +52,10 @@ class TellerIncomeController extends Controller
     {
         //
         $request->validate([
-            'expenditure'=>'required|max:255',
+            'amount'=>'required|max:255',
 
-            'amount'=>'required',
-            'paye'=>'required',
-            'approval'=>'required',
-            'remark'=>'required',
-            'voucher_no'=>'required',
+            'name'=>'required',
+            'category'=>'required',
 
         ]);
         $baseSlug = Str::slug($request->name);
@@ -61,14 +66,15 @@ class TellerIncomeController extends Controller
             $counter++;
         }
         teller_income::create([
-            'expenditure'=>$request->expenditure,
-            'date'=>Auth::user()->name,
+            'name'=>$request->name,
+            'userId'=>Auth::user()->name,
             'amount'=>$request->amount,
-            'paye'=>$request->paye,
-            'approval'=>$request->approval,
-            'remark'=>$request->remark,
+            'category'=>$request->category,
+            'agent_branch_teller_id'=>$request->teller,
             'slug'=>$uniqueSlug,
-            'voucher_no'=>$request->voucher_no,
+            'agent_branch_id'=>$request->branch,
+            'date'=>Helper::IncomeIDGenerator(new income_category ,'number',3, 'BAJ-EXP-CAT'),
+
         ]);
         return redirect()->route('cashier.income.index')->with('success','Expenses created successfully.');
 
@@ -98,13 +104,11 @@ class TellerIncomeController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'expenditure'=>'required|max:255',
-            'date'=>'required',
-            'amount'=>'required',
-            'paye'=>'required',
-            'approval'=>'required',
-            'remark'=>'required',
-            'voucher_no'=>'required',
+           'amount'=>'required|max:255',
+
+            'name'=>'required',
+            'category'=>'required',
+
 
         ]);
         $baseSlug = Str::slug($request->name);
@@ -115,14 +119,12 @@ class TellerIncomeController extends Controller
             $counter++;
         }
         teller_income::where('id', $request->id)->update([
-            'expenditure'=>$request->expenditure,
-            'date'=>$request->date,
+            'name'=>$request->name,
+            'userId'=>$request->userId,
             'amount'=>$request->amount,
-            'paye'=>$request->paye,
-            'approval'=>$request->approval,
-            'remark'=>$request->remark,
+            'category'=>$request->category,
+            'date'=>$request->teller,
             'slug'=>$uniqueSlug,
-            'voucher_no'=>$request->voucher_no,
         ]);
         return redirect()->route('cashier.income.index')->with('success','Expenses Updated successfully.');
 

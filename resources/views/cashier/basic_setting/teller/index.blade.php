@@ -12,7 +12,9 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Action</th>
+                        <th>Teller ID</th>
+                        <th>Phone No</th>
+                        <th>Location</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -20,6 +22,11 @@
                     @foreach ($data as $cat)
                         <tr>
                             <td>{{ $cat->name }}</td>
+
+                            <td>{{ $cat->number }}</td>
+                            <td>{{ $cat->phone }}</td>
+                            <td>{{ $cat->address }}</td>
+
                             <td><a href="{{ route('cashier.teller.edit', encrypt($cat->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
                             <td>

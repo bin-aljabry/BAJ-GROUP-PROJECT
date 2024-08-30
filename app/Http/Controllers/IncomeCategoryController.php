@@ -16,13 +16,14 @@ class IncomeCategoryController extends Controller
     public function index()
     {
         $user =Auth::user();
-        $data=income_category::where('userId',$user->name)->orderBy('id','DESC')->get();
-        return view('cashier.accounting.income.income_category_index',compact('data'));
+        $income_category=income_category::where('userId',$user->name)->orderBy('id','DESC')->get();
+        return view('cashier.accounting.income.income_category_index',compact('income_category','user'));
+
     }
 
     public function create()
     {
-        return view('cashier.accounting.income.income_category_index');
+        return view('cashier.accounting.income.income_category_create');
     }
 
 
@@ -53,7 +54,7 @@ class IncomeCategoryController extends Controller
             'userId'=>Auth::user()->name,
 
         ]);
-        return redirect()->route('cashier.expenses_category.index')->with('success','Expenses created successfully.');
+        return redirect()->route('cashier.income_category.index')->with('success','Expenses created successfully.');
 
     }
 
@@ -77,7 +78,7 @@ class IncomeCategoryController extends Controller
     {
         //
         $data = income_category::where('id',decrypt($id))->first();
-        return view('cashier.accounting.expenses.expenses_category_edit',compact('data'));
+        return view('cashier.accounting.income.income_category_edit',compact('data'));
     }
 
     /**
@@ -109,7 +110,7 @@ class IncomeCategoryController extends Controller
             'userId'=>Auth::user()->name,
 
         ]);
-        return redirect()->route('cashier.expenses_category.index')->with('success','Expenses created successfully.');
+        return redirect()->route('cashier.income_category.index')->with('success','Expenses created successfully.');
 
     }
 
@@ -120,6 +121,6 @@ class IncomeCategoryController extends Controller
     {
         //
         income_category::where('id',decrypt($id))->delete();
-        return redirect()->route('cashier.expenses_category.index')->with('error','Company deleted successfully.');
+        return redirect()->route('cashier.income_category.index')->with('error','Company deleted successfully.');
     }
 }

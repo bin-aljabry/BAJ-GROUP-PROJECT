@@ -14,13 +14,17 @@
                         @method('PUT')
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">
+                        <input type="hidden" name="userId" value="{{ $data->userId }}">
+                        <input type="hidden" name="category" value="{{ $data->category }}">
+                        <input type="hidden" name="agent_branch_teller_id" value="{{ $data->agent_branch_teller_id }}">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Category Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter category name" required value="{{ $data->name }}">
+                                <label for="amount">Company </label>
+                                <input type="text" class="form-control" id="amount" name="amount"
+                                    placeholder="Enter category location" required value="{{ $data->amount }}">
                             </div>
-                            <x-error>name</x-error>
+                            <x-error>amount</x-error>
+                          
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary float-right">Update</button>

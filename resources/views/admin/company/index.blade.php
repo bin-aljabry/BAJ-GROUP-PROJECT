@@ -12,7 +12,9 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Action</th>
+                        <th>Company ID</th>
+                        <th>Phone</th>
+                        <th>Location</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -20,6 +22,9 @@
                     @foreach ($data as $cat)
                         <tr>
                             <td>{{ $cat->name }}</td>
+                            <td>{{ $cat->number }}</td>
+                            <td>{{ $cat->phone }}</td>
+                            <td>{{ $cat->location }}</td>
                             <td><a href="{{ route('admin.company.edit', encrypt($cat->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
                             <td>

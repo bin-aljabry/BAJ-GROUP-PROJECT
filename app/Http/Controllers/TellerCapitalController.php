@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Helpers\Helper;
 use App\Models\agent_branch_teller;
 use App\Models\teller_cash;
+use Illuminate\Support\Facades\DB;
 
 class TellerCapitalController extends Controller
 {
@@ -24,7 +25,13 @@ class TellerCapitalController extends Controller
      */
     public function index()
     {
-        $data = teller_capital::orderBy('id','DESC')->get();
+        $user =Auth::user();
+        $data=teller_capital::where('userId',$user->id)->orderBy('id','DESC')->get();
+        $data = DB::table('teller_capitals')
+        ->join('agent_branch_tellers', 'teller_capitals.agent_branch_teller_id', '=', 'agent_branch_tellers.id')
+
+        ->get();
+
         return view('cashier.basic_setting.capital.index',compact('data'));
     }
 
@@ -92,8 +99,7 @@ class TellerCapitalController extends Controller
         $request->validate([
            'amount'=>'required|max:255',
 
-           'category'=>'required',
-           'userId'=>'required',
+
 
        ]);
        $baseSlug = Str::slug($request->name);
@@ -106,12 +112,14 @@ class TellerCapitalController extends Controller
        }
 
        teller_capital::where('id', $request->id)->update([
-           'amount' => $request->name,
+           'amount' => $request->amount,
            'slug' => $uniqueSlug,
-           'category'=>$request->number,
-           'userId'=>$request->brand,
+           'category'=>$request->category,
+           'userId'=>$request->userId,
+           'agent_branch_teller_id'=>$request->agent_branch_teller_id,
 
-          'number'=>$request->number,
+
+
 
        ]);
        return redirect()->route('cashier.capital.index')->with('info','Company updated successfully.');

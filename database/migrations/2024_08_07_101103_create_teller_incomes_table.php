@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('teller_incomes', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique();
+            $table->string('name');
             $table->string('amount');
             $table->string('date');
             $table->string('category');

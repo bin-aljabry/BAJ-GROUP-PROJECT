@@ -70,7 +70,7 @@ class AgentBranchTellerController extends Controller
         }
         agent_branch_teller::create([
             'name'=>$request->name,
-            'number'=>Helper::TellerIDGenerator(new agent_branch ,'number',3, 'BRN-TELLER'),
+            'number'=>Helper::TellerIDGenerator(new agent_branch_teller ,'user_id',3, 'BRN-TELLER'),
             'email'=>$request->email,
             'phone'=>$request->phone,
             'address'=>$request->address,
@@ -127,7 +127,7 @@ class AgentBranchTellerController extends Controller
             'user_id'=>$request->user_id,
             'agent_branch_id'=>$request->agent_branch_id
          ]);
-         return redirect()->route('cashier.branch.index')->with('info','SubCategory updated successfully.');
+         return redirect()->route('cashier.teller.index')->with('info','SubCategory updated successfully.');
      }
 
      /**

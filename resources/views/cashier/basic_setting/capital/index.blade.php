@@ -18,9 +18,12 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $cat)
+
                         <tr>
                             <td>{{ $cat->amount }}</td>
-                            <td>{{ $cat->agent_branch_teller_id }}</td>
+
+                            <td>{{ $cat->name }}</td>
+
                             <td>{{ $cat->category}}</td>
                             <td><a href="{{ route('cashier.capital.edit', encrypt($cat->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
