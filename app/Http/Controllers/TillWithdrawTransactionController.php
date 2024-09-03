@@ -9,6 +9,7 @@ use App\Models\till_withdraw_transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Helper;
 
 
 class TillWithdrawTransactionController extends Controller
@@ -49,7 +50,7 @@ class TillWithdrawTransactionController extends Controller
             'customer_name'=>'required',
             'phone'=>'required',
             'amount'=>'required',
-            'transaction_id'=>'required',
+
             'till_number'=>'required',
             'till_type'=>'required',
             'type'=>'required',
@@ -69,7 +70,7 @@ class TillWithdrawTransactionController extends Controller
             'phone'=>$request->phone,
             'slug'=>$uniqueSlug,
             'amount'=>$request->amount,
-            'transaction_id'=>$request->transaction_id,
+            'transaction_id'=>Helper::TransactionIDGenerator(new till_transaction ,'user_id',15, 'TRA-WTD'),
             'till_number'=>$request->till_number,
             'till_type'=>$request->till_type,
             'type'=>$request->type,

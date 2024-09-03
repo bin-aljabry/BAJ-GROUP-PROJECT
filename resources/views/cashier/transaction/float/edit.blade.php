@@ -7,10 +7,10 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit Collection</h3>
                         <div class="card-tools">
-                            <a href="{{ route('admin.collection.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.float.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('admin.collection.update', $data) }}"
+                    <form class="needs-validation" novalidate action="{{ route('cashier.float.update', $data) }}"
                         method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

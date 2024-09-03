@@ -7,46 +7,71 @@
                     <div class="card-header">
                         <h3 class="card-title">Create Collection</h3>
                         <div class="card-tools">
-                            <a href="{{ route('admin.collection.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.float.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('admin.collection.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="needs-validation" novalidate action="{{ route('cashier.float.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
                         <div class="card-body">
+
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control" required>
-                                        <x-error>name</x-error>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="category">Category</label>
-                                        <select name="category" id="category" class="form-control" required>
-                                            <option value="" selected disabled>Select category</option>
-                                            @foreach ($category as $cat)
-                                                <option {{ old($cat->id) == $cat->id ? 'selected' : '' }} value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                   <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <input type="text" placeholder="Enter Amount" name="amount" id="amount" class="form-control" required>
+                                        </div>
+                                            <x-error>amount</x-error>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="agent_branch_teller_id" class="form-label">Agent Teller</label>
+
+                                                <select name="agent_branch_teller_id" id="agent_branch_teller_id" class="form-control">
+                                                    <option value="" selected disabled>select the Teller</option>
+                                                    @foreach ($agent_branch_teller as $cat)
+                                                        <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
+                                                            value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="network_type" class="form-label">Till Type </label>
+
+                                            <select name="network_type" id="network_type" class="form-control">
+                                                <option  selected disabled>select the Teller</option>
+                                                @foreach ($teller_till as $cat)
+                                                <option>{{ $cat->type }}</option>
                                             @endforeach
-                                        </select>
-                                        <x-error>category</x-error>
+
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" name="image" id="image" class="form-control" required>
-                                        <x-error>image</x-error>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="network_type" class="form-label">Till Number</label>
+
+                                            <select name="teller_till_id" id="teller_till_id" class="form-control">
+                                                <option value="" selected disabled>select the Company</option>
+                                                @foreach ($teller_till as $cat)
+
+                                                    <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
+                                                        value="{{ $cat->id }}">{{ $cat->number }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="Pdf" class="form-label">Pdf</label>
-                                        <input type="file" name="pdf" id="Pdf" class="form-control" required>
-                                        <x-error>pdf</x-error>
-                                    </div>
-                                </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="date" class="form-label">Float From</label>
+                                            <input type="text" placeholder="Enter Amount" name="date" id="date" class="form-control" required>
+                                        </div>
+                                            <x-error>amount</x-error>
+                                        </div>
                             </div>
                         </div>
                         <div class="card-footer">

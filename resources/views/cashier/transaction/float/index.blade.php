@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3 class="card-title">Collection Table</h3>
             <div class="card-tools">
-                <a href="{{ route('admin.collection.create') }}" class="btn btn-sm btn-info">New</a>
+                <a href="{{ route('cashier.float.create') }}" class="btn btn-sm btn-info">New</a>
             </div>
         </div>
         <div class="card-body">
@@ -27,10 +27,10 @@
                             </td>
                             <td>{{ $collection->name }}</td>
                             <td>{{ $collection->category->name }}</td>
-                            <td><a href="{{ route('admin.collection.edit', encrypt($collection->id)) }}"
+                            <td><a href="{{ route('cashier.float.edit', encrypt($collection->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
                             <td>
-                                <form action="{{ route('admin.collection.destroy', encrypt($collection->id)) }}"
+                                <form action="{{ route('cashier.float.destroy', encrypt($collection->id)) }}"
                                     method="POST" onsubmit="return confirm('Are sure want to delete?')">
                                     @method('DELETE')
                                     @csrf

@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Collection</h3>
+                        <h3 class="card-title">Edit Deposit</h3>
                         <div class="card-tools">
                             <a href="{{ route('cashier.deposit.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
@@ -14,7 +14,7 @@
                         method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
-                        <input type="hidden" name="edit_id" value="{{ $data->id }}">
+                        <input type="hidden" name="id" value="{{ $data->id }}">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">

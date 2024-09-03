@@ -50,7 +50,7 @@ class TillTransactionController extends Controller
             'customer_name'=>'required',
             'phone'=>'required',
             'amount'=>'required',
-            'transaction_id'=>'required',
+
             'till_number'=>'required',
             'till_type'=>'required',
             'type'=>'required',

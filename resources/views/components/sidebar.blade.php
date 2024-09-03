@@ -228,7 +228,7 @@
                          <div id="float" class="collapse">
 
                         <ul>
-                            <a href="#">Add Float</a>
+                            <a href="{{ route('cashier.float.index') }}"  class="nav-link {{ Route::is('cashier.float.index') ? 'active' : '' }}">Add Float</a>
                          </ul>
                         <ul>
                             <a href="#">View Added Float</a>
