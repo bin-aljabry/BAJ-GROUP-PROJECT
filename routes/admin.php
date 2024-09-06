@@ -23,6 +23,9 @@ use App\Http\Controllers\TillFloatController;
 use App\Http\Controllers\ExpensesCategoryController;
 use App\Http\Controllers\TellerIncomeController;
 use App\Http\Controllers\IncomeCategoryController;
+use App\Http\Controllers\TellerBallanceController;
+use App\Http\Controllers\TellerCashController;
+use App\Http\Controllers\TellerFloatTransferController;
 use App\Models\till_withdraw_transaction;
 
 
@@ -69,6 +72,54 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('deposit',TillDepositTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);
         Route::resource('float',TillFloatController::class);
+        Route::resource('cash',TellerCashController::class);
+        Route::resource('transfer',TellerFloatTransferController::class);
+        Route::resource('balance',TellerBallanceController::class);
+
+
+
+        Route::resource('subcategory',SubCateoryController::class);
+        Route::resource('collection',CollectionController::class);
+        Route::resource('product',ProductController::class);
+
+
+        Route::get('/company/profile/home',[CompanyController::class,'Cashierindex'])->name('company.index');
+        Route::get('/company/create/',[CompanyController::class,'Cashiercreate'])->name('company.create');
+        Route::post('/company/profile/store',[CompanyController::class,'Cashierstore'])->name('company.store');
+        Route::get('/company/{id}/edit',[CompanyController::class,'Cashieredit'])->name('company.edit');
+        Route::put('/company/update',[CompanyController::class,'Cashierupdate'])->name('company.update');
+        Route::get('/company/delete',[CompanyController::class,'Cashierdestroy'])->name('company.destroy');
+
+        Route::get('/get/subcategory',[ProductController::class,'getsubcategory'])->name('getsubcategory');
+        Route::get('/remove-external-img/{id}',[ProductController::class,'removeImage'])->name('remove.image');
+    });
+
+
+});
+
+Route::prefix('teller')->name('teller.')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/teller/dashboard',[CashierController::class,'dashboard'])->name('cashier.dashboard');
+
+    Route::middleware(['role:Teller'])->group(function(){
+
+        Route::resource('capital',TellerCapitalController::class);
+        Route::resource('expenses',ExpenseController::class);
+        Route::resource('expenses_category',ExpensesCategoryController::class);
+        Route::resource('income',TellerIncomeController::class);
+        Route::resource('income_category',IncomeCategoryController::class);
+        Route::resource('role',RoleController::class);
+        Route::resource('branch',AgentBranchController::class);
+        Route::resource('teller',AgentBranchTellerController::class);
+        Route::resource('till',TellerTillController::class);
+        Route::resource('deposit',TillDepositTransactionController::class);
+        Route::resource('withdraw',TillWithdrawTransactionController::class);
+        Route::resource('float',TillFloatController::class);
+        Route::resource('cash',TellerCashController::class);
+        Route::resource('transfer',TellerFloatTransferController::class);
+        Route::resource('balance',TellerBallanceController::class);
+
+
+
         Route::resource('subcategory',SubCateoryController::class);
         Route::resource('collection',CollectionController::class);
         Route::resource('product',ProductController::class);

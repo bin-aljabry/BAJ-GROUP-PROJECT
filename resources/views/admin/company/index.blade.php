@@ -7,8 +7,10 @@
                 <a href="{{ route('admin.company.create') }}" class="btn btn-sm btn-info">New Company</a>
             </div>
         </div>
-        <div class="card-body">
+
+        <div class="card-body"  style="overflow-x:auto;">
             <table class="table table-striped" id="categoryTable">
+                <div style="overflow-x:auto;">
                 <thead>
                     <tr>
                         <th>Name</th>

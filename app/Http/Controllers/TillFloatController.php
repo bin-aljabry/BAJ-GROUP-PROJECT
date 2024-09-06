@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\Helper;
+use App\Models\till_transaction;
 
 class TillFloatController extends Controller
 {
@@ -21,6 +22,8 @@ class TillFloatController extends Controller
         view()->share('teller_till',$teller_till);
         $agent_branch_teller = agent_branch_teller::orderBy('id','DESC')->get();
         view()->share('agent_branch_teller',$agent_branch_teller);
+        $till_transaction = till_transaction::orderBy('id','DESC')->get();
+        view()->share('till_transaction',$till_transaction);
     }
 
     public function index()
@@ -66,10 +69,12 @@ class TillFloatController extends Controller
             'amount'=>$request->amount,
             'transaction_id'=>Helper::TransactionFloatIDGenerator(new till_float ,'user_id',15, 'TRA-DEP'),
             'till_number'=>$request->till_number,
-            'network_type'=>$request->till_type,
+            'network_type'=>$request->network_type,
             'userId'=>Auth::user()->id,
+
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_teller_id'=>$request->agent_branch_teller_id,
+             'till_transaction_id'=>$request->till_transaction_id,
 
         ]);
         return redirect()->route('cashier.float.index')->with('success','deposit created successfully.');
@@ -129,6 +134,7 @@ class TillFloatController extends Controller
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_id'=>$request->agent_branch_id,
+
 
         ]);
         return redirect()->route('cashier.float.index')->with('info','deposit updated successfully.');

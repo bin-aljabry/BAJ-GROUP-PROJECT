@@ -16,12 +16,18 @@ return new class extends Migration
     {
         Schema::create('till_withdraw_transactions', function (Blueprint $table) {
             $table->id();
+
+
+            $table->string('teller_name');
+            $table->string('customer_name');
+            $table->string('phone');
             $table->string('slug')->unique();
             $table->string('amount');
             $table->string('transaction_id');
-            $table->string('date');
+            $table->string('till_number');
+            $table->string('till_type');
             $table->string('userId');
-            $table->string('type');
+
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');

@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Auth;
 use App\Models\company;
+use Illuminate\Support\Facades\DB;
+
 
 
 class AgentBranchTellerController extends Controller
@@ -34,10 +36,14 @@ class AgentBranchTellerController extends Controller
       */
      public function index()
      {
-         $user =Auth::user();
-         $data=agent_branch_teller::where('userId',$user->id)->orderBy('id','DESC')->get();
+        $data=agent_branch_teller::orderBy('id','DESC')->get();
+        $data = DB::table('agent_branch_tellers')
+        ->join('users', 'agent_branch_tellers.user_id', '=', 'users.id')
+        ->select('agent_branch_tellers.*')
+        ->get();
 
-         return view('cashier.basic_setting.teller.index',compact('data','user'));
+
+         return view('cashier.basic_setting.teller.index',compact('data'));
      }
 
      /**
@@ -77,14 +83,25 @@ class AgentBranchTellerController extends Controller
             'slug'=>$uniqueSlug,
             'agent_branch_id'=>$request->agent_branch_id,
             'user_id'=>Auth::user()->id,
-            'userId'=>Auth::user()->id,
+            'userId'=>$request->password,
 
 
         ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        $user->assignRole($request='Teller');
+
         return redirect()->route('cashier.teller.index')->with('success','subcategory created successfully.');
 
      }
-
+     public function show(agent_branch_teller $agent_branch_teller)
+     {
+         //
+     }
      /**
       * Show the form for editing the specified resource.
       */

@@ -65,6 +65,13 @@
                         placeholder="Enter Branch location" required value="{{ old('address') }}">
                 </div>
                 <x-error>address</x-error>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password" name="password"
+                        placeholder="Enter Branch location" required value="{{ old('password') }}">
+                </div>
+                <x-error>password</x-error>
             </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary float-right">Save</button>

@@ -7,7 +7,7 @@
                 <a href="{{ route('admin.subcategory.create') }}" class="btn btn-sm btn-info">New</a>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body"  style="overflow-x:auto;">
             <table class="table table-striped" id="subcategoryTable">
                 <thead>
                     <tr>

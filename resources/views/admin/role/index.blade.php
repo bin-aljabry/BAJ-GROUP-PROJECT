@@ -7,7 +7,7 @@
                 <a href="{{ route('admin.role.create') }}" class="btn btn-sm btn-primary">Add</a>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body"  style="overflow-x:auto;">
             <table class="table table-striped" id="roleTable">
                 <thead>
                     <tr>

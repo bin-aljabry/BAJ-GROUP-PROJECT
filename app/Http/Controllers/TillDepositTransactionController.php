@@ -80,6 +80,7 @@ class TillDepositTransactionController extends Controller
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_teller_id'=>$request->agent_branch_teller_id,
+            
 
         ]);
         return redirect()->route('cashier.deposit.index')->with('success','deposit created successfully.');
@@ -139,6 +140,7 @@ class TillDepositTransactionController extends Controller
             'type'=>$request->type,
             'teller_till_id'=>$request->teller_till_id,
             'agent_branch_id'=>$request->agent_branch_id,
+
 
         ]);
         return redirect()->route('cashier.deposit.index')->with('info','deposit updated successfully.');

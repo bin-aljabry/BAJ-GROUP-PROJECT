@@ -11,7 +11,7 @@ class till_float extends Model
     protected $table = 'till_floats';
 
     protected $fillable = [
-        'date', 'userId','slug','amount','transaction_id','till_number','network_type','teller_till_id','agent_branch_teller_id'
+       'till_transaction_id', 'date', 'userId','slug','amount','transaction_id','till_number','network_type','teller_till_id','agent_branch_teller_id'
     ];
 
     public function teller_till()
@@ -23,6 +23,10 @@ class till_float extends Model
     public function agent_branch_teller()
     {
         return $this->belongsTo(agent_branch_teller::class,'agent_branch_teller_id');
+    }
+    public function till_transaction()
+    {
+        return $this->belongsTo(till_transaction::class,'till_transaction_id');
     }
 
 }
