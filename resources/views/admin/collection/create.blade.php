@@ -12,6 +12,7 @@
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('admin.collection.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">

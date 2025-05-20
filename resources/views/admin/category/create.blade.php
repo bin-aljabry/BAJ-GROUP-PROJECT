@@ -12,6 +12,7 @@
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('admin.category.store') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Category Name</label>
