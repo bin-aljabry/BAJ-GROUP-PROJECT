@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\company;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -21,13 +25,19 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = User::orderBy('id','DESC')->get();
+        $data  = Auth::user();
+            $data = User::where('company_id', $data->company_id)
+                ->where('created_by', $data->id)
+                ->get();
+
         return view('admin.user.index', compact('data'));
     }
     public function create()
     {
         return view('admin.user.create');
     }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -41,10 +51,17 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'company_id' => Auth::user()->company_id, // 👈 chukua kampuni ya aliyelogin
+                'created_by' => Auth::id(), // 👈
         ]);
         $user->assignRole($request->role);
         return redirect()->route('admin.user.index')->with('success','User created successfully.');
     }
+            // Step 2: Create Admin User
+
+
+
+
     public function edit($id)
     {
         $user = User::where('id',decrypt($id))->first();

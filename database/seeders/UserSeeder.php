@@ -12,26 +12,52 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
         \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'superadmin@gmail.com',
+            'company_id' => '1',
+            'created_by' => 'admin',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('Reman@112'),
         ])->assignRole('admin');
 
         \App\Models\User::factory()->create([
+            'company_id' => '1',
+            'created_by' => 'admin',
             'name' => 'User',
             'email' => 'user@gmail.com',
             'password' => bcrypt('Reman@112'),
         ])->assignRole('user');
         \App\Models\User::factory()->create([
+'company_id' => '1',
+'created_by' => 'admin',
             'name' => 'Casheir',
             'email' => 'cashier@gmail.com',
             'password' => bcrypt('Reman@112'),
         ])->assignRole('Cashier');
+
         \App\Models\User::factory()->create([
-            'name' => 'User',
-            'email' => 'vendor@gmail.com',
+'company_id' => '1',
+'created_by' => 'SuperAdmin',
+            'name' => 'SuperAdmin',
+            'email' => 'superadmin@gmail.com',
             'password' => bcrypt('Reman@112'),
-        ])->assignRole('vendor');
+        ])->assignRole('Super Admin');
+
+        \App\Models\User::factory()->create([
+'company_id' => '1',
+'created_by' => 'admin',
+            'name' => 'Sales Officer',
+            'email' => 'sales@gmail.com',
+            'password' => bcrypt('Reman@112'),
+        ])->assignRole('Sales');
+
+        \App\Models\User::factory()->create([
+           'company_id' => '1',
+          'created_by' => 'admin',
+            'name' => 'Technician',
+            'email' => 'technician@gmail.com',
+            'password' => bcrypt('Reman@112'),
+        ])->assignRole('technician');
     }
 }

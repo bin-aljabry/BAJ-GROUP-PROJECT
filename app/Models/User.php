@@ -24,6 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phonenumber',
+        'company_id',
+        'created_by',
         'provider_id',
         'avatar'
     ];
@@ -47,6 +49,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    public function company()
+    {
+        return $this->belongsTo(company::class);
+    }
+    public function createdUsers()
+{
+    return $this->hasMany(User::class, 'created_by');
+}
 
-    
+    public function branch()
+    {
+        return $this->belongsTo(company_branches::class);
+    }
 }

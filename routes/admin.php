@@ -27,7 +27,24 @@ use App\Http\Controllers\TellerBallanceController;
 use App\Http\Controllers\TellerCashController;
 use App\Http\Controllers\TellerFloatTransferController;
 use App\Models\till_withdraw_transaction;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\PaymentsController;
 
+
+
+Route::middleware(['auth', 'role:Super Admin'])->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::get('/companies', [SuperAdminController::class, 'index'])->name('companies.index');
+    Route::get('/admins', [SuperAdminController::class, 'viewAdmins'])->name('admins.index');
+    Route::get('/admin/{id}', [SuperAdminController::class, 'viewAdminDetails'])->name('admin.show');
+    Route::patch('/company/{id}/payment-status', [SuperAdminController::class, 'updatePaymentStatus'])->name('company.payment-status');
+    Route::patch('/company/{id}/user-limit', [SuperAdminController::class, 'setUserLimit'])->name('company.user-limit');
+    Route::get('/notifications', [SuperAdminController::class, 'notifications'])->name('notifications');
+    Route::get('/payments', [SuperAdminController::class, 'payments'])->name('payments');
+    Route::get('/packages', [SuperAdminController::class, 'packages'])->name('packages');
+    Route::get('/reports/customers', [SuperAdminController::class, 'reportCustomers'])->name('reports.customers');
+    Route::get('/reports/payments', [SuperAdminController::class, 'reportPayments'])->name('reports.payments');
+
+});
 
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {

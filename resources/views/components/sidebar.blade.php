@@ -16,15 +16,15 @@
 
         @endrole
 
-        @role('Teller')
+        @role('Sales')
 
-
+        @include('./components/sales-sidebar')
 
         @endrole
 
         @role('Technician')
 
-
+        @include('./components/technician-sidebar')
         @endrole
         @role('user')
 
