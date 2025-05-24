@@ -33,6 +33,7 @@ use App\Http\Controllers\PaymentsController;
 
 
 Route::middleware(['auth', 'role:Super Admin'])->prefix('superadmin')->name('superadmin.')->group(function () {
+  Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/companies', [SuperAdminController::class, 'index'])->name('companies.index');
     Route::get('/admins', [SuperAdminController::class, 'viewAdmins'])->name('admins.index');
     Route::get('/admin/{id}', [SuperAdminController::class, 'viewAdminDetails'])->name('admin.show');
