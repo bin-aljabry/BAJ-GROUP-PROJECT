@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\company_branches;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -25,6 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
+        
         $data  = Auth::user();
             $data = User::where('company_id', $data->company_id)
                 ->where('created_by', $data->id)
@@ -34,7 +35,13 @@ class UserController extends Controller
     }
     public function create()
     {
-        return view('admin.user.create');
+        $company_id = auth()->user()->company_id;
+
+    // Fetch branches za kampuni hii pekee
+    $branches = company_branches::where('company_id', $company_id)->get();
+
+    return view('admin.user.create', compact('branches'));
+
     }
 
 
@@ -51,7 +58,8 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'company_id' => Auth::user()->company_id, // 👈 chukua kampuni ya aliyelogin
+            'company_id' => Auth::user()->company_id,
+            'branch_id' => $request->branch_id, // 👈 chukua kampuni ya aliyelogin
                 'created_by' => Auth::id(), // 👈
         ]);
         $user->assignRole($request->role);
@@ -79,6 +87,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
         $user->assignRole($request->role);
+
+        $user->syncRoles([$request->role]);
         return redirect()->route('admin.user.index')->with('success','User updated successfully.');
     }
     public function destroy($id)

@@ -74,6 +74,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'company_id' => $company->id,
+            'branch_id' => $branch->id,
           
             'created_by' => Auth::id(), // 👈 hapa// Foreign ke// Foreign ke
             'password' => Hash::make($request->password),

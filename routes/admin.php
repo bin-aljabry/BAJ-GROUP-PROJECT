@@ -54,6 +54,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::middleware(['role:admin'])->group(function(){
+
+        Route::post('store-branch', [CompanyController::class, 'assignBranch'])->name('branch.store');
+        Route::get('create-branch', [CompanyController::class, 'createbranch'])->name('branch.create');
+        Route::get('list-branch', [CompanyController::class, 'branchlist'])->name('branch.list');
+        Route::put('/admin/branches/update/{id}', [CompanyController::class, 'branchupdate'])->name('branch.update');
+        Route::delete('/admin/branches/destroy/{id}', [CompanyController::class, 'branchdestroy'])->name('branch.destroy');
+        Route::get('/admin/branches/edit/{id}', [CompanyController::class, 'branchedit'])->name('branch.edit');
+
         Route::resource('company',CompanyController::class);
         Route::resource('user',UserController::class);
         Route::resource('role',RoleController::class)->except('show');

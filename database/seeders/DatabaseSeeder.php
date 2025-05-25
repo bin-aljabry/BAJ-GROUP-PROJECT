@@ -20,16 +20,18 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             BranchSeeder::class,
         ]);
-        $this->call(UserSeeder::class);
-        $this->call(CountryStateCityTableSeeder::class);
-        $this->call(CollectionSeeder::class);
-        $this->call(CategorySeeder::class);
-
         $this->call([
 
             PackageSeeder::class,
             PaymentSeeder::class,
             NotificationSeeder::class,
         ]);
+        
+        $this->call(UserSeeder::class);
+        $this->call(CountryStateCityTableSeeder::class);
+        $this->call(CollectionSeeder::class);
+        $this->call(CategorySeeder::class);
+
+      
     }
 }

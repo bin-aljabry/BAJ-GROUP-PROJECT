@@ -12,7 +12,8 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Created</th>
+                        <th>Branch</th>
+                        <th>Position</th>
                         <th>Action</th>
                         <th></th>
                     </tr>
@@ -23,7 +24,8 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->branch ? $user->branch->name : 'NO branch' }}</td>
+                            <td>{{$user->getRoleNames()->first() ?? 'No role' }}</td>
                             <td>
                                 <a href="{{ route('admin.user.edit', encrypt($user->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a>

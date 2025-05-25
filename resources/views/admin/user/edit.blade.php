@@ -27,14 +27,16 @@
                                 <x-error>email</x-error>
                         </div>
                     </div>
+                    
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="role" class="form-label">Role:*</label>
-                            <select name="role" id="role" class="form-control" required>
-                                <option value="" selected disabled>selecte the role</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}"
-                                        {{ $user->roles[0]['name'] === $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                           
+                            <select name="role" class="form-control" required>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                        {{ $role->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             <x-error>role</x-error>

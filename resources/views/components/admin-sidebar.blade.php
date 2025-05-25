@@ -5,7 +5,15 @@
             <p>Dashboard</p>
         </a>
     </li>
-   
+    <li class="nav-item">
+        <a href="{{ route('admin.branch.list') }}"
+            class="nav-link {{ Route::is('admin.listBranch') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Branch
+                <span class="badge badge-info right"></span>
+            </p>
+        </a>
+    </li>
     <li class="nav-item">
         <a href="{{ route('admin.user.index') }}"
             class="nav-link {{ Route::is('admin.user.index') ? 'active' : '' }}">

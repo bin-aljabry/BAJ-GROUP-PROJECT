@@ -8,6 +8,7 @@ use App\Models\user;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\company_branches;
 
 
 class CompanyController extends Controller
@@ -37,6 +38,77 @@ class CompanyController extends Controller
      /**
       * Store a newly created resource in storage.
       */
+      public function branchlist()
+      {
+        $companyId = Auth::user()->company_id;
+
+        $data = company_branches::where('company_id', $companyId)->get();
+              
+          return view('admin.branch.index',compact('data'));
+      }
+ 
+      public function createbranch()
+      {
+          //
+          return view('admin.branch.create');
+      }
+
+      public function assignBranch(Request $request)
+      {
+
+        $request->validate([
+            'name'=>'required|max:255',
+        ]);
+     
+        company_branches::create([
+              'name' => $request->name,
+              'company_id' => auth()->user()->company_id,
+              'location' => $request->location
+          ]);
+          return redirect()->route('admin.branch.list')->with('success','Branch created successfully.');
+        } 
+        
+        public function branchedit($branch)
+        {
+   
+            $data = company_branches::where('id',decrypt($branch))->first();
+            return view('admin.branch.edit',compact('data'));
+        }
+   
+        /**
+         * Update the specified resource in storage.
+         */
+        public function branchupdate(Request $request)
+        {
+            //
+   
+            $request->validate([
+               'name'=>'required|max:255',
+               'location'=>'required|max:255',
+
+              
+           ]);
+         
+           company_branches::where('id', $request->id)->update([
+               'name' => $request->name,
+               'company_id' => auth()->user()->company_id,
+               'location' => $request->location
+  
+             
+           ]);
+           return redirect()->route('admin.branch.list')->with('info','Branch updated successfully.');
+        }
+   
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function branchdestroy($id)
+        {
+            //
+            company_branches::where('id',decrypt($id))->delete();
+            return redirect()->route('admin.branch.list')->with('error','Branch deleted successfully.');
+        }
+        
      public function store(Request $request)
      {
          //
