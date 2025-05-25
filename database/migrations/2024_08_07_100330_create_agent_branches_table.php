@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\company;
+use App\Models\company_branches;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('number');
             $table->string('userId');
 
-            $table->foreignIdFor(company::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(company_branches::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

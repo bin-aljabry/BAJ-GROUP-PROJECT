@@ -8,59 +8,55 @@
                 <a href="/" class="h1"><b>{{ config('app.name') }}</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg">Register Company</p>
 
-                    <form action="{{ route('register') }}" method="POST">
-                        @csrf
-                        <div class="input-group mb-3">
-                            <input id="name" class="form-control" type="text" name="name" :value="old('name')"
-                                required autofocus autocomplete="name" placeholder="Enter name">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            <x-input-error :messages="$errors->get('name')" class="text-danger" />
-                        </div>
-                        <div class="input-group mb-3">
-                            <input id="email" class="form-control" type="email" name="email" :value="old('email')"
-                                required autocomplete="username" placeholder="Enter email address">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
-                            <x-input-error :messages="$errors->get('email')" class="text-danger" />
-                        </div>
-                        <div class="input-group mb-3">
-                            <input id="password" class="form-control" type="password" name="password" required
-                                autocomplete="new-password" placeholder="Enter password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                            <x-input-error :messages="$errors->get('password')" class="text-danger" />
-                        </div>
-                        <div class="input-group mb-3">
-                            <input id="password_confirmation" class="form-control" type="password"
-                                name="password_confirmation" required autocomplete="new-password" placeholder="Re enter password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                            <x-input-error :messages="$errors->get('password_confirmation')" class="text-danger" />
-                        </div>
+                <form action="{{ route('register') }}" method="POST">
+                    @csrf
 
-                      
-                    <div class="row">
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        </div>
-                        <!-- /.col -->
+                    <h3>Company Information</h3>
+                    <div class="form-group">
+                        <label for="name">Company Name</label>
+                        <input type="text" class="form-control" name="company_name" required value="{{ old('company_name') }}">
                     </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone No</label>
+                        <input type="text" class="form-control" name="company_phone" required value="{{ old('company_phone') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">Brand Name</label>
+                        <input type="text" class="form-control" name="brand" required value="{{ old('brand') }}">
+                    </div>
+
+                 
+                    <div class="form-group">
+                        <label for="company_email">Email</label>
+                        <input type="text" class="form-control" name="company_email" required value="{{ old('company_email') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company_address">Company Address</label>
+                        <input type="text" class="form-control" name="company_address" required value="{{ old('company_address') }}">
+                    </div>
+
+                    <h3>Admin Information</h3>
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="text" name="name" required placeholder="Enter name">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="email" name="email" required placeholder="Enter email address">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="password" name="password" required placeholder="Enter password">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="password" name="password_confirmation" required placeholder="Re-enter password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </form>
             </div>
             <!-- /.form-box -->

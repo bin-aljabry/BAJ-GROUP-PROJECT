@@ -18,7 +18,10 @@ class CompanyController extends Controller
 
      public function index()
      {
-         $data = company::orderBy('id','DESC')->get();
+        $data = User::where('company_id', Auth::user()->company_id)
+             ->where('created_by', Auth::id())
+             ->get();
+             
          return view('admin.company.index',compact('data'));
      }
 
@@ -54,18 +57,20 @@ class CompanyController extends Controller
              $counter++;
          }
          company::create([
-             'name'=>$request->name,
-             'address'=>$request->address,
-             'brand'=>$request->brand,
-             'phone'=>$request->phone,
-             'email'=>$request->email,
+             'name'=>$request->company_name,
+             'address'=>$request->company_address,
+
+             'phone'=>$request->company_phone,
+             'email'=>$request->company_email,
              'slug'=>$uniqueSlug,
-             'userId'=>Auth::user()->id,
-             'number'=>Helper::CompanyIDGenerator(new company ,'userId',10,  'BAJ'),
+
+             'brand'=>$request->brand,
          ]);
-         return redirect()->route('admin.company.index')->with('success','Company created successfully.');
+         return redirect()->with('success','Company created successfully.');
 
      }
+
+
 
      /**
       * Display the specified resource.
@@ -98,6 +103,7 @@ class CompanyController extends Controller
             'brand'=>'required',
             'phone'=>'required',
             'email'=>'required',
+            'slug'=>'required',
            'address'=>'required',
         ]);
         $baseSlug = Str::slug($request->name);
@@ -117,7 +123,7 @@ class CompanyController extends Controller
             'phone'=>$request->phone,
             'email'=>$request->email,
            'address'=>$request->address,
-           'userId'=>$request->userId,
+
 
         ]);
         return redirect()->route('admin.company.index')->with('info','Company updated successfully.');
@@ -139,8 +145,8 @@ class CompanyController extends Controller
      public function Cashierindex()
      {
         $user =Auth::user();
-        $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
-         return view('cashier.basic_setting.company.index',compact('data'));
+
+         return view('cashier.basic_setting.company.index');
      }
 
      public function Cashiercreate()
@@ -176,11 +182,10 @@ class CompanyController extends Controller
              'phone'=>$request->phone,
              'email'=>$request->email,
              'slug'=>$uniqueSlug,
-             'userId'=>Auth::user()->id,
-             'number'=>Helper::CompanyIDGenerator(new company ,'userId',10,  'BAJ'),
+
          ]);
          $user =Auth::user();
-         $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
+
          return redirect()->route('cashier.company.index')->with('success','Company created successfully.');
 
      }
@@ -189,7 +194,7 @@ class CompanyController extends Controller
      public function Cashieredit($id)
      {
         $data = company::where('id',decrypt($id))->first();
-         return view('cashier.basic_setting.company.edit',compact('data'));
+         return view('cashier.basic_setting.company.edit');
      }
 
      /**
@@ -223,7 +228,7 @@ class CompanyController extends Controller
             'phone'=>$request->phone,
             'email'=>$request->email,
            'address'=>$request->address,
-           'userId'=>$request->userId,
+
 
         ]);
         return redirect()->route('cashier.company.index')->with('info','Company updated successfully.');
@@ -233,7 +238,7 @@ class CompanyController extends Controller
      {
          //
          $user =Auth::user();
-         $data=company::where('userId',$user->id)->orderBy('id','DESC')->get();
+
           company::where('id',decrypt($id))->delete();
          return redirect()->route('cashier.company.index')->with('error','Company deleted successfully.');
      }
