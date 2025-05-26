@@ -14,11 +14,19 @@ return new class extends Migration
     {
         Schema::create('teller_tills', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+            $table->foreignId('branch_id')->constrained('company_branches')->onDelete('set null');
+              $table->string('phone_no');
+            $table->string('network_provider');
+            $table->string('till_code', 100);
+            $table->enum('till_type', ['standard', 'payment_line'])->default('standard');
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->timestamps();
+
             $table->string('slug')->unique();
-            $table->string('number');
+            $table->string('code_no')->unique();
             $table->string('type');
-            $table->string('userId');
+
 
             $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
             $table->timestamps();

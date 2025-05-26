@@ -92,7 +92,8 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
             Route::get('/manager/create/teller', [AgentBranchTellerController::class, 'tellercreate'])->name('teller.create');
              Route::get('/manager/teller/edit/{id}', [AgentBranchTellerController::class, 'telleredit'])->name('teller.edit');
               Route::post('/manager/teller/store', [AgentBranchTellerController::class, 'tellerstore'])->name('teller.store');
-
+        Route::put('/manager/teller/update/{id}', [AgentBranchTellerController::class, 'update'])->name('teller.update');
+        Route::delete('/manager/teller/destroy/{id}', [AgentBranchTellerController::class, 'destroy'])->name('teller.destroy');
 
         Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);
@@ -101,7 +102,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('income_category',IncomeCategoryController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
-       
+
         Route::resource('till',TellerTillController::class);
         Route::resource('deposit',TillDepositTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);
