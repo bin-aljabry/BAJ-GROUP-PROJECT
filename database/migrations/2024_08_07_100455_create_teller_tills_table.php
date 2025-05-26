@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->foreignId('branch_id')->constrained('company_branches')->onDelete('set null');
-              $table->string('phone_no');
+            
             $table->string('network_provider');
             $table->string('till_code', 100);
             $table->enum('till_type', ['standard', 'payment_line'])->default('standard');
