@@ -73,7 +73,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::get('/get/subcategory',[ProductController::class,'getsubcategory'])->name('getsubcategory');
         Route::get('/remove-external-img/{id}',[ProductController::class,'removeImage'])->name('remove.image');
         Route::get('/role/dashboard', [RoleController::class,'index'])->name('role.index');
-        Route::get('/role/', [RoleController::class,'addPermissionToRole'])->name('role.add-permission');
+        Route::get('/role/{id}', [RoleController::class,'addPermissionToRole'])->name('role.add-permission');
         Route::put('/role/given-permission', [RoleController::class,'addPermissionToRole'])->name('role.give_add-permission');
 
 
@@ -86,6 +86,14 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
 
     Route::middleware(['role:Cashier'])->group(function(){
 
+
+
+            Route::get('/manager/list/teller', [AgentBranchTellerController::class, 'tellerlist'])->name('teller.list');
+            Route::get('/manager/create/teller', [AgentBranchTellerController::class, 'tellercreate'])->name('teller.create');
+             Route::get('/manager/teller/edit/{id}', [AgentBranchTellerController::class, 'telleredit'])->name('teller.edit');
+              Route::post('/manager/teller/store', [AgentBranchTellerController::class, 'tellerstore'])->name('teller.store');
+
+
         Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);
         Route::resource('expenses_category',ExpensesCategoryController::class);
@@ -93,7 +101,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('income_category',IncomeCategoryController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
-        Route::resource('teller',AgentBranchTellerController::class);
+       
         Route::resource('till',TellerTillController::class);
         Route::resource('deposit',TillDepositTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);
@@ -135,7 +143,7 @@ Route::prefix('teller')->name('teller.')->middleware(['auth', 'verified'])->grou
         Route::resource('income_category',IncomeCategoryController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
-        Route::resource('teller',AgentBranchTellerController::class);
+
         Route::resource('till',TellerTillController::class);
         Route::resource('deposit',TillDepositTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);

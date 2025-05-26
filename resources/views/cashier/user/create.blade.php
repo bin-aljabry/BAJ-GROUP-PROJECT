@@ -17,6 +17,17 @@
                                 <x-error>name</x-error>
                         </div>
                     </div>
+                   <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="branch_id">Branch </label>
+                        <select name="branch_id" id="branch_id" class="form-control" required>
+                            <option value="">-- Select Branch --</option>
+                            @foreach($branches as $branch)
+                                <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="Email" class="form-label">Email:*</label>
@@ -45,7 +56,12 @@
                             <x-error>role</x-error>
                         </div>
                     </div>
-                
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                             <a href="" class="btn btn-sm btn-success">Add User Permission</a>
+
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <div class="float-right">
                             <button class="btn btn-primary" type="submit">Save</button>

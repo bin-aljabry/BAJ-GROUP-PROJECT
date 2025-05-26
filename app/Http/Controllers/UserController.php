@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
-        
+
         $data  = Auth::user();
             $data = User::where('company_id', $data->company_id)
                 ->where('created_by', $data->id)
@@ -59,8 +59,8 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'company_id' => Auth::user()->company_id,
-            'branch_id' => $request->branch_id, // 👈 chukua kampuni ya aliyelogin
-                'created_by' => Auth::id(), // 👈
+            'branch_id' => Auth::user()->branch_id,   // Automatically from logged-in user
+            'created_by' => Auth::id(),
         ]);
         $user->assignRole($request->role);
         return redirect()->route('admin.user.index')->with('success','User created successfully.');

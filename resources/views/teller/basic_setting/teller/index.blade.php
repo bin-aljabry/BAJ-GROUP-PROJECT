@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3 class="card-title">Company Table</h3>
             <div class="card-tools">
-                <a href="{{ route('teller.teller.create') }}" class="btn btn-sm btn-info">New Teller</a>
+                <a href="{{ route('cashier.teller.create') }}" class="btn btn-sm btn-info">New Teller</a>
             </div>
         </div>
         <div class="card-body"  style="overflow-x:auto;">
@@ -27,7 +27,7 @@
                             <td>{{ $cat->phone }}</td>
                             <td>{{ $cat->address }}</td>
 
-                          
+
                         </tr>
                     @endforeach
                 </tbody>

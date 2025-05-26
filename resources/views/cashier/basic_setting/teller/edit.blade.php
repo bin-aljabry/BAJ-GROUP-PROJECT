@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit Teller</h3>
                         <div class="card-tools">
-                            <a href="{{ route('cashier.teller.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.teller.list') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('cashier.teller.update',$data) }}" method="POST">

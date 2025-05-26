@@ -7,10 +7,10 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit Teller</h3>
                         <div class="card-tools">
-                            <a href="{{ route('teller.teller.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('teller.teller.list') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('teller.teller.update',$data) }}" method="POST">
+                    <form class="needs-validation" novalidate action="" method="POST">
                         @method('PUT')
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">
