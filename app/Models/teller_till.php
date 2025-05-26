@@ -15,11 +15,9 @@ class teller_till extends Model
         'name','slug','number','type','agent_branch_teller_id','userId'
     ];
 
-    public function agent_branch_teller()
-    {
-        return $this->belongsTo(agent_branch_teller::class,'agent_branch_teller_id');
-
-    }
-
+    public function company() { return $this->belongsTo(Company::class); }
+    public function transactions() { return $this->hasMany(Transaction::class); }
+    public function cashiers() { return $this->belongsToMany(User::class, 'cashier_tills'); }
+    
 
 }

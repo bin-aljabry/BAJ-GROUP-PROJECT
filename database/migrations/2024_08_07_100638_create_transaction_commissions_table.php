@@ -15,15 +15,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_commissions', function (Blueprint $table) {
+            
             $table->id();
-            $table->string('userId');
-
-            $table->string('amount');
-            $table->string('commission');
-            $table->string('slug')->unique();
-            $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('transaction_id')->nullable()->constrained('transactions')->onDelete('set null');
+            $table->decimal('commission_amount', 15, 2);
+            $table->date('date');
             $table->timestamps();
 
         });

@@ -19,10 +19,11 @@ class till_transaction extends Model
         return $this->belongsTo(teller_till::class,'teller_till_id');
 
     }
-
-    public function agent_branch_teller()
-    {
-        return $this->belongsTo(agent_branch_teller::class,'agent_branch_teller_id');
-    }
+    public function user() { return $this->belongsTo(User::class); }
+    public function branch() { return $this->belongsTo(CompanyBranch::class); }
+    public function till() { return $this->belongsTo(Till::class); }
+    public function bankAccount() { return $this->belongsTo(BankAccount::class); }
+    public function customer() { return $this->belongsTo(Customer::class); }
+    
 
 }

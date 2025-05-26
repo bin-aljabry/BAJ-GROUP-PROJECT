@@ -17,19 +17,19 @@ return new class extends Migration
 
         Schema::create('till_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('teller_name');
-            $table->string('customer_name');
-            $table->string('phone');
-            $table->string('slug')->unique();
-            $table->string('amount');
-            $table->string('transaction_id');
-            $table->string('till_number');
-            $table->string('till_type');
-            $table->string('userId');
-
-            $table->string('type');
-            $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('customer_id')->nullable()->constrained('customers')->onDelete('set null');
+            $table->foreignId('branch_id')->nullable()->constrained('company_branches')->onDelete('set null');
+            $table->foreignId('till_id')->nullable()->constrained('tills')->onDelete('set null');
+            $table->foreignId('bank_account_id')->nullable()->constrained('bank_accounts')->onDelete('set null');
+            $table->enum('transaction_type', ['deposit', 'withdrawal', 'float_exchange', 'bank_deposit', 'bank_withdrawal', 'utility_payment']);
+            $table->string('payment_reference')->nullable();
+            $table->decimal('amount', 15, 2);
+            $table->decimal('commission', 15, 2)->default(0);
+            $table->string('service_provider')->nullable();
+            $table->string('service_type')->nullable();
+            $table->text('extra_description')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }
