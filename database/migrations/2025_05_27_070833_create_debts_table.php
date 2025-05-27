@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\agent_branch_teller;
-use App\Models\teller_till;
-use App\Models\till_transaction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('debts', function (Blueprint $table) {
-
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('branch_id')->nullable()->constrained('company_branches')->onDelete('set null');
@@ -26,7 +22,6 @@ return new class extends Migration
             $table->date('due_date')->nullable();
             $table->date('paid_date')->nullable();
             $table->timestamps();
-         
         });
     }
 
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('till_withdraw_transactions');
+        Schema::dropIfExists('debts');
     }
 };

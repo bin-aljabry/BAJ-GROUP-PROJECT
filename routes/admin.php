@@ -29,6 +29,7 @@ use App\Http\Controllers\TellerFloatTransferController;
 use App\Models\till_withdraw_transaction;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\TillsController;
 
 
 
@@ -84,7 +85,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
 Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/cashier/dashboard',[CashierController::class,'dashboard'])->name('cashier.dashboard');
 
-    Route::middleware(['role:Cashier'])->group(function(){
+    Route::middleware(['role:Manager'])->group(function(){
 
 
 
@@ -102,8 +103,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('income_category',IncomeCategoryController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
-
-        Route::resource('till',TellerTillController::class);
+        Route::resource('tills', TillsController::class);
         Route::resource('deposit',TillDepositTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);
         Route::resource('float',TillFloatController::class);
