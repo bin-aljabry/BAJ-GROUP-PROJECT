@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('tills', function (Blueprint $table) {
              $table->id();
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->foreignId('branch_id')->constrained('company_branches')->onDelete('set null');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+             $table->unsignedBigInteger('company_id')->nullable();
+             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+             $table->unsignedBigInteger('branch_id')->nullable();
+             $table->foreign('branch_id')->references('id')->on('company_branches')->onDelete('cascade');
+             $table->unsignedBigInteger('userid')->nullable();
+             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('teller_name')->nullable()->constrained('users')->onDelete('set null');
             $table->string('till_phone_no')->unique();
             $table->string('till_name');

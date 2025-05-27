@@ -18,7 +18,7 @@ return new class extends Migration
             
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('transaction_id')->nullable()->constrained('transactions')->onDelete('set null');
+            $table->foreignId('transaction_id')->nullable()->constrained('till_transactions')->onDelete('set null');
             $table->decimal('commission_amount', 15, 2);
             $table->date('date');
             $table->timestamps();

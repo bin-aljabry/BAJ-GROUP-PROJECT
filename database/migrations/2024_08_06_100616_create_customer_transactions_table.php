@@ -22,9 +22,7 @@ return new class extends Migration
             $table->string('userId');
 
             $table->string('remark');
-            $table->foreignIdFor(till_transaction::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(agent_branch_teller::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(teller_till::class)->constrained()->onDelete('cascade');
+           
             $table->timestamps();
         });
     }

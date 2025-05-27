@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link {{ Route::is('cashier.till.index') ? 'active' : '' }}">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link {{ Route::is('cashier.till.index') ? 'active' : '' }}">
                     <i class="fas fa-store-alt nav-icon"></i>
                     <p>Till Number (Agent Code)</p>
                 </a>
@@ -62,7 +62,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-user nav-icon"></i>
                     <p>Teller Capital</p>
                 </a>
@@ -74,7 +74,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-store nav-icon"></i>
                     <p>Till Capital</p>
                 </a>
@@ -105,13 +105,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-university nav-icon"></i>
                     <p>Bank Transaction</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-money-bill nav-icon"></i>
                     <p>Cash Transaction</p>
                 </a>
@@ -160,7 +160,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-hand-holding-usd nav-icon"></i>
                     <p>Debt</p>
                 </a>

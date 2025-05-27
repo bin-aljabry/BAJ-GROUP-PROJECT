@@ -103,7 +103,7 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::resource('income_category',IncomeCategoryController::class);
         Route::resource('role',RoleController::class);
         Route::resource('branch',AgentBranchController::class);
-        Route::resource('tills', TillsController::class);
+        Route::resource('till_code', TillsController::class);
         Route::resource('deposit',TillDepositTransactionController::class);
         Route::resource('withdraw',TillWithdrawTransactionController::class);
         Route::resource('float',TillFloatController::class);

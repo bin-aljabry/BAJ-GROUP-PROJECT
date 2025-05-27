@@ -18,29 +18,31 @@ class TillsController extends Controller
 {
     //
 
-     public function index()
+    public function index()
     {
-        $tills = tills::latest()->paginate(10);
-
         $user = Auth::user();
-
-    // Kama ni company admin
-    if ($user->role->name === 'Company Admin') {
-        $tills = tills::where('company_id', $user->company_id)->get();
+    
+     
+        // Default query
+        $query = Tills::query();
+    
+        // Kama ni company admin
+        if ($user->role === 'admin') {
+            $query->where('company_id', $user->company_id);
+        }
+    
+        // Kama ni branch manager
+        elseif ($user->role === 'Manager') {
+            $query->where('branch_id', $user->branch_id);
+        }
+    
+        // else => Super admin or others: see all
+    
+        $tills = $query->latest()->paginate(10);
+    
+        return view('teller.basic_setting.till_code.index', compact('tills'));
     }
-
-    // Kama ni branch manager
-    elseif ($user->role->name === 'Branch Manager') {
-        $tills = tills::where('branch_id', $user->branch_id)->get();
-    }
-
-    else {
-        $tills = tills::all(); // default fallback
-    }
-
-    return view('tills.index', compact('tills'));
-    }
-
+    
 
 
     public function create()
@@ -49,7 +51,7 @@ class TillsController extends Controller
         $q->where('name', 'Cashier')->orWhere('name', 'Teller');
     })->get();
 
-    return view('tills.create', compact('cashiers'));
+    return view('till_code.create', compact('cashiers'));
 }
 
 public function edit(tills $till)
@@ -58,7 +60,7 @@ public function edit(tills $till)
         $q->where('name', 'Cashier')->orWhere('name', 'Teller');
     })->get();
 
-    return view('tills.edit', compact('till', 'cashiers'));
+    return view('till_code.edit', compact('till', 'cashiers'));
 }
     // Show form to create
 
@@ -83,7 +85,7 @@ public function edit(tills $till)
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('tills.index')->with('success', 'Till created successfully.');
+        return redirect()->route('till_code.index')->with('success', 'Till created successfully.');
     }
 
     // Show form to edit
@@ -102,13 +104,13 @@ public function edit(tills $till)
 
         $till->update($request->all());
 
-        return redirect()->route('tills.index')->with('success', 'Till updated successfully.');
+        return redirect()->route('till_code.index')->with('success', 'Till updated successfully.');
     }
 
     // Delete till
     public function destroy(tills $till)
     {
         $till->delete();
-        return redirect()->route('tills.index')->with('success', 'Till deleted successfully.');
+        return redirect()->route('till_code.index')->with('success', 'Till deleted successfully.');
     }
 }
