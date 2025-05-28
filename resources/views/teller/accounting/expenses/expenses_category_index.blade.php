@@ -4,7 +4,7 @@
         <div class="card-header">
             <h3 class="card-title">Expenses</h3>
             <div class="card-tools">
-                <a href="{{ route('cashier.expenses_category.create') }}" class="btn btn-sm btn-primary">Add New Expenses</a>
+                <a href="{{ route('cashier.expenses_category.create') }}" class="btn btn-sm btn-primary">New Expenses Category</a>
             </div>
         </div>
         <div class="card-body"  style="overflow-x:auto;">

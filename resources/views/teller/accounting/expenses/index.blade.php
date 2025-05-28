@@ -12,7 +12,7 @@
             <table class="table table-striped" id="categoryTable">
                 <thead>
                     <tr>
-                        <th>Expenditure For</th>
+                        <th>Expenditure For(Name)</th>
                         <th>Amount</th>
 
                         <th>Vocher NO</th>

@@ -29,10 +29,12 @@
                 <div class="form-group">
                     <label>Teller (Optional)</label>
                     <select name="teller_name" class="form-control">
-                        <option value="">-- Select Teller --</option>
                         @foreach($tellers as $id => $name)
-                            <option value="{{ $id }}" {{ $account->teller_name == $id ? 'selected' : '' }}>{{ $name }}</option>
-                        @endforeach
+        <option value="{{ $id }}" 
+            {{ (old('teller_name', $account->teller_name) == $id) ? 'selected' : '' }}>
+            {{ $name }}
+        </option>
+    @endforeach
                     </select>
                 </div>
 

@@ -74,7 +74,7 @@ class SuperAdminController extends Controller
     {
         // View all company admins (role: admin)
         $Super_Admin = User::role('Super Admin')->with('company')->get();
-        return view('superadmin.admins.index', compact('Super_Admin'));
+        return view('superadmin.company.index', compact('Super_Admin'));
     }
 
     public function updatePaymentStatus($company_id)

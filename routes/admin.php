@@ -31,6 +31,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\TillsController;
 use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\BranchCapitalController;
 
 
 
@@ -111,6 +112,36 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::get('/manager/bank-accounts/update/{id}', [BankAccountController::class, 'edit'])->name('bank-accounts.edit');
         Route::delete('/manager/bank-accounts/destroy/{id}', [BankAccountController::class, 'destroy'])->name('bank-accounts.destroy');
         Route::put('/manager/bank-accounts/update/{id}', [BankAccountController::class, 'update'])->name('bank-accounts.update');
+
+        //sub menu za capital
+
+            // Teller Capital
+    Route::get('/teller', [BranchCapitalController::class, 'tellerIndex'])->name('capital.teller.index');
+    Route::get('/teller/create', [BranchCapitalController::class, 'tellerCreate'])->name('capital.teller.create');
+    Route::post('/teller', [BranchCapitalController::class, 'tellerStore'])->name('capital.teller.store');
+    Route::get('/teller/{id}/edit', [BranchCapitalController::class, 'tellerEdit'])->name('capital.teller.edit');
+    Route::put('/teller/{id}', [BranchCapitalController::class, 'tellerUpdate'])->name('capital.teller.update');
+
+    // Till Capital
+    Route::get('/till', [BranchCapitalController::class, 'tillIndex'])->name('capital.till.index');
+    Route::get('/till/create', [BranchCapitalController::class, 'tillCreate'])->name('capital.till.create');
+    Route::post('/till', [BranchCapitalController::class, 'tillStore'])->name('capital.till.store');
+    Route::get('/till/{id}/edit', [BranchCapitalController::class, 'tillEdit'])->name('capital.till.edit');
+    Route::put('/till/{id}', [BranchCapitalController::class, 'tillUpdate'])->name('capital.till.update');
+
+    // Bank Capital
+    Route::get('/bank', [BranchCapitalController::class, 'bankIndex'])->name('capital.bank.index');
+    Route::get('/bank/create', [BranchCapitalController::class, 'bankCreate'])->name('capital.bank.create');
+    Route::post('/bank', [BranchCapitalController::class, 'bankStore'])->name('capital.bank.store');
+    Route::get('/bank/{id}/edit', [BranchCapitalController::class, 'bankEdit'])->name('capital.bank.edit');
+    Route::put('/bank/{id}', [BranchCapitalController::class, 'bankUpdate'])->name('capital.bank.update');
+
+    // Cash Issued
+    Route::get('/cash', [BranchCapitalController::class, 'cashIndex'])->name('capital.cash.index');
+    Route::get('/cash/create', [BranchCapitalController::class, 'cashCreate'])->name('capital.cash.create');
+    Route::post('/cash', [BranchCapitalController::class, 'cashStore'])->name('capital.cash.store');
+    Route::get('/cash/{id}/edit', [BranchCapitalController::class, 'cashEdit'])->name('capital.cash.edit');
+    Route::put('/cash/{id}', [BranchCapitalController::class, 'cashUpdate'])->name('capital.cash.update');
 
         Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);

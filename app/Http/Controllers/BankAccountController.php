@@ -64,10 +64,11 @@ $manager = auth()->user();
     public function edit($id)
 {
     $account = BankAccount::findOrFail($id);
-      $cashiers = User::where('branch_id', auth()->user()->branch_id)
-        ->whereHas('roles', fn($q) => $q->whereIn('name', ['Teller']))
-        ->get();
-    return view('teller.basic_setting.bank-accounts.edit', compact('account', 'cashiers'));
+    $tellers = User::where('role', 'Teller')
+               ->where('branch_id', auth()->user()->branch_id)
+               ->pluck('name', 'id');
+               
+    return view('teller.basic_setting.bank-accounts.edit', compact('account', 'tellers'));
 
 }
 public function update(Request $request, $id)
@@ -87,7 +88,7 @@ public function update(Request $request, $id)
         'teller_name' => $request->teller_name,
     ]);
 
-    return redirect()->route('bank-accounts.index')->with('success', 'Bank account updated successfully.');
+    return redirect()->route('cashier.bank-accounts.index')->with('success', 'Bank account updated successfully.');
 }
 
 public function destroy($id)
@@ -95,7 +96,7 @@ public function destroy($id)
     $account = BankAccount::findOrFail($id);
     $account->delete();
 
-    return redirect()->route('bank-accounts.index')->with('success', 'Bank account deleted successfully.');
+    return redirect()->route('cashier.bank-accounts.index')->with('success', 'Bank account deleted successfully.');
 }
 
 
