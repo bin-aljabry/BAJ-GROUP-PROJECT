@@ -18,13 +18,13 @@ class TillsController extends Controller
 {
     //
 
-    public function index()
+    public function tillList()
     {
         $user = Auth::user();
     
      
         // Default query
-        $query = Tills::query();
+        $query = tills::query();
     
         // Kama ni company admin
         if ($user->role === 'admin') {
@@ -47,70 +47,94 @@ class TillsController extends Controller
 
     public function create()
 {
-    $cashiers = User::whereHas('role', function ($q) {
-        $q->where('name', 'Cashier')->orWhere('name', 'Teller');
-    })->get();
+    $manager = auth()->user();
 
-    return view('till_code.create', compact('cashiers'));
+    $cashiers = User::where('branch_id', $manager->branch_id)
+        ->whereHas('roles', function ($q) {
+            $q->whereIn('name', ['Teller']);
+        })->get();
+
+
+    return view('teller.basic_setting.till_code.create' , compact('cashiers'));
 }
 
-public function edit(tills $till)
-{
-    $cashiers = User::whereHas('role', function ($q) {
-        $q->where('name', 'Cashier')->orWhere('name', 'Teller');
-    })->get();
-
-    return view('till_code.edit', compact('till', 'cashiers'));
-}
     // Show form to create
 
     // Store till
     public function store(Request $request)
     {
         $request->validate([
-
             'till_phone_no' => 'required|unique:tills',
             'till_name' => 'required',
+            'till_type' => 'required',
             'network_provider' => 'required',
             'till_code' => 'required',
+            'user_id' => 'required|exists:users,id',
         ]);
-
-        tills::create([
+    
+        $manager = auth()->user();
+    
+        Tills::create([
             'till_name' => $request->till_name,
             'till_phone_no' => $request->till_phone_no,
             'network_provider' => $request->network_provider,
             'till_code' => $request->till_code,
-            'company_id' => Auth::user()->company_id,
-            'branch_id' => Auth::user()->branch_id,   // Automatically from logged-in user
-            'user_id' => Auth::id(),
+            'company_id' => $manager->company_id,
+            'branch_id' => $manager->branch_id,
+            'user_id' => $request->user_id,
+            'till_type' => $request->till_type
         ]);
-
-        return redirect()->route('till_code.index')->with('success', 'Till created successfully.');
+    
+     
+        return redirect()->route('cashier.till.list')->with('success', 'Till created successfully.');
     }
 
     // Show form to edit
 
 
     // Update till
-    public function update(Request $request, tills $till)
-    {
-        $request->validate([
-            'slug' => 'required|unique:tills,slug,' . $till->id,
-            'till_phone_no' => 'required|unique:tills,till_phone_no,' . $till->id,
-            'till_name' => 'required',
-            'network_provider' => 'required',
-            'till_code' => 'required',
-        ]);
+// Show Edit Form
+public function edit($id)
+{
+    $till = Tills::findOrFail($id);
 
-        $till->update($request->all());
+    // Get tellers in the same branch
+    $cashiers = User::where('branch_id', auth()->user()->branch_id)
+        ->whereHas('roles', fn($q) => $q->whereIn('name', ['Teller']))
+        ->get();
 
-        return redirect()->route('till_code.index')->with('success', 'Till updated successfully.');
-    }
+    return view('teller.basic_setting.till_code.edit', compact('till', 'cashiers'));
+}
 
-    // Delete till
-    public function destroy(tills $till)
-    {
-        $till->delete();
-        return redirect()->route('till_code.index')->with('success', 'Till deleted successfully.');
-    }
+// Update Till
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'till_name' => 'required',
+        'till_phone_no' => 'required|unique:tills,till_phone_no,' . $id,
+        'network_provider' => 'required',
+        'till_code' => 'required',
+        'user_id' => 'required|exists:users,id',
+    ]);
+
+    $till = Tills::findOrFail($id);
+    $till->update([
+        'till_name' => $request->till_name,
+        'till_phone_no' => $request->till_phone_no,
+        'network_provider' => $request->network_provider,
+        'till_code' => $request->till_code,
+        'user_id' => $request->user_id,
+    ]);
+
+    return redirect()->route('cashier.till.list')->with('success', 'Till updated successfully.');
+}
+
+// Delete Till
+public function destroy($id)
+{
+    $till = Tills::findOrFail($id);
+    $till->delete();
+
+    return redirect()->route('cashier.till.list')->with('success', 'Till deleted successfully.');
+}
 }

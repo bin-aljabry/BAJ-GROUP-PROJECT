@@ -96,6 +96,15 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::put('/manager/teller/update/{id}', [AgentBranchTellerController::class, 'update'])->name('teller.update');
         Route::delete('/manager/teller/destroy/{id}', [AgentBranchTellerController::class, 'destroy'])->name('teller.destroy');
 
+
+        Route::get('/manager/till/list', [TillsController::class, 'tillList'])->name('till.list');
+        Route::get('/manager/till/create', [TillsController::class, 'create'])->name('till.create');
+        Route::POST('/manager/till/store', [TillsController::class, 'store'])->name('till.store');
+        Route::get('/manager/till/update/{id}', [TillsController::class, 'edit'])->name('till.edit');
+        Route::delete('/manager/till/destroy/{id}', [TillsController::class, 'destroy'])->name('till.destroy');
+        Route::put('/manager/till/update/{id}', [TillsController::class, 'update'])->name('till.update');
+
+
         Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);
         Route::resource('expenses_category',ExpensesCategoryController::class);

@@ -1,55 +1,94 @@
 <x-admin>
-    @section('title','Create Category')
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Create Category</h3>
-                        <div class="card-tools">
-                            <a href="{{ route('cashier.tills.index') }}" class="btn btn-info btn-sm">Back</a>
-                        </div>
-                    </div>
-                    <form class="needs-validation" novalidate action="{{ route('cashier.tills.store') }}" method="POST">
-                        @csrf
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="name">Till  Registed Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter category name" required value="{{ old('name') }}">
-                            </div>
-                            <x-error>name</x-error>
+    @section('title', 'Add Till')
 
-                            <div class="form-group">
-                                <label for="number">Till Number</label>
-                                <input type="text" class="form-control" id="number" name="number"
-                                    placeholder="Enter category name" required value="{{ old('number') }}">
-                            </div>
-                            <x-error>number</x-error>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">New Till (Agent Code)</h3>
+        </div>
 
-                            <div class="form-group">
-                                <label for="type">Till Type</label>
-                                <input type="text" class="form-control" id="type" name="type"
-                                    placeholder="Enter category name" required value="{{ old('type') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="agent_branch_teller_id" class="form-label">Teller Name</label>
-                                <select name="agent_branch_teller_id" id="agent_branch_teller_id" class="form-control">
-                                    <option value="" selected disabled>select the Teller </option>
-                                    @foreach ($agent_branch_teller_id as $cat)
-                                        <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
-                                            value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <x-error>type</x-error>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Save</button>
-                        </div>
-                    </form>
+        <div class="card-body">
+            <form action="{{ route('cashier.till.store') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                    <label for="till_name">Till Name</label>
+                    <input type="text" name="till_name" class="form-control" value="{{ old('till_name') }}" required>
+                    @error('till_name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
+           <div class="col-lg-6">
+            <div class="form-group">
+                   <label for="till_phone_no">Phone Number</label>
+                    <input type="text" name="till_phone_no" class="form-control" value="{{ old('till_phone_no') }}" required>
+                    @error('till_phone_no')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+           <div class="col-lg-6">
+            <div class="form-group">
+                    <label for="network_provider">Network Provider</label>
+                    <select name="network_provider" class="form-control" required>
+                        <option value="">Select</option>
+                        <option value="Vodacom">Vodacom</option>
+                        <option value="Tigo">Tigo</option>
+                        <option value="Airtel">Airtel</option>
+                        <option value="Halotel">Halotel</option>
+                        <option value="TTCL">TTCL</option>
+                        <option value="Zantel">Zantel</option>
+                    </select>
+                    @error('network_provider')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+           <div class="col-lg-6">
+            <div class="form-group">
+                    <label for="till_code">Till Code</label>
+                    <input type="text" name="till_code" class="form-control" value="{{ old('till_code') }}" required>
+                    @error('till_code')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+           </div>
+           <div class="col-lg-6">
+            <div class="form-group">
+                    <label for="till_code">Till Type</label>
+                    <select name="till_type" class="form-control" required>
+                        <option value="">Select</option>
+                        <option value="standard">Wakala</option>
+                        <option value="paymentline">Lipa Namba</option>
+                    </select>
+                    @error('till_type')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+           </div>
+         
+           <div class="col-lg-6">
+           <div class="form-group">
+            <label for="user_id">Assign to Teller</label>
+            <select name="user_id" class="form-control" required>
+                <option value="">Select Teller</option>
+                @foreach($cashiers as $cashier)
+                    <option value="{{ $cashier->id }}">{{ $cashier->name }} ({{ $cashier->email }})</option>
+                @endforeach
+            </select>
+            @error('user_id')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
+           </div>
+           <div class="col-lg-12">
+            <div class="float-right">
+                <button type="submit" class="btn btn-primary">Save</button> 
+                <a href="{{ route('cashier.till.list') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+           </div>
+            </form>
         </div>
     </div>
 </x-admin>

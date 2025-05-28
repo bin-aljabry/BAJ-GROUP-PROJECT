@@ -24,13 +24,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-university nav-icon"></i>
                     <p>Bank Transaction</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-money-bill nav-icon"></i>
                     <p>Cash Transaction</p>
                 </a>
@@ -74,7 +74,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.index') }}" class="nav-link">
+                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
                     <i class="fas fa-hand-holding-usd nav-icon"></i>
                     <p>Debt</p>
                 </a>

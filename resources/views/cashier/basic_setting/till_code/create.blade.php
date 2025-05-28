@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Create Category</h3>
                         <div class="card-tools">
-                            <a href="{{ route('cashier.till.index') }}" class="btn btn-info btn-sm">Back</a>
+                            <a href="{{ route('cashier.till.list') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('cashier.till.store') }}" method="POST">

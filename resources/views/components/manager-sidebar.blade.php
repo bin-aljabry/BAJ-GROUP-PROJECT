@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till_code.index') }}" class="nav-link {{ Route::is('cashier.till.index') ? 'active' : '' }}">
+                <a href="{{ route('cashier.till.list') }}" class="nav-link {{ Route::is('cashier.till.index') ? 'active' : '' }}">
                     <i class="fas fa-store-alt nav-icon"></i>
                     <p>Till Number (Agent Code)</p>
                 </a>
