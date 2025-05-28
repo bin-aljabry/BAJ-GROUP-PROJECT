@@ -60,14 +60,14 @@
                     <select name="till_type" class="form-control" required>
                         <option value="">Select</option>
                         <option value="standard">Wakala</option>
-                        <option value="paymentline">Lipa Namba</option>
+                        <option value="payment_line">Lipa Namba</option>
                     </select>
                     @error('till_type')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
            </div>
-         
+
            <div class="col-lg-6">
            <div class="form-group">
             <label for="user_id">Assign to Teller</label>
@@ -84,7 +84,7 @@
            </div>
            <div class="col-lg-12">
             <div class="float-right">
-                <button type="submit" class="btn btn-primary">Save</button> 
+                <button type="submit" class="btn btn-primary">Save</button>
                 <a href="{{ route('cashier.till.list') }}" class="btn btn-secondary">Cancel</a>
             </div>
            </div>

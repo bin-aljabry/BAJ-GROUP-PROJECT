@@ -25,9 +25,16 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till.list') }}" class="nav-link {{ Route::is('cashier.till.index') ? 'active' : '' }}">
+                <a href="{{ route('cashier.till.list') }}" class="nav-link {{ Route::is('cashier.till.list') ? 'active' : '' }}">
                     <i class="fas fa-store-alt nav-icon"></i>
                     <p>Till Number (Agent Code)</p>
+                </a>
+            </li>
+
+             <li class="nav-item">
+                <a href="{{ route('cashier.bank-accounts.index') }}" class="nav-link {{ Route::is('cashier.bank-accounts.index') ? 'active' : '' }}">
+                    <i class="fas fa-store-alt nav-icon"></i>
+                    <p>Bank Account </p>
                 </a>
             </li>
             <li class="nav-item">

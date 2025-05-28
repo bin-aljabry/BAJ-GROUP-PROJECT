@@ -30,6 +30,7 @@ use App\Models\till_withdraw_transaction;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\TillsController;
+use App\Http\Controllers\BankAccountController;
 
 
 
@@ -104,6 +105,12 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::delete('/manager/till/destroy/{id}', [TillsController::class, 'destroy'])->name('till.destroy');
         Route::put('/manager/till/update/{id}', [TillsController::class, 'update'])->name('till.update');
 
+        Route::get('/manager/bank-accounts/list', [BankAccountController::class, 'index'])->name('bank-accounts.index');
+        Route::get('/manager/bank-accounts/create', [BankAccountController::class, 'create'])->name('bank-accounts.create');
+        Route::POST('/manager/bank-accounts/store', [BankAccountController::class, 'store'])->name('bank-accounts.store');
+        Route::get('/manager/bank-accounts/update/{id}', [BankAccountController::class, 'edit'])->name('bank-accounts.edit');
+        Route::delete('/manager/bank-accounts/destroy/{id}', [BankAccountController::class, 'destroy'])->name('bank-accounts.destroy');
+        Route::put('/manager/bank-accounts/update/{id}', [BankAccountController::class, 'update'])->name('bank-accounts.update');
 
         Route::resource('capital',TellerCapitalController::class);
         Route::resource('expenses',ExpenseController::class);

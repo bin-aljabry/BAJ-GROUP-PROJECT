@@ -21,28 +21,28 @@ class TillsController extends Controller
     public function tillList()
     {
         $user = Auth::user();
-    
-     
+
+
         // Default query
         $query = tills::query();
-    
+
         // Kama ni company admin
         if ($user->role === 'admin') {
             $query->where('company_id', $user->company_id);
         }
-    
+
         // Kama ni branch manager
         elseif ($user->role === 'Manager') {
             $query->where('branch_id', $user->branch_id);
         }
-    
+
         // else => Super admin or others: see all
-    
+
         $tills = $query->latest()->paginate(10);
-    
+
         return view('teller.basic_setting.till_code.index', compact('tills'));
     }
-    
+
 
 
     public function create()
@@ -71,9 +71,9 @@ class TillsController extends Controller
             'till_code' => 'required',
             'user_id' => 'required|exists:users,id',
         ]);
-    
+
         $manager = auth()->user();
-    
+
         Tills::create([
             'till_name' => $request->till_name,
             'till_phone_no' => $request->till_phone_no,
@@ -84,8 +84,8 @@ class TillsController extends Controller
             'user_id' => $request->user_id,
             'till_type' => $request->till_type
         ]);
-    
-     
+
+
         return redirect()->route('cashier.till.list')->with('success', 'Till created successfully.');
     }
 
