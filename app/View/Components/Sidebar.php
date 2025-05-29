@@ -14,6 +14,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\company_branches;
+
+
 
 class Sidebar extends Component
 {
@@ -46,6 +49,11 @@ class Sidebar extends Component
       
         $companyCount = company::count();
         view()->share('companyCount',$companyCount);
+
+        $BranchCount = company_branches::count();
+        view()->share('BranchCount',$BranchCount);
+
+
     }
 
     /**
