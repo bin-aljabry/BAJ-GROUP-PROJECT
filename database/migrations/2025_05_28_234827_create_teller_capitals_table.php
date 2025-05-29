@@ -12,16 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teller_capitals', function (Blueprint $table) {
-          
-    $table->id();
-    $table->unsignedBigInteger('branch_capital_id'); // FK: branch_capitals.id
-    $table->unsignedBigInteger('manager_id');        // FK: users.id (role = manager)
-    $table->unsignedBigInteger('teller_id');         // FK: users.id (role = teller)
+
+     $table->id();
+    $table->unsignedBigInteger('branch_capital_id');
+    $table->unsignedBigInteger('manager_id');
+    $table->unsignedBigInteger('teller_id');
     $table->decimal('amount', 15, 2);
     $table->timestamps();
 
+    // Foreign key constraints
     $table->foreign('branch_capital_id')->references('id')->on('branch_capitals')->onDelete('cascade');
-
+    $table->foreign('manager_id')->references('id')->on('users')->onDelete('cascade');
+    $table->foreign('teller_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

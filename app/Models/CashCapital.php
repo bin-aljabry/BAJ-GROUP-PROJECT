@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class CashCapital extends Model
 {
-    use HasFactory;
+     use HasFactory;
+
+    protected $fillable = ['teller_capital_id', 'amount'];
+
+    public function tellerCapital()
+    {
+        return $this->belongsTo(TellerCapital::class);
+    }
 }

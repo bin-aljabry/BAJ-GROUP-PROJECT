@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('branch_capitals', function (Blueprint $table) {
-           
+            $table->id();
     $table->unsignedBigInteger('company_id');
     $table->unsignedBigInteger('branch_id');
     $table->decimal('amount', 15, 2);
     $table->unsignedBigInteger('created_by'); // Admin ID
     $table->timestamps();
 });
-     
+
     }
 
     /**

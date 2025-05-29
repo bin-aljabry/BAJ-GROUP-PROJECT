@@ -19,6 +19,10 @@ use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
+
+use App\Models\company_branches;
+
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -74,8 +78,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'company_id' => $company->id,
-            'branch_id' => $branch->id,
-          
+            'branch_id' => $branches->id,
+
             'created_by' => Auth::id(), // 👈 hapa// Foreign ke// Foreign ke
             'password' => Hash::make($request->password),
         ])->assignRole('admin');

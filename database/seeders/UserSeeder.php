@@ -15,6 +15,8 @@ class UserSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'company_id' => '1',
+            'branch_id' => '1',
+            'role' => 'admin',
             'created_by' => 'admin',
             'name' => 'admin',
             'email' => 'admin@gmail.com',
@@ -23,6 +25,8 @@ class UserSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'company_id' => '1',
+            'role' => 'user',
+                        'branch_id' => '1',
             'created_by' => 'admin',
             'name' => 'User',
             'email' => 'user@gmail.com',
@@ -31,6 +35,9 @@ class UserSeeder extends Seeder
         \App\Models\User::factory()->create([
 'company_id' => '1',
 'created_by' => 'admin',
+            'branch_id' => '1',
+            'role' => 'cashier',
+
             'name' => 'Casheir',
             'email' => 'cashier@gmail.com',
             'password' => bcrypt('Reman@112'),
@@ -38,6 +45,9 @@ class UserSeeder extends Seeder
  \App\Models\User::factory()->create([
 'company_id' => '1',
 'created_by' => 'admin',
+            'branch_id' => '1',
+            'role' => 'Manager',
+
             'name' => 'Manager ',
             'email' => 'manager@gmail.com',
             'password' => bcrypt('Reman@112'),
@@ -46,6 +56,9 @@ class UserSeeder extends Seeder
          \App\Models\User::factory()->create([
 'company_id' => '1',
 'created_by' => 'admin',
+            'branch_id' => '1',
+            'role' => 'Teller',
+
             'name' => 'Teller ',
             'email' => 'teller@gmail.com',
             'password' => bcrypt('Reman@112'),
@@ -54,6 +67,8 @@ class UserSeeder extends Seeder
         \App\Models\User::factory()->create([
 'company_id' => '1',
 'created_by' => 'SuperAdmin',
+            'role' => 'Super Admin',
+
             'name' => 'SuperAdmin',
             'email' => 'superadmin@gmail.com',
             'password' => bcrypt('Reman@112'),
@@ -61,6 +76,9 @@ class UserSeeder extends Seeder
 
         \App\Models\User::factory()->create([
 'company_id' => '1',
+            'branch_id' => '1',
+            'role' => 'Sales ',
+
 'created_by' => 'admin',
             'name' => 'Sales Officer',
             'email' => 'sales@gmail.com',
@@ -69,6 +87,9 @@ class UserSeeder extends Seeder
 
         \App\Models\User::factory()->create([
            'company_id' => '1',
+                       'branch_id' => '1',
+            'role' => 'Technician',
+
           'created_by' => 'admin',
             'name' => 'Technician',
             'email' => 'technician@gmail.com',

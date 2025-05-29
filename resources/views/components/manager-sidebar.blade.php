@@ -69,25 +69,25 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
+                <a href="{{ route('cashier.capital.teller.index') }}" class="nav-link {{ Route::is('cashier.capital.teller.index') ? 'active' : '' }}">
                     <i class="fas fa-user nav-icon"></i>
                     <p>Teller Capital</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.cash.index') }}" class="nav-link {{ Route::is('cashier.cash.index') ? 'active' : '' }}">
+                <a href="{{ route('cashier.capital.cash.index') }}" class="nav-link {{ Route::is('cashier.capital.cash.index') ? 'active' : '' }}">
                     <i class="fas fa-money-bill-wave nav-icon"></i>
                     <p>Cash Capital</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.till_code.index') }}" class="nav-link">
+                <a href="{{ route('cashier.capital.till.index') }}" class="nav-link {{ Route::is('cashier.capital.till.index') ? 'active' : '' }}">
                     <i class="fas fa-store nav-icon"></i>
                     <p>Till Capital</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('cashier.teller.list') }}" class="nav-link">
+                <a href="{{ route('cashier.capital.bank.index') }}" class="nav-link {{ Route::is('cashier.capital.bank.index') ? 'active' : '' }}">
                     <i class="fas fa-university nav-icon"></i>
                     <p>Bank Capital</p>
                 </a>

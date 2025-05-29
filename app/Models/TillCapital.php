@@ -7,25 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class TillCapital extends Model
 {
-    use HasFactory;
+   use HasFactory;
 
-    public function manager() {
-    return $this->belongsTo(User::class, 'manager_id');
-}
+    protected $fillable = ['teller_capital_id', 'till_name', 'amount'];
 
-public function branchCapital() {
-    return $this->belongsTo(BranchCapital::class);
-}
-
-public function tills() {
-    return $this->hasMany(TillCapital::class);
-}
-
-public function banks() {
-    return $this->hasMany(BankCapital::class);
-}
-
-public function cash() {
-    return $this->hasOne(CashCapital::class);
-}
+    public function tellerCapital()
+    {
+        return $this->belongsTo(TellerCapital::class);
+    }
 }

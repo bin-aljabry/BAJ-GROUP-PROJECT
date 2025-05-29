@@ -84,6 +84,7 @@ class AgentBranchTellerController extends Controller
 
     $user = User::create([
         'name' => $request->name,
+         'role' => $request->role,
         'email' => $request->email,
         'password' => bcrypt($request->password),
         'company_id' => Auth::user()->company_id,

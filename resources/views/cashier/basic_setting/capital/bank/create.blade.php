@@ -1,52 +1,49 @@
 <x-admin>
-    @section('title','Create Branch')
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Create Branch</h3>
-                        <div class="card-tools">
-                            <a href="{{ route('cashier.branch.index') }}" class="btn btn-info btn-sm">Back</a>
-                        </div>
-                    </div>
-                    <form class="needs-validation" novalidate action="{{ route('cashier.branch.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
+    @section('title', 'Add Bank Capital')
 
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="name">Branch Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter Branch name" required value="{{ old('name') }}">
-                            </div>
-                            <x-error>name</x-error>
-
-                                <div class="form-group">
-                                    <label for="company_id" class="form-label">Company</label>
-                                    <select name="company_id" id="company_id" class="form-control">
-                                        <option value="" selected disabled>select the Company</option>
-                                        @foreach ($company as $cat)
-                                            <option {{ old($cat->id) == $cat->id ? 'selected' : '' }}
-                                                value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                           
-                            <div class="form-group">
-                                <label for="location">Branch Location</label>
-                                <input type="text" class="form-control" id="location" name="location"
-                                    placeholder="Enter Branch location" required value="{{ old('location') }}">
-                            </div>
-                            <x-error>location</x-error>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Add New Bank Capital</h3>
         </div>
-    </div>
-</x-admin>
+        <form action="{{ route('cashier.capital.bank.store') }}" method="POST">
+            @csrf
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="teller_capital_id">Teller Capital</label>
+                    <select name="teller_capital_id" id="teller_capital_id" class="form-control" required>
+                        <option value="">-- Select Teller Capital --</option>
+                        @foreach($tellerCapitals as $tc)
+                            <option value="{{ $tc->id }}" {{ old('teller_capital_id') == $tc->id ? 'selected' : '' }}>
+                                ID: {{ $tc->id }} - Teller: {{ $tc->teller->name ?? 'N/A' }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('teller_capital_id') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="bank_name">Bank Name</label>
+                    <input type="text" name="bank_name" id="bank_name" class="form-control" value="{{ old('bank_name') }}" required>
+                    @error('bank_name') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="account_number">Account Number</label>
+                    <input type="text" name="account_number" id="account_number" class="form-control" value="{{ old('account_number') }}" required>
+                    @error('account_number') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" step="0.01" name="amount" id="amount" class="form-control" value="{{ old('amount') }}" required>
+                    @error('amount') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success">Save Bank Capital</button>
+                <a href="{{ route('cashier.capital.bank.index') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </x-admin>

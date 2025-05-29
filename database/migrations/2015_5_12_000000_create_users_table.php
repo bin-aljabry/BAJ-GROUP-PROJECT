@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('mode')->default('dark');
+            $table->string('role');
 
             $table->string('created_by');
             $table->unsignedBigInteger('company_id')->nullable();
@@ -25,7 +26,6 @@ return new class extends Migration
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('company_branches')->onDelete('cascade');
             $table->string('phone')->nullable();
-            $table->enum('role', ['super_admin', 'company_admin', 'manager', 'cashier', 'sales_officer', 'technician']);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->timestamps();

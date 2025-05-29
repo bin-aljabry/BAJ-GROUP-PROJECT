@@ -1,56 +1,39 @@
 <x-admin>
-    @section('title','Branch')
+    @section('title', 'Cash Capitals')
+
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Branch Table</h3>
+            <h3 class="card-title">Cash Capitals</h3>
+
             <div class="card-tools">
-                <a href="{{ route('cashier.branch.create') }}" class="btn btn-sm btn-info">New Branch</a>
+                <a href="{{ route('cashier.capital.cash.create') }}" class="btn btn-primary">New Cash Capital</a>
             </div>
         </div>
-        <div class="card-body"  style="overflow-x:auto;">
-            <table class="table table-striped" id="categoryTable">
+
+        <div class="card-body">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Branch ID</th>
-                        <th>Location</th>
-
-                        <th></th>
+                        <th>#</th>
+                        <th>Teller</th>
+                        <th>Amount</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $cat)
-                        <tr>
-                            <td>{{ $cat->name }}</td>
-                            <td>{{ $cat->number }}</td>
-                            <td>{{ $cat->location }}</td>
-                            <td><a href="{{ route('cashier.branch.edit', encrypt($cat->id)) }}"
-                                    class="btn btn-sm btn-primary">Edit</a></td>
-                            <td>
-                                <form action="{{ route('cashier.branch.destroy', encrypt($cat->id)) }}" method="POST"
-                                    onsubmit="return confirm('Are sure want to delete?')">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                    @foreach($cashCapitals as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->tellerCapital->teller->name ?? 'N/A' }}</td>
+                        <td>{{ number_format($item->amount, 2) }}</td>
+                        <td>
+                            <a href="{{ route('cashier.capital.cash.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{{ route('cashier.capital.cash.show', $item->id) }}" class="btn btn-sm btn-info">View</a>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    @section('js')
-        <script>
-            $(function() {
-                $('#categoryTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": true,
-                    "responsive": true,
-                });
-            });
-        </script>
-    @endsection
 </x-admin>
