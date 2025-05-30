@@ -42,6 +42,18 @@
                     <p>Permission <span class="badge badge-danger right">{{ $PermissionCount }}</span></p>
                 </a>
             </li>
+             <li class="nav-item">
+                <a href="{{ route('admin.permission.index') }}" class="nav-link {{ Route::is('admin.permission.index') ? 'active' : '' }}">
+                    <i class="fas fa-key nav-icon"></i>
+                    <p>Supplier <span class="badge badge-danger right">{{ $PermissionCount }}</span></p>
+                </a>
+            </li>
+             <li class="nav-item">
+                <a href="{{ route('admin.permission.index') }}" class="nav-link {{ Route::is('admin.permission.index') ? 'active' : '' }}">
+                    <i class="fas fa-key nav-icon"></i>
+                    <p>Float Exchanger <span class="badge badge-danger right">{{ $PermissionCount }}</span></p>
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -97,24 +109,110 @@
         <li class="nav-item">
             <a href="" class="nav-link">
                 <i class="fas fa-plus nav-icon"></i>
-                <p>Add Capital (Branch)</p>
+                <p>  Branch Capital</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="" class="nav-link">
                 <i class="fas fa-chart-pie nav-icon"></i>
-                <p>Capital Distribution (Tellers)</p>
+                <p>All Tellers Capital</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="" class="nav-link">
                 <i class="fas fa-eye nav-icon"></i>
-                <p>Capital Review (Cash/Bank/Till)</p>
+                <p>All Till Capital</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p>All Bank Capital</p>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p>All cash Capital</p>
             </a>
         </li>
     </ul>
 </li>
+<li class="nav-item has-treeview ">
+    <a href="#" class="nav-link ">
+        <i class="nav-icon fas fa-coins"></i>
+        <p>
+            Stock Report
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>  Branch Available Stock</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-chart-pie nav-icon"></i>
+                <p>Selling Report (Branch)</p>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p>Purchase Report(Branch)</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p>Company Stock Report</p>
+            </a>
+        </li>
 
+
+    </ul>
+</li>
+
+<li class="nav-item has-treeview ">
+    <a href="#" class="nav-link ">
+        <i class="nav-icon fas fa-coins"></i>
+        <p>
+            Technical Report
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>Branch Technical Report</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-chart-pie nav-icon"></i>
+                <p>Branch Tech Analysis</p>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p>Company Tech Report</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p>Company Tech Analysis</p>
+            </a>
+        </li>
+
+
+    </ul>
+</li>
 <li class="nav-item has-treeview ">
     <a href="#" class="nav-link ">
         <i class="nav-icon fas fa-calculator"></i>
@@ -138,13 +236,87 @@
         </li>
     </ul>
 </li>
+<li class="nav-item has-treeview ">
+    <a href="#" class="nav-link ">
+        <i class="nav-icon fas fa-coins"></i>
+        <p>
+        Transaction Report
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>Branch  Report</p>
+            </a>
+        </li>
 
 <li class="nav-item">
     <a href="" class="nav-link ">
         <i class="nav-icon fas fa-money-check-alt"></i>
         <p>
-            Transactions
+            Teller Reports
             <span class="badge badge-info right">{{ $transactionCount ?? 0 }}</span>
         </p>
     </a>
+</li>
+
+   <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>Till  Report</p>
+            </a>
+        </li>
+
+           <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>Bank  Report</p>
+            </a>
+        </li>
+
+           <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>Cash  Report</p>
+            </a>
+        </li>
+    </ul>
+
+
+<li class="nav-item has-treeview ">
+    <a href="#" class="nav-link ">
+        <i class="nav-icon fas fa-coins"></i>
+        <p>
+            Float Exchange
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-plus nav-icon"></i>
+                <p>  Branch Float Exchanger</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p> Till Float Exchanger</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p> Bank Float Exchanger</p>
+            </a>
+        </li>
+         <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="fas fa-eye nav-icon"></i>
+                <p> Cash  Exchanger</p>
+            </a>
+        </li>
+    </ul>
 </li>
