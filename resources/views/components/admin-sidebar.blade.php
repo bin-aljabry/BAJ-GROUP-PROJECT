@@ -107,7 +107,7 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="" class="nav-link">
+                <a href="{{ route('admin.capital.branch.index') }}" class="nav-link {{ Route::is('admin.capital.branch.index') ? 'active' : '' }}">
                 <i class="fas fa-plus nav-icon"></i>
                 <p>  Branch Capital</p>
             </a>

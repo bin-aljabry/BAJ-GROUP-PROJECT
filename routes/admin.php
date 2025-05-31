@@ -65,6 +65,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::delete('/admin/branches/destroy/{id}', [CompanyController::class, 'branchdestroy'])->name('branch.destroy');
         Route::get('/admin/branches/edit/{id}', [CompanyController::class, 'branchedit'])->name('branch.edit');
 
+
+ // Branch Capitals routes
+    Route::get('capital/branch', [BranchCapitalController::class, 'branchIndex'])->name('capital.branch.index');
+    Route::get('capital/branch/create', [BranchCapitalController::class, 'branchCreate'])->name('capital.branch.create');
+    Route::post('capital/branch', [BranchCapitalController::class, 'branchStore'])->name('capital.branch.store');
+    Route::get('capital/branch/{id}/edit', [BranchCapitalController::class, 'branchEdit'])->name('capital.branch.edit');
+    Route::put('capital/branch/{id}', [BranchCapitalController::class, 'branchUpdate'])->name('capital.branch.update');
+    Route::delete('capital/branch/{id}', [BranchCapitalController::class, 'branchDestroy'])->name('capital.branch.destroy');
+
         Route::resource('company',CompanyController::class);
         Route::resource('user',UserController::class);
         Route::resource('role',RoleController::class)->except('show');
@@ -114,6 +123,8 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::put('/manager/bank-accounts/update/{id}', [BankAccountController::class, 'update'])->name('bank-accounts.update');
 
         //sub menu za capital
+ Route::get('/capital/branch/{id}/approve', [BranchCapitalController::class, 'branchApprove'])->name('capital.branch.approve');
+    Route::get('/capital/branch/{id}/reject', [BranchCapitalController::class, 'branchReject'])->name('capital.branch.reject');
 
             // Teller Capital
     Route::get('/capital/teller', [BranchCapitalController::class, 'tellerIndex'])->name('capital.teller.index');

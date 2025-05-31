@@ -12,23 +12,121 @@ use App\Models\CashIssued;
 use App\Models\User;
 use App\Models\users;
 use App\Models\CashCapital;
+use App\Models\BranchCapital;
+use App\Models\Branch;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Models\company_branches;
+
+
 
 class BranchCapitalController extends Controller
 {
 
+    // 1. View list of branch capitals
+    public function branchIndex()
+    {
+$capitals = BranchCapital::with(['company_branches', 'createdBy', 'approvedBy'])
+        ->where('company_id', Auth::user()->company_id)
+        ->latest()
+        ->get();
 
-    public function branchshow($id)
-{
-    $branchCapital = branch_capital::with('tellerCapitals.cashCapitals', 'tellerCapitals.bankCapitals', 'tellerCapitals.tillCapitals')->findOrFail($id);
+        return view('cashier.basic_setting.capital.branch.index', compact('capitals'));
+    }
 
-    $totalBranchCapital = $branchCapital->tellerCapitals->sum(function ($teller) {
-        return $teller->cashCapitals->sum('amount') +
-               $teller->bankCapitals->sum('amount') +
-               $teller->tillCapitals->sum('amount');
-    });
+    // 2. Show form to create new branch capital
+    public function branchCreate()
+    {
+        $branches = company_branches::where('company_id', Auth::user()->company_id)->get();
+        return view('cashier.basic_setting.capital.branch.create', compact('branches'));
+    }
 
-    return view('branch.capital.show', compact('branchCapital', 'totalBranchCapital'));
-}
+    // 3. Store capital allocation
+    public function branchStore(Request $request)
+    {
+        $request->validate([
+            'branch_id' => 'required|exists:company_branches,id',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        BranchCapital::create([
+            'company_id' => Auth::user()->company_id,
+            'branch_id' => $request->branch_id,
+            'amount' => $request->amount,
+            'created_by' => Auth::id(),
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('admin.capital.branch.index')->with('success', 'Branch capital allocated and pending approval.');
+    }
+
+    // 4. Manager approves capital allocation
+    public function branchApprove($id)
+    {
+        $capital = BranchCapital::findOrFail($id);
+
+        if (Auth::user()->branch_id !== $capital->branch_id) {
+            return back()->with('error', 'Unauthorized to approve this capital.');
+        }
+
+        $capital->status = 'approved';
+        $capital->approved_by = Auth::id();
+        $capital->approved_at = Carbon::now();
+        $capital->save();
+
+        return back()->with('success', 'Capital allocation approved.');
+    }
+
+    // 5. Reject allocation
+    public function branchReject($id)
+    {
+        $capital = BranchCapital::findOrFail($id);
+
+        if (Auth::user()->branch_id !== $capital->branch_id) {
+            return back()->with('error', 'Unauthorized to reject this capital.');
+        }
+
+        $capital->status = 'rejected';
+        $capital->approved_by = Auth::id();
+        $capital->approved_at = Carbon::now();
+        $capital->save();
+
+        return back()->with('info', 'Capital allocation rejected.');
+    }
+
+    // 6. Edit
+    public function branchEdit($id)
+    {
+        $capital = BranchCapital::findOrFail($id);
+        $branches = Branch::where('company_id', Auth::user()->company_id)->get();
+        return view('cashier.basic_setting.capital.branch.edit', compact('capital', 'branches'));
+    }
+
+    // 7. Update
+    public function branchUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'branch_id' => 'required|exists:branches,id',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        $capital = BranchCapital::findOrFail($id);
+        $capital->update([
+            'branch_id' => $request->branch_id,
+            'amount' => $request->amount,
+        ]);
+
+        return redirect()->route('admin.capital.branch.index')->with('success', 'Branch capital updated successfully.');
+    }
+
+    // 8. Destroy
+    public function branchDestroy($id)
+    {
+        $capital = BranchCapital::findOrFail($id);
+        $capital->delete();
+        return redirect()->route('admin.capital.branch.index')->with('success', 'Branch capital deleted successfully.');
+    }
+
     // === Teller ===
     public function tellerIndex() {
         $tellers = TellerCapital::where('branch_capital_id', auth()->user()->branch_id)->get();

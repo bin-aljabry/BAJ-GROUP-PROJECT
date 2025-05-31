@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('branch_capitals', function (Blueprint $table) {
             $table->id();
-    $table->unsignedBigInteger('company_id');
-    $table->unsignedBigInteger('branch_id');
+    
+     $table->foreignId('company_id')->constrained('companies'); // Admin
+    $table->foreignId('branch_id')->nullable()->constrained('company_branches'); // Manager
+   
     $table->decimal('amount', 15, 2);
-    $table->unsignedBigInteger('created_by'); // Admin ID
+    $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending'); // Manager approval
+    $table->timestamp('approved_at')->nullable();
+    $table->foreignId('created_by')->constrained('users'); // Admin
+    $table->foreignId('approved_by')->nullable()->constrained('users'); // Manager
     $table->timestamps();
 });
 
