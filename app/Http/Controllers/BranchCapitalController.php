@@ -26,8 +26,7 @@ class BranchCapitalController extends Controller
     // 1. View list of branch capitals
     public function branchIndex()
     {
-$capitals = BranchCapital::with(['company_branches', 'createdBy', 'approvedBy'])
-        ->where('company_id', Auth::user()->company_id)
+$capitals = BranchCapital::where('company_id', Auth::user()->company_id)
         ->latest()
         ->get();
 
