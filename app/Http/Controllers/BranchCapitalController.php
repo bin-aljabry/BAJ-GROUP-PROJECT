@@ -17,6 +17,7 @@ use App\Models\Branch;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\company_branches;
+use PDF;
 
 
 
@@ -26,10 +27,10 @@ class BranchCapitalController extends Controller
     // 1. View list of branch capitals
     public function branchIndex()
     {
-$capitals = BranchCapital::where('company_id', Auth::user()->company_id)
-        ->latest()
-        ->get();
-
+$capitals = BranchCapital::with(['branch', 'createdBy', 'approvedBy'])
+    ->where('company_id', Auth::user()->company_id)
+    ->latest()
+    ->get();
         return view('cashier.basic_setting.capital.branch.index', compact('capitals'));
     }
 
@@ -76,28 +77,52 @@ $capitals = BranchCapital::where('company_id', Auth::user()->company_id)
         return back()->with('success', 'Capital allocation approved.');
     }
 
-    // 5. Reject allocation
-    public function branchReject($id)
-    {
-        $capital = BranchCapital::findOrFail($id);
+    public function managerCapitalList()
+{
+    $capitals = BranchCapital::with('createdBy', 'branch')
+        ->where('branch_id', Auth::user()->branch_id)
+        ->latest()
+        ->get();
 
-        if (Auth::user()->branch_id !== $capital->branch_id) {
-            return back()->with('error', 'Unauthorized to reject this capital.');
-        }
+    return view('cashier.basic_setting.capital.branch.manager_index', compact('capitals'));
+}
+ public function managerShow($id)
+{
+    $capital = BranchCapital::with(['branch', 'createdBy'])->findOrFail($id);
 
-        $capital->status = 'rejected';
-        $capital->approved_by = Auth::id();
-        $capital->approved_at = Carbon::now();
-        $capital->save();
-
-        return back()->with('info', 'Capital allocation rejected.');
+    // Ensure manager ana access ya branch hiyo
+    if (Auth::user()->branch_id !== $capital->branch_id) {
+        return back()->with('error', 'Unauthorized access.');
     }
 
+    return view('cashier.basic_setting.capital.branch.show', compact('capital'));
+}
+    // 5. Reject allocation
+   public function branchReject(Request $request, $id)
+{
+    $capital = BranchCapital::findOrFail($id);
+
+    if (Auth::user()->branch_id !== $capital->branch_id) {
+        return back()->with('error', 'Unauthorized to reject this capital.');
+    }
+
+    $request->validate([
+        'rejection_reason' => 'required|string|max:500'
+    ]);
+
+    $capital->status = 'rejected';
+    $capital->approved_by = Auth::id();
+    $capital->approved_at = Carbon::now();
+    $capital->rejection_reason = $request->rejection_reason; // make sure this column exists
+    $capital->save();
+
+    return back()->with('info', 'Capital allocation rejected with reason.');
+}
     // 6. Edit
     public function branchEdit($id)
     {
         $capital = BranchCapital::findOrFail($id);
-        $branches = Branch::where('company_id', Auth::user()->company_id)->get();
+        $branches = company_branches::where('company_id', Auth::user()->company_id)->get();
         return view('cashier.basic_setting.capital.branch.edit', compact('capital', 'branches'));
     }
 
@@ -105,7 +130,7 @@ $capitals = BranchCapital::where('company_id', Auth::user()->company_id)
     public function branchUpdate(Request $request, $id)
     {
         $request->validate([
-            'branch_id' => 'required|exists:branches,id',
+            'branch_id' => 'required|exists:company_branches,id',
             'amount' => 'required|numeric|min:0',
         ]);
 
@@ -126,7 +151,22 @@ $capitals = BranchCapital::where('company_id', Auth::user()->company_id)
         return redirect()->route('admin.capital.branch.index')->with('success', 'Branch capital deleted successfully.');
     }
 
+
+
     // === Teller ===
+ // assuming unatumia barryvdh/laravel-dompdf
+
+public function downloadPdf($id)
+{
+    $tellerCapital = TellerCapital::with(['manager', 'teller', 'tillCapitals', 'bankCapitals', 'approvedBy', 'createdBy'])->findOrFail($id);
+
+    $summary = $this->calculateSummary($tellerCapital); // Kama unahesabu summary kwenye function
+
+    $pdf = PDF::loadView('cashier.capital.teller.show-pdf', compact('tellerCapital', 'summary'));
+
+    return $pdf->download('teller-capital-'.$id.'.pdf');
+}
+
     public function tellerIndex() {
         $tellers = TellerCapital::where('branch_capital_id', auth()->user()->branch_id)->get();
         return view('cashier.basic_setting.capital.teller.index', compact('tellers'));

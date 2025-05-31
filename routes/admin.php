@@ -123,16 +123,23 @@ Route::prefix('cashier')->name('cashier.')->middleware(['auth', 'verified'])->gr
         Route::put('/manager/bank-accounts/update/{id}', [BankAccountController::class, 'update'])->name('bank-accounts.update');
 
         //sub menu za capital
- Route::get('/capital/branch/{id}/approve', [BranchCapitalController::class, 'branchApprove'])->name('capital.branch.approve');
-    Route::get('/capital/branch/{id}/reject', [BranchCapitalController::class, 'branchReject'])->name('capital.branch.reject');
+                    // Branch approval Capital
+Route::get('cashier/branch-capital', [BranchCapitalController::class, 'managerCapitalList'])->name('capital.branch.index');
+ Route::get('/branch/capital/{id}', [BranchCapitalController::class, 'managerShow'])->name('capital.branch.show');
+    Route::post('{id}/approve', [BranchCapitalController::class, 'branchApprove'])->name('capital.branch.approve');
+    Route::post('{id}/reject', [BranchCapitalController::class, 'branchReject'])->name('capital.branch.reject');
+
 
             // Teller Capital
+
     Route::get('/capital/teller', [BranchCapitalController::class, 'tellerIndex'])->name('capital.teller.index');
     Route::get('/teller/create', [BranchCapitalController::class, 'tellerCreate'])->name('capital.teller.create');
-    Route::post('/tel/capitaller', [BranchCapitalController::class, 'tellerStore'])->name('capital.teller.store');
+    Route::post('/tel/capital/taller', [BranchCapitalController::class, 'tellerStore'])->name('capital.teller.store');
     Route::get('/teller/{id}/edit', [BranchCapitalController::class, 'tellerEdit'])->name('capital.teller.edit');
     Route::put('/teller/{id}', [BranchCapitalController::class, 'tellerUpdate'])->name('capital.teller.update');
     Route::get('/capital/teller/{id}', [BranchCapitalController::class, 'tellerShow'])->name('capital.teller.show');
+Route::get('/cashier/capital/teller/{id}/download', [TellerCapitalController::class, 'downloadPdf'])
+    ->name('capital.teller.download');
 
 
     // Till Capital

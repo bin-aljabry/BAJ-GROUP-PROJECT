@@ -61,12 +61,13 @@
                 <i class="right fas fa-angle-left"></i>
             </p>
         </a>
+
         <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ route('cashier.teller.list') }}" class="nav-link">
-                    <i class="fas fa-building nav-icon"></i>
-                    <p>Branch Capital</p>
-                </a>
+                <a href="{{ route('cashier.capital.branch.index') }}" class="nav-link">
+    <i class="fas fa-building nav-icon"></i>
+    <p>Branch Capital</p>
+</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('cashier.capital.teller.index') }}" class="nav-link {{ Route::is('cashier.capital.teller.index') ? 'active' : '' }}">
