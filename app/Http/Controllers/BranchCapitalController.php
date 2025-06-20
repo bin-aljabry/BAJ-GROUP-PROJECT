@@ -17,7 +17,8 @@ use App\Models\Branch;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\company_branches;
-use PDF;
+use App\Models\Till;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
@@ -237,28 +238,44 @@ public function tillIndex()
     return view('cashier.basic_setting.capital.till.index', compact('tills'));
 }
 
-public function tillCreate()
-{
-    $tellerCapitals = TellerCapital::whereHas('teller', function ($query) {
-        $query->where('branch_id', auth()->user()->branch_id);
-    })->get();
 
-    return view('cashier.basic_setting.capital.till.create', compact('tellerCapitals'));
-}
+ public function tillcreate()
+    {
+        $manager = Auth::user();
 
-public function tillStore(Request $request)
-{
-    $request->validate([
-        'teller_capital_id' => 'required|exists:teller_capitals,id',
-        'till_name' => 'required|string|max:255',
-        'amount' => 'required|numeric|min:0',
-    ]);
+        // Chukua tellers waliopo chini ya manager huyu
+     $tellers = User::where('created_by', $manager->id)
+    ->whereHas('roles', fn($q) => $q->where('name', 'Teller'))
+    ->with('tellerCapital') // eager load capital
+    ->get();
 
-    TillCapital::create($request->only('teller_capital_id', 'till_name', 'amount'));
+        return view('cashier.basic_setting.capital.till.create', compact('tellers'));
+    }
 
-    return redirect()->route('cashier.capital.till.index')->with('success', 'Till Capital Saved');
-}
+    /**
+     * Hifadhi capital iliyowekwa
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'teller_id' => 'required|exists:users,id',
+            'till_id' => 'required|exists:tills,id',
+            'amount' => 'required|numeric|min:0',
+            'capital_type' => 'required|in:cash,bank,till',
+            'remarks' => 'nullable|string',
+        ]);
 
+        TillCapital::create([
+            'manager_id' => Auth::id(),
+            'teller_id' => $request->teller_id,
+            'till_id' => $request->till_id,
+            'amount' => $request->amount,
+            'capital_type' => $request->capital_type,
+            'remarks' => $request->remarks,
+        ]);
+
+        return redirect()->back()->with('success', 'Capital imehifadhiwa kwa mafanikio.');
+    }
 public function tillEdit($id)
 {
     $till = TillCapital::findOrFail($id);

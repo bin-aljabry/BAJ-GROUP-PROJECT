@@ -7,12 +7,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class TillCapital extends Model
 {
-   use HasFactory;
+    use HasFactory;
 
-    protected $fillable = ['teller_capital_id', 'till_name', 'amount'];
+    protected $fillable = [
+        'manager_id',
+        'teller_id',
+        'till_id',
+        'amount',
+        'capital_type',
+        'remarks',
+    ];
 
-    public function tellerCapital()
+    /**
+     * Manager aliyetoa capital
+     */
+    public function manager()
     {
-        return $this->belongsTo(TellerCapital::class);
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    /**
+     * Teller anayepokea capital
+     */
+    public function teller()
+    {
+        return $this->belongsTo(User::class, 'teller_id');
+    }
+
+    /**
+     * Till inayopokea capital
+     */
+    public function till()
+    {
+        return $this->belongsTo(Till::class, 'till_id');
     }
 }

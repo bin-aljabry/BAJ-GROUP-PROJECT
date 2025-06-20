@@ -69,4 +69,20 @@ class User extends Authenticatable
     {
         return $this->belongsTo(company_branches::class);
     }
+
+   public function tellerCapital()
+{
+    return $this->hasOne(\App\Models\TellerCapital::class, 'teller_id');
+}
+
+        public function addedTillCapitals()
+{
+    return $this->hasMany(TillCapital::class, 'manager_id');
+}
+
+// Kama huyu ni teller
+public function receivedTillCapitals()
+{
+    return $this->hasMany(TillCapital::class, 'teller_id');
+}
 }

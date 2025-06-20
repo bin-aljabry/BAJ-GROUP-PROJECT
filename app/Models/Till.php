@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tills extends Model
+class till extends Model
 {
     use HasFactory;
 
      protected $fillable = [
         'company_id',
         'branch_id',
-        'user_id', // Note: originally had 'id' foreign; fixed here
-
+     
+ 'teller_id',
+        'created_by',
         'till_phone_no',
         'till_name',
         'network_provider',
@@ -36,5 +37,12 @@ class tills extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+       public function tillCapitals()
+    {
+        return $this->hasMany(TillCapital::class);
+    }
+ public function teller()
+    {
+        return $this->belongsTo(User::class, 'teller_id');
+    }
 }

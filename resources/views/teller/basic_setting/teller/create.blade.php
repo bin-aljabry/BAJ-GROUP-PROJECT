@@ -1,70 +1,82 @@
 <x-admin>
     @section('title', 'Create User')
+
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">Create User</h3>
-            <div class="card-tools"><a href="{{ route('cashier.teller.list') }}" class="btn btn-sm btn-dark">Back</a></div>
+            <a href="{{ route('cashier.teller.list') }}" class="btn btn-sm btn-dark">Back</a>
         </div>
+
         <div class="card-body">
             <form action="{{ route('cashier.teller.store') }}" method="POST">
                 @csrf
+
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="name" class="form-label">Name:*</label>
-                            <input type="text" class="form-control" name="name" required
-                                value="{{ old('name') }}">
-                       <x-error field="name" />
+                            <input type="text" id="name" name="name" class="form-control" required
+                                value="{{ old('name') }}" placeholder="Enter user name" aria-label="Name">
+                            <x-error field="name" />
                         </div>
                     </div>
-                   <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="branch_id">Branch </label>
-                        <select name="branch_id" id="branch_id" class="form-control" required>
-                            <option value="">-- Select Branch --</option>
-                            @foreach($branches as $branch)
-                                <option value="{{ $branch->id }}">{{ $branch->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="Email" class="form-label">Email:*</label>
-                            <input type="email" class="form-control" name="email" required
-                                value="{{ old('email') }}">
-                                <x-error>email</x-error>
+                            <label for="branch_id" class="form-label">Branch:*</label>
+                            <select name="branch_id" id="branch_id" class="form-control" required aria-label="Branch">
+                                <option value="">-- Select Branch --</option>
+                                @foreach($branches as $branch)
+                                    <option value="{{ $branch->id }}"
+                                        {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
+                                        {{ $branch->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-error field="branch_id" />
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="Password" class="form-label">Password:*</label>
-                            <input type="password" class="form-control" name="password" required>
-                            <x-error>password</x-error>
+                            <label for="email" class="form-label">Email:*</label>
+                            <input type="email" id="email" name="email" class="form-control" required
+                                value="{{ old('email') }}" placeholder="Enter email" aria-label="Email">
+                            <x-error field="email" />
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password:*</label>
+                            <input type="password" id="password" name="password" class="form-control" required
+                                aria-label="Password">
+                            <x-error field="password" />
+                        </div>
+                    </div>
+
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="role" class="form-label">Role:*</label>
-                            <select name="role" id="role" class="form-control" required>
-                                <option value="" selected disabled>selecte the role</option>
+                            <select name="role" id="role" class="form-control" required aria-label="Role">
+                                <option value="" disabled {{ old('role') ? '' : 'selected' }}>-- Select Role --</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}"
-                                        {{ $role->name == old('role') ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>
+                                        {{ $role->name }}
+                                    </option>
                                 @endforeach
                             </select>
-                            <x-error>role</x-error>
+                            <x-error field="role" />
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                             <a href="" class="btn btn-sm btn-success">Add User Permission</a>
 
-                        </div>
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <a href="#" class="btn btn-sm btn-success">Add User Permission</a>
                     </div>
+
                     <div class="col-lg-12">
                         <div class="float-right">
-                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>

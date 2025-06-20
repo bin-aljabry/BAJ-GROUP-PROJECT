@@ -22,7 +22,7 @@ class CompanyController extends Controller
         $data = User::where('company_id', Auth::user()->company_id)
              ->where('created_by', Auth::id())
              ->get();
-             
+
          return view('admin.company.index',compact('data'));
      }
 
@@ -43,10 +43,10 @@ class CompanyController extends Controller
         $companyId = Auth::user()->company_id;
 
         $data = company_branches::where('company_id', $companyId)->get();
-              
+
           return view('admin.branch.index',compact('data'));
       }
- 
+
       public function createbranch()
       {
           //
@@ -59,46 +59,46 @@ class CompanyController extends Controller
         $request->validate([
             'name'=>'required|max:255',
         ]);
-     
+
         company_branches::create([
               'name' => $request->name,
               'company_id' => auth()->user()->company_id,
               'location' => $request->location
           ]);
           return redirect()->route('admin.branch.list')->with('success','Branch created successfully.');
-        } 
-        
+        }
+
         public function branchedit($branch)
         {
-   
+
             $data = company_branches::where('id',decrypt($branch))->first();
             return view('admin.branch.edit',compact('data'));
         }
-   
+
         /**
          * Update the specified resource in storage.
          */
         public function branchupdate(Request $request)
         {
             //
-   
+
             $request->validate([
                'name'=>'required|max:255',
                'location'=>'required|max:255',
 
-              
+
            ]);
-         
+
            company_branches::where('id', $request->id)->update([
                'name' => $request->name,
                'company_id' => auth()->user()->company_id,
                'location' => $request->location
-  
-             
+
+
            ]);
            return redirect()->route('admin.branch.list')->with('info','Branch updated successfully.');
         }
-   
+
         /**
          * Remove the specified resource from storage.
          */
@@ -108,7 +108,7 @@ class CompanyController extends Controller
             company_branches::where('id',decrypt($id))->delete();
             return redirect()->route('admin.branch.list')->with('error','Branch deleted successfully.');
         }
-        
+
      public function store(Request $request)
      {
          //
@@ -227,6 +227,7 @@ class CompanyController extends Controller
          return view('cashier.basic_setting.company.create');
      }
 
+     
 
      public function Cashierstore(Request $request)
      {

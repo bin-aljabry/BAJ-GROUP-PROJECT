@@ -74,7 +74,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::put('capital/branch/{id}', [BranchCapitalController::class, 'branchUpdate'])->name('capital.branch.update');
     Route::delete('capital/branch/{id}', [BranchCapitalController::class, 'branchDestroy'])->name('capital.branch.destroy');
 
-        Route::resource('company',CompanyController::class);
+    
+    Route::resource('company',CompanyController::class);
         Route::resource('user',UserController::class);
         Route::resource('role',RoleController::class)->except('show');
         Route::resource('permission',PermissionController::class);
@@ -149,6 +150,9 @@ Route::get('/cashier/capital/teller/{id}/download', [TellerCapitalController::cl
     Route::get('/capital/till/{id}/edit', [BranchCapitalController::class, 'tillEdit'])->name('capital.till.edit');
     Route::put('/capital/till/{id}/update', [BranchCapitalController::class, 'tillUpdate'])->name('capital.till.update');
     Route::get('/capital/till/{id}', [BranchCapitalController::class, 'tillShow'])->name('capital.till.show');
+// Route za kupata capitals za teller
+Route::get('/cashier/capital/till/get-tills/{tellerId}', [BranchCapitalController::class, 'getTills']);
+
 
 
     // Bank Capital

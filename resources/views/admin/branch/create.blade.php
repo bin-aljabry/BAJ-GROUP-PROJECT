@@ -7,12 +7,13 @@
                     <div class="card-header">
                         <h3 class="card-title">Create Branch</h3>
                         <div class="card-tools">
+
                             <a href="{{ route('admin.branch.create') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
                     <form class="needs-validation" novalidate action="{{ route('admin.branch.store') }}" method="POST">
                         @csrf
-                       
+
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">branch Name</label>
